@@ -15,62 +15,52 @@ class ProjectOfferController extends Controller
     public function index()
     {
         $projectOffers = ProjectOffer::all()->toArray();
-        return  array_reverse($projectOffers);
+        return array_reverse($projectOffers);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+
+    public function add(Request $request)
     {
-        //
+        $projectOffer = new ProjectOffer([
+            ProjectOffer::FIELD_PO => $request->input(ProjectOffer::FIELD_PO),
+            ProjectOffer::FIELD_PROJECT_NAME => $request->input(ProjectOffer::FIELD_PROJECT_NAME),
+            ProjectOffer::FIELD_CLIENT => $request->input(ProjectOffer::FIELD_CLIENT),
+            ProjectOffer::FIELD_PO_DATE => $request->input(ProjectOffer::FIELD_PO_DATE),
+            ProjectOffer::FIELD_OFFER_REFERENCE_NO => $request->input(ProjectOffer::FIELD_OFFER_REFERENCE_NO),
+            ProjectOffer:: FIELD_OFFER_DATE=> $request->input(ProjectOffer::FIELD_OFFER_DATE),
+            ProjectOffer:: FIELD_PO_STATUS=> $request->input(ProjectOffer::FIELD_PO_STATUS),
+            ProjectOffer::FIELD_SUBMIT_TYPE => $request->input(ProjectOffer::FIELD_SUBMIT_TYPE),
+        ]);
+
+        $projectOffer->save();
+
+
+
+        return response()->json('The Project Offer successfully added');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-    
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ProjectOffer  $projectOffer
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProjectOffer $projectOffer)
+
+    public function edit( $id)
     {
-        //
+        $projectOffer = ProjectOffer::find($id);
+        return response()->json($projectOffer);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProjectOffer  $projectOffer
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ProjectOffer $projectOffer)
+
+    public function update(Request $request, $id )
     {
-        //
+        $projectOffer = ProjectOffer::find($id);
+        $projectOffer->update($request->all());
+        return response()->json('The Project Offer successfully updated');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ProjectOffer  $projectOffer
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ProjectOffer $projectOffer)
+
+    public function delete($id)
     {
-        //
+        $projectOffer = ProjectOffer::find($id);
+        $projectOffer->delete();
+         return response()->json('The Project Offer successfully deleted');
     }
 }

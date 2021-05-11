@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProjectOfferController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+
+Route::middleware('auth:api')->get('user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('projectOffers', [ProjectOfferController::class, 'index']);
+Route::group(['prefix' => 'projectOffers'], function () {
+    Route::post('add', [ProjectOfferController::class, 'add']);
+    Route::get('edit/{id}', [ProjectOfferController::class, 'edit']);
+    Route::post('update/{id}', [ProjectOfferController::class, 'update']);
+    Route::delete('delete/{id}', [ProjectOfferController::class, 'delete']);
 });
