@@ -62,14 +62,14 @@
 
             <div class="form-group">
                 <label class="block text-sm text-gray-00">Sub Contract</label>
-                <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" v-model="projectOffer.sub_contract" @change="isSubContracted">
+                <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" v-model="projectOffer.sub_contract" @change="updateSubContracted">
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
             </div>
 
             <!-- will be visible if sub-contract = yes -->
-            <div v-if="subcontract">
+            <div v-if="subcontract === 'Yes' ">
                 <div class="mt-2">
                     <label>Sub Contracted To</label>
                     <input type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
@@ -115,7 +115,7 @@ export default {
     data() {
         return {
             projectOffer: {},
-            subcontract: false
+            subcontract: null
         }
     },
     methods: {
@@ -130,9 +130,10 @@ export default {
                 .catch(error => console.log(error))
                 .finally(() => this.loading = false)
         },
-        isSubContracted() {
-            this.subcontract = this.projectOffer.sub_contract === "Yes";
+        updateSubContracted(){
+            this.subcontract = this.projectOffer.sub_contract;
         }
+
     }
 }
 </script>
