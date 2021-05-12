@@ -1874,10 +1874,94 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      projectOffer: {}
+      projectOffer: {},
+      subcontract: false
     };
   },
   methods: {
@@ -1894,6 +1978,9 @@ __webpack_require__.r(__webpack_exports__);
       })["finally"](function () {
         return _this.loading = false;
       });
+    },
+    isSubContracted: function isSubContracted() {
+      this.subcontract = this.projectOffer.sub_contract === "Yes";
     }
   }
 });
@@ -1911,6 +1998,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
 //
 //
 //
@@ -2025,6 +2114,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -19922,144 +20037,524 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h3", { staticClass: "text-center" }, [_vm._v("Add Project Offer")]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
-        _c(
-          "form",
-          {
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.addProjectOffer($event)
-              }
+  return _c(
+    "div",
+    { staticClass: "leading-loose flex items-center justify-center col-md-6" },
+    [
+      _c(
+        "form",
+        {
+          staticClass: "max-w-xl m-4 p-10 bg-white rounded shadow-xl",
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.addProjectOffer($event)
             }
-          },
-          [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("PO")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.projectOffer.po,
-                    expression: "projectOffer.po"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.projectOffer.po },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.projectOffer, "po", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Project Name")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.projectOffer.project_name,
-                    expression: "projectOffer.project_name"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.projectOffer.project_name },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.projectOffer,
-                      "project_name",
-                      $event.target.value
-                    )
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Client")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.projectOffer.client,
-                    expression: "projectOffer.client"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.projectOffer.client },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.projectOffer, "client", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Offer Ref No")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.projectOffer.offer_reference_no,
-                    expression: "projectOffer.offer_reference_no"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.projectOffer.offer_reference_no },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.projectOffer,
-                      "offer_reference_no",
-                      $event.target.value
-                    )
-                  }
-                }
-              })
+          }
+        },
+        [
+          _c("p", { staticClass: "text-gray-800 font-bold text-center" }, [
+            _vm._v("Add Project Offer")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { staticClass: "block text-sm text-gray-00" }, [
+              _vm._v("PO Status")
             ]),
             _vm._v(" "),
             _c(
-              "button",
-              { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-              [_vm._v("Add Project Offer")]
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.projectOffer.po_status,
+                    expression: "projectOffer.po_status"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.projectOffer,
+                      "po_status",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "PO Pending" } }, [
+                  _vm._v("PO Pending")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "PO Received" } }, [
+                  _vm._v("PO Received")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "eBill Submitted" } }, [
+                  _vm._v("eBill Submitted")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "Hard Copy Submitted" } }, [
+                  _vm._v(" Hard Copy Submitted")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "Money received" } }, [
+                  _vm._v(" Money received")
+                ])
+              ]
             )
-          ]
-        )
-      ])
-    ])
-  ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "my-2" }, [
+            _c("label", [_vm._v("Offer Ref No")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.offer_reference_no,
+                  expression: "projectOffer.offer_reference_no"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "text" },
+              domProps: { value: _vm.projectOffer.offer_reference_no },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.projectOffer,
+                    "offer_reference_no",
+                    $event.target.value
+                  )
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "my-2" }, [
+            _c("label", [_vm._v("Offer Date")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.offer_date,
+                  expression: "projectOffer.offer_date"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "date" },
+              domProps: { value: _vm.projectOffer.offer_date },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.projectOffer, "offer_date", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-2" }, [
+            _c("label", [_vm._v("Project Name")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.project_name,
+                  expression: "projectOffer.project_name"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "text" },
+              domProps: { value: _vm.projectOffer.project_name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.projectOffer,
+                    "project_name",
+                    $event.target.value
+                  )
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-2" }, [
+            _c("label", [_vm._v("Client")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.client,
+                  expression: "projectOffer.client"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "text" },
+              domProps: { value: _vm.projectOffer.client },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.projectOffer, "client", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-2" }, [
+            _c("label", [_vm._v("POC")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.poc,
+                  expression: "projectOffer.poc"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "text" },
+              domProps: { value: _vm.projectOffer.poc },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.projectOffer, "poc", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { staticClass: "block text-sm text-gray-00" }, [
+              _vm._v("Submit Type")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.projectOffer.submit_type,
+                    expression: "projectOffer.submit_type"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.projectOffer,
+                      "submit_type",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "Full" } }, [_vm._v(" Full")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "Partial" } }, [
+                  _vm._v(" Partial")
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { staticClass: "block text-sm text-gray-00" }, [
+              _vm._v("AMC")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.projectOffer.amc,
+                    expression: "projectOffer.amc"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.projectOffer,
+                      "amc",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "Yes" } }, [_vm._v(" Yes")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "No" } }, [_vm._v(" No")])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { staticClass: "block text-sm text-gray-00" }, [
+              _vm._v("Sub Contract")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.projectOffer.sub_contract,
+                    expression: "projectOffer.sub_contract"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                on: {
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.projectOffer,
+                        "sub_contract",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    },
+                    _vm.isSubContracted
+                  ]
+                }
+              },
+              [
+                _c("option", { attrs: { value: "Yes" } }, [_vm._v("Yes")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "No" } }, [_vm._v("No")])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _vm.subcontract
+            ? _c("div", [
+                _c("div", { staticClass: "mt-2" }, [
+                  _c("label", [_vm._v("Sub Contracted To")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.projectOffer.sub_contracted_to,
+                        expression: "projectOffer.sub_contracted_to"
+                      }
+                    ],
+                    staticClass:
+                      "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.projectOffer.sub_contracted_to },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.projectOffer,
+                          "sub_contracted_to",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "mt-2" }, [
+                  _c("label", [_vm._v("Sub Contracted Amount")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.projectOffer.sub_contracted_amount,
+                        expression: "projectOffer.sub_contracted_amount"
+                      }
+                    ],
+                    staticClass:
+                      "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                    attrs: { type: "number" },
+                    domProps: { value: _vm.projectOffer.sub_contracted_amount },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.projectOffer,
+                          "sub_contracted_amount",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-2" }, [
+            _c("label", [_vm._v("PO Amount + VAT")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.po_amount_with_vat,
+                  expression: "projectOffer.po_amount_with_vat"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "number" },
+              domProps: { value: _vm.projectOffer.po_amount_with_vat },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.projectOffer,
+                    "po_amount_with_vat",
+                    $event.target.value
+                  )
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-2" }, [
+            _c("label", [_vm._v("VAT")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.vat,
+                  expression: "projectOffer.vat"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "number" },
+              domProps: { value: _vm.projectOffer.vat },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.projectOffer, "vat", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-2" }, [
+            _c("label", [_vm._v("AIT")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.ait,
+                  expression: "projectOffer.ait"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "number" },
+              domProps: { value: _vm.projectOffer.ait },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.projectOffer, "ait", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
+              attrs: { type: "submit" }
+            },
+            [_vm._v("\n            Add Project Offer\n        ")]
+          )
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -20092,56 +20587,79 @@ var render = function() {
     _vm._v(" "),
     _c(
       "table",
-      { staticClass: "border-separate border-green-800 border justify-center" },
+      {
+        staticClass:
+          "mx-auto max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden"
+      },
       [
         _vm._m(0),
         _vm._v(" "),
         _c(
           "tbody",
+          { staticClass: "divide-y divide-gray-200 align-middle" },
           _vm._l(_vm.projectOffers, function(projectOffer) {
             return _c("tr", { key: projectOffer.id }, [
-              _c("td", [_vm._v(_vm._s(projectOffer.id))]),
+              _c("td", { staticClass: "px-6 py-4 text-center" }, [
+                _vm._v(_vm._s(projectOffer.id))
+              ]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(projectOffer.po))]),
+              _c("td", { staticClass: "px-6 py-4 text-center" }, [
+                _vm._v(_vm._s(projectOffer.po))
+              ]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(projectOffer.project_name))]),
+              _c("td", { staticClass: "px-6 py-4 text-center" }, [
+                _vm._v(_vm._s(projectOffer.project_name))
+              ]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(projectOffer.client))]),
+              _c("td", { staticClass: "px-6 py-4 text-center" }, [
+                _vm._v(_vm._s(projectOffer.client))
+              ]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(projectOffer.offer_reference_no))]),
+              _c("td", { staticClass: "px-6 py-4 text-center" }, [
+                _vm._v(_vm._s(projectOffer.offer_reference_no))
+              ]),
               _vm._v(" "),
-              _c("td", [
-                _c(
-                  "div",
-                  { staticClass: "btn-group", attrs: { role: "group" } },
-                  [
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: {
-                          to: { name: "edit", params: { id: projectOffer.id } }
-                        }
-                      },
-                      [_vm._v("Edit\n                    ")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger",
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteBook(projectOffer.id)
+              _c(
+                "td",
+                { staticClass: "px-6 py-4 text-center flex justify-between" },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "btn-group", attrs: { role: "group" } },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass:
+                            "bg-blue-500 m-2 p-2 text-white hover:shadow-2xl text-sm rounded-md",
+                          attrs: {
+                            to: {
+                              name: "edit",
+                              params: { id: projectOffer.id }
+                            }
                           }
-                        }
-                      },
-                      [_vm._v("Delete")]
-                    )
-                  ],
-                  1
-                )
-              ])
+                        },
+                        [_vm._v("Edit\n                    ")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "bg-red-500 m-2 p-2 text-white hover:shadow-2xl text-sm rounded-md",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteBook(projectOffer.id)
+                            }
+                          }
+                        },
+                        [_vm._v("Delete")]
+                      )
+                    ],
+                    1
+                  )
+                ]
+              )
             ])
           }),
           0
@@ -20155,19 +20673,55 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("ID")]),
+    return _c("thead", { staticClass: "bg-gray-50" }, [
+      _c("tr", { staticClass: "text-gray-600 text-left" }, [
+        _c(
+          "th",
+          {
+            staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
+          },
+          [_vm._v("ID")]
+        ),
         _vm._v(" "),
-        _c("th", [_vm._v("PO")]),
+        _c(
+          "th",
+          {
+            staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
+          },
+          [_vm._v("PO")]
+        ),
         _vm._v(" "),
-        _c("th", [_vm._v("Project Name")]),
+        _c(
+          "th",
+          {
+            staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
+          },
+          [_vm._v("Project Name")]
+        ),
         _vm._v(" "),
-        _c("th", [_vm._v("Client Name")]),
+        _c(
+          "th",
+          {
+            staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
+          },
+          [_vm._v("Client Name")]
+        ),
         _vm._v(" "),
-        _c("th", [_vm._v("Offer Ref No")]),
+        _c(
+          "th",
+          {
+            staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
+          },
+          [_vm._v("Offer Ref No")]
+        ),
         _vm._v(" "),
-        _c("th", [_vm._v("Actions")])
+        _c(
+          "th",
+          {
+            staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
+          },
+          [_vm._v("Actions")]
+        )
       ])
     ])
   }
@@ -20194,18 +20748,21 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "flex justify-center h-screen" }, [
-    _c(
-      "div",
-      { staticClass: "container content-center" },
-      [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "nav",
-          { staticClass: "navbar navbar-expand-lg navbar-light bg-light" },
-          [
-            _c("div", { staticClass: "collapse navbar-collapse" }, [
+  return _c(
+    "div",
+    {
+      staticClass:
+        "flex items-start justify-center h-screen mx-auto max-w-4xl w-full"
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "container content-center" },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("nav", {}, [
+            _c("div", { staticClass: "items-center" }, [
               _c(
                 "div",
                 { staticClass: "flex justify-between" },
@@ -20213,7 +20770,7 @@ var render = function() {
                   _c(
                     "router-link",
                     {
-                      staticClass: "p-4 bg-green-700 text-white rounded-md",
+                      staticClass: "p-2 bg-green-700 text-white rounded-md",
                       attrs: { to: "/" }
                     },
                     [_vm._v("Home")]
@@ -20222,7 +20779,7 @@ var render = function() {
                   _c(
                     "router-link",
                     {
-                      staticClass: "p-4 bg-green-700 text-white rounded-md",
+                      staticClass: "p-2 bg-green-700 text-white rounded-md",
                       attrs: { to: "/add" }
                     },
                     [_vm._v("Add Project Offer\n                    ")]
@@ -20231,16 +20788,16 @@ var render = function() {
                 1
               )
             ])
-          ]
-        ),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("router-view")
-      ],
-      1
-    )
-  ])
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("router-view")
+        ],
+        1
+      )
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -20249,9 +20806,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "div",
-      { staticClass: "text-center", staticStyle: { margin: "20px 0 20px 0" } },
+      { staticClass: "text-center my-12 p-8 rounded-md shadow-lg bg-gray-300" },
       [
-        _c("span", { staticClass: "text-secondary text-3xl text-center" }, [
+        _c("span", { staticClass: "text-secondary text-4xl text-center" }, [
           _vm._v("Sigma Solutions Project Offers Dashboard")
         ])
       ]
@@ -20280,144 +20837,288 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h3", { staticClass: "text-center" }, [_vm._v("Edit Book")]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
-        _c(
-          "form",
-          {
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.updateProjectOffer($event)
-              }
+  return _c(
+    "div",
+    { staticClass: "leading-loose flex items-center justify-center col-md-6" },
+    [
+      _c(
+        "form",
+        {
+          staticClass: "max-w-xl m-4 p-10 bg-white rounded shadow-xl",
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.updateProjectOffer($event)
             }
-          },
-          [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("PO")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.projectOffer.po,
-                    expression: "projectOffer.po"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.projectOffer.po },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.projectOffer, "po", $event.target.value)
-                  }
-                }
-              })
+          }
+        },
+        [
+          _c("p", { staticClass: "text-gray-800 font-bold text-center" }, [
+            _vm._v("Edit Project Offer")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { staticClass: "block text-sm text-gray-00" }, [
+              _vm._v("PO")
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Project Name")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.projectOffer.project_name,
-                    expression: "projectOffer.project_name"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.projectOffer.project_name },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.projectOffer,
-                      "project_name",
-                      $event.target.value
-                    )
-                  }
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.po,
+                  expression: "projectOffer.po"
                 }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Client")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.projectOffer.client,
-                    expression: "projectOffer.client"
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "text" },
+              domProps: { value: _vm.projectOffer.po },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
                   }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.projectOffer.client },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.projectOffer, "client", $event.target.value)
-                  }
+                  _vm.$set(_vm.projectOffer, "po", $event.target.value)
                 }
-              })
-            ]),
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-2" }, [
+            _c("label", [_vm._v("PO Status")]),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Offer Ref No")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.projectOffer.offer_reference_no,
-                    expression: "projectOffer.offer_reference_no"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.projectOffer.offer_reference_no },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.projectOffer,
-                      "offer_reference_no",
-                      $event.target.value
-                    )
-                  }
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.po_status,
+                  expression: "projectOffer.po_status"
                 }
-              })
-            ]),
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "text" },
+              domProps: { value: _vm.projectOffer.po_status },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.projectOffer, "po_status", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-2" }, [
+            _c("label", [_vm._v("Submit Type")]),
             _vm._v(" "),
-            _c(
-              "button",
-              { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-              [_vm._v("Update Project Offer")]
-            )
-          ]
-        )
-      ])
-    ])
-  ])
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.submit_type,
+                  expression: "projectOffer.submit_type"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "text" },
+              domProps: { value: _vm.projectOffer.submit_type },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.projectOffer, "submit_type", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" //todo column name change in migration\n        ")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-2" }, [
+            _c("label", [_vm._v("AMC Type")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.amc_type,
+                  expression: "projectOffer.amc_type"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "text" },
+              domProps: { value: _vm.projectOffer.amc_type },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.projectOffer, "amc_type", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-2" }, [
+            _c("label", [_vm._v("Sub Contract")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.sub_contract,
+                  expression: "projectOffer.sub_contract"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "text" },
+              domProps: { value: _vm.projectOffer.sub_contract },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.projectOffer,
+                    "sub_contract",
+                    $event.target.value
+                  )
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-2" }, [
+            _c("label", [_vm._v("Sub Contracted To")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.po_status,
+                  expression: "projectOffer.po_status"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "text" },
+              domProps: { value: _vm.projectOffer.po_status },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.projectOffer, "po_status", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-2" }, [
+            _c("label", [_vm._v("Project Name")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.project_name,
+                  expression: "projectOffer.project_name"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "text" },
+              domProps: { value: _vm.projectOffer.project_name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.projectOffer,
+                    "project_name",
+                    $event.target.value
+                  )
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("Client")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.client,
+                  expression: "projectOffer.client"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "text" },
+              domProps: { value: _vm.projectOffer.client },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.projectOffer, "client", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("Offer Ref No")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.offer_reference_no,
+                  expression: "projectOffer.offer_reference_no"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "text" },
+              domProps: { value: _vm.projectOffer.offer_reference_no },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.projectOffer,
+                    "offer_reference_no",
+                    $event.target.value
+                  )
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
+              attrs: { type: "submit" }
+            },
+            [_vm._v("\n            Update Project Offer")]
+          )
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
