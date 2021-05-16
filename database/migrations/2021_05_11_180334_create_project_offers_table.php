@@ -47,6 +47,8 @@ class CreateProjectOffersTable extends Migration
             $table->dateTime(ProjectOffer::FIELD_LAST_UPDATE_TIME)->nullable();
             $table->string(ProjectOffer::FIELD_INSERTED_BY)->nullable();
             $table->string(ProjectOffer::FIELD_LAST_UPDATED_BY)->nullable();
+
+            $table->string(ProjectOffer::FIELD_PO_FILEPATH)->nullable();
         });
     }
 

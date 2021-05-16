@@ -28,7 +28,6 @@
                     <input type="date" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                            v-model="projectOffer.po_date">
                 </div>
-                <!-- room for file upload -->
 
             </div>
 
@@ -143,6 +142,12 @@
                     <input type="number" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                            v-model="projectOffer.sub_contracted_amount">
                 </div>
+
+                <div class="mt-2">
+                    <label>Sub Contracted Balance</label>
+                    <input type="number" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                           v-model="projectOffer.sub_contracted_balance">
+                </div>
             </div>
             <div class="mt-2">
                 <label>PO Amount + VAT</label>
@@ -172,6 +177,7 @@ export default {
             projectOffer: {},
             poStatus: null,
             subcontracted: null,
+            poFile: null,
         }
     },
     created() {
@@ -195,7 +201,7 @@ export default {
         updatePoStatus() {
             this.poStatus = this.projectOffer.po_status;
         },
-        updateSubContracted(){
+        updateSubContracted() {
             this.subcontracted = this.projectOffer.sub_contract;
         }
     }

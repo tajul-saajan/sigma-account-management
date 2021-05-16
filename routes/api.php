@@ -26,4 +26,6 @@ Route::group(['prefix' => 'projectOffers'], function () {
     Route::get('edit/{id}', [ProjectOfferController::class, 'edit']);
     Route::post('update/{id}', [ProjectOfferController::class, 'update']);
     Route::delete('delete/{id}', [ProjectOfferController::class, 'delete']);
+
+    Route::post('handleFiles', [ProjectOfferController::class, 'handleFiles']);
 });

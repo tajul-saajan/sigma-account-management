@@ -3,7 +3,7 @@
         <form @submit.prevent="addProjectOffer" class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
             <p class="text-gray-800 font-bold text-center">Add Project Offer</p>
 
-            <div class="form-group">
+            <div class="form-group" >
                 <label class="block text-sm text-gray-00">PO Status</label>
                 <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" v-model="projectOffer.po_status">
                     <option value="PO Pending">PO Pending</option>

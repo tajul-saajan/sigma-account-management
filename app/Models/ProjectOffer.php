@@ -37,6 +37,9 @@ class ProjectOffer extends Model
     const FIELD_INSERTED_BY = "inserted_by";
     const FIELD_LAST_UPDATED_BY = "last_updated_by";
 
+    const FIELD_PO_FILEPATH = "po_filepath";
+
+
     protected $guarded = [
         'id', 'created_at', 'updated_at'
     ];

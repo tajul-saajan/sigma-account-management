@@ -1,6 +1,7 @@
 import AllProjectoffers from "./AllProjectoffers";
 import AddProjectOffer from "./AddProjectOffer";
 import EditProjectOffer from "./EditProjectOffer";
+import ShowProjectOffer from "./ShowProjectOffer";
 
 export const routes = [
     {
@@ -17,6 +18,11 @@ export const routes = [
         name: 'edit',
         path: '/edit',
         component: EditProjectOffer
+    },
+    {
+        name: 'show',
+        path: '/show',
+        component: ShowProjectOffer
     }
 ];
 

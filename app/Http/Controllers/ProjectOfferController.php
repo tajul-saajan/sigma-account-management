@@ -10,12 +10,12 @@ class ProjectOfferController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return array
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        $projectOffers = ProjectOffer::all()->toArray();
-        return array_reverse($projectOffers);
+        $projectOffers = ProjectOffer::paginate(10);
+        return response()->json($projectOffers);
     }
 
 
@@ -62,5 +62,11 @@ class ProjectOfferController extends Controller
         $projectOffer = ProjectOffer::find($id);
         $projectOffer->delete();
          return response()->json('The Project Offer successfully deleted');
+    }
+
+    public function handleFiles(Request $request)
+    {
+        $request['data'] = json_decode($request['data']);
+        dd($request['data']);
     }
 }
