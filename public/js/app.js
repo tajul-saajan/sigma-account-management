@@ -2350,6 +2350,73 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/FileUploader.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/FileUploader.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "FileUploader",
+  data: function data() {
+    return {
+      file: null
+    };
+  },
+  methods: {
+    addPofile: function addPofile() {
+      var _this = this;
+
+      var dat = new FormData();
+      dat.append('file', this.file);
+      this.axios.post("http://po-management.test/api/projectOffers/handleFiles/".concat(this.$route.params.id), dat).then(function (response) {
+        _this.$router.push({
+          name: 'show',
+          params: {
+            id: _this.$route.params.id
+          }
+        });
+      });
+    },
+    selectFile: function selectFile(event) {
+      this.file = event.target.files[0];
+      console.log(this.file);
+
+      if (!this.file) {
+        event.preventDefault();
+        alert('No file chosen');
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ShowProjectOffer.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ShowProjectOffer.vue?vue&type=script&lang=js& ***!
@@ -2476,11 +2543,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ShowProjectOffer",
   data: function data() {
     return {
-      projectOffer: {}
+      projectOffer: {},
+      filePath: null
     };
   },
   created: function created() {
@@ -2488,6 +2566,7 @@ __webpack_require__.r(__webpack_exports__);
 
     this.axios.get("http://po-management.test/api/projectOffers/edit/".concat(this.$route.params.id)).then(function (response) {
       _this.projectOffer = response.data;
+      _this.filePath = _this.projectOffer.po_filepath;
     });
   },
   deleteBook: function deleteBook(id) {
@@ -2501,6 +2580,22 @@ __webpack_require__.r(__webpack_exports__);
 
       _this2.projectOffers.splice(i, 1);
     });
+  },
+  methods: {
+    downloadBook: function downloadBook(id) {
+      this.$http.get("http://po-management.test/api/projectOffers/downloadFile/".concat(id), {
+        responseType: 'arraybuffer'
+      }).then(function (response) {
+        console.log(response.data);
+        var blob = new Blob([response.data], {
+          type: 'application/pdf'
+        });
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'po_file.pdf';
+        link.click();
+      });
+    }
   }
 });
 
@@ -2561,6 +2656,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AddProjectOffer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddProjectOffer */ "./resources/js/AddProjectOffer.vue");
 /* harmony import */ var _EditProjectOffer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EditProjectOffer */ "./resources/js/EditProjectOffer.vue");
 /* harmony import */ var _ShowProjectOffer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ShowProjectOffer */ "./resources/js/ShowProjectOffer.vue");
+/* harmony import */ var _FileUploader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FileUploader */ "./resources/js/FileUploader.vue");
+
 
 
 
@@ -2581,6 +2678,10 @@ var routes = [{
   name: 'show',
   path: '/show',
   component: _ShowProjectOffer__WEBPACK_IMPORTED_MODULE_3__.default
+}, {
+  name: 'uploadFile',
+  path: '/uploadFile',
+  component: _FileUploader__WEBPACK_IMPORTED_MODULE_4__.default
 }];
 
 /***/ }),
@@ -3553,6 +3654,45 @@ component.options.__file = "resources/js/EditProjectOffer.vue"
 
 /***/ }),
 
+/***/ "./resources/js/FileUploader.vue":
+/*!***************************************!*\
+  !*** ./resources/js/FileUploader.vue ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _FileUploader_vue_vue_type_template_id_551c42a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FileUploader.vue?vue&type=template&id=551c42a8&scoped=true& */ "./resources/js/FileUploader.vue?vue&type=template&id=551c42a8&scoped=true&");
+/* harmony import */ var _FileUploader_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FileUploader.vue?vue&type=script&lang=js& */ "./resources/js/FileUploader.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _FileUploader_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _FileUploader_vue_vue_type_template_id_551c42a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _FileUploader_vue_vue_type_template_id_551c42a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "551c42a8",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/FileUploader.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/ShowProjectOffer.vue":
 /*!*******************************************!*\
   !*** ./resources/js/ShowProjectOffer.vue ***!
@@ -3656,6 +3796,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/FileUploader.vue?vue&type=script&lang=js&":
+/*!****************************************************************!*\
+  !*** ./resources/js/FileUploader.vue?vue&type=script&lang=js& ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUploader_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FileUploader.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/FileUploader.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUploader_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/ShowProjectOffer.vue?vue&type=script&lang=js&":
 /*!********************************************************************!*\
   !*** ./resources/js/ShowProjectOffer.vue?vue&type=script&lang=js& ***!
@@ -3736,6 +3892,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditProjectOffer_vue_vue_type_template_id_7e6457ea___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditProjectOffer_vue_vue_type_template_id_7e6457ea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EditProjectOffer.vue?vue&type=template&id=7e6457ea& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/EditProjectOffer.vue?vue&type=template&id=7e6457ea&");
+
+
+/***/ }),
+
+/***/ "./resources/js/FileUploader.vue?vue&type=template&id=551c42a8&scoped=true&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/FileUploader.vue?vue&type=template&id=551c42a8&scoped=true& ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUploader_vue_vue_type_template_id_551c42a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUploader_vue_vue_type_template_id_551c42a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUploader_vue_vue_type_template_id_551c42a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FileUploader.vue?vue&type=template&id=551c42a8&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/FileUploader.vue?vue&type=template&id=551c42a8&scoped=true&");
 
 
 /***/ }),
@@ -5418,6 +5591,74 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/FileUploader.vue?vue&type=template&id=551c42a8&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/FileUploader.vue?vue&type=template&id=551c42a8&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "leading-loose flex items-center justify-center col-md-6" },
+    [
+      _c(
+        "form",
+        {
+          staticClass: "max-w-xl m-4 p-10 bg-white rounded shadow-xl",
+          attrs: { enctype: "multipart/form-data" },
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.addPofile($event)
+            }
+          }
+        },
+        [
+          _c("p", { staticClass: "text-gray-800 font-bold text-center" }, [
+            _vm._v("Upload PO File")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "my-2" }, [
+            _c("label", [_vm._v("Offer Ref No")]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "file", required: "" },
+              on: { change: _vm.selectFile }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
+              attrs: { type: "submit" }
+            },
+            [_vm._v("\n            Add PO File\n        ")]
+          )
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ShowProjectOffer.vue?vue&type=template&id=2fb9fafe&scoped=true&":
 /*!*****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ShowProjectOffer.vue?vue&type=template&id=2fb9fafe&scoped=true& ***!
@@ -5604,10 +5845,42 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "p-4 col-span-2 flex-row justify-between" }, [
+      _vm.filePath !== null
+        ? _c("div", { staticClass: "flex justify-center text-white" }, [
+            _c(
+              "span",
+              {
+                staticClass:
+                  "fas fa-download px-4 py-2 bg-gray-500 hover:bg-green-500 ml-2 rounded-md",
+                on: {
+                  click: function($event) {
+                    return _vm.downloadBook(_vm.projectOffer.id)
+                  }
+                }
+              },
+              [_vm._v(" Download")]
+            )
+          ])
+        : _vm._e()
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "p-4 col-span-2 flex-row justify-between" }, [
       _c(
         "div",
         { staticClass: "flex justify-center text-white" },
         [
+          _c(
+            "router-link",
+            {
+              staticClass:
+                "fas fa-upload px-4 py-2  bg-gray-500 hover:bg-blue-500  mr-2 rounded-md",
+              attrs: {
+                to: { name: "uploadFile", params: { id: _vm.projectOffer.id } }
+              }
+            },
+            [_vm._v(" Upload\n            ")]
+          ),
+          _vm._v(" "),
           _c(
             "router-link",
             {

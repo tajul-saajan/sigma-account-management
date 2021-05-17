@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProjectOffer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectOfferController extends Controller
 {
@@ -51,6 +52,8 @@ class ProjectOfferController extends Controller
 
     public function update(Request $request, $id )
     {
+
+
         $projectOffer = ProjectOffer::find($id);
         $projectOffer->update($request->all());
         return response()->json('The Project Offer successfully updated');
@@ -64,9 +67,36 @@ class ProjectOfferController extends Controller
          return response()->json('The Project Offer successfully deleted');
     }
 
-    public function handleFiles(Request $request)
+    public function handleFiles(Request $request, $id)
     {
-        $request['data'] = json_decode($request['data']);
-        dd($request['data']);
+        $request->validate([
+            'file' => 'required'
+        ]);
+
+
+        $prevFile = ProjectOffer::find($id)->po_filepath;
+        if ($prevFile){
+            unlink(storage_path('app/po_files/'.$prevFile));
+        }
+
+        $fileName   = time() . '_'.$id.'.' . $request->file->getClientOriginalExtension();
+        $request->file->storeAs('po_files/',$fileName);
+
+        $projectOffer = ProjectOffer::find($id);
+        $projectOffer->update([
+            'po_filepath' => $fileName
+        ]);
+    }
+
+    public function downloadFile($id) {
+        $fileName = ProjectOffer::find($id)->po_filepath;
+
+        $file =storage_path('app/po_files/'.$fileName);
+
+        $headers = [
+            'content-type' => 'application/pdf',
+        ];
+
+        return response()->download($file, 'po_file.pdf',$headers);
     }
 }
