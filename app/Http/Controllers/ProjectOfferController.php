@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProjectOffer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ProjectOfferController extends Controller
@@ -98,5 +99,18 @@ class ProjectOfferController extends Controller
         ];
 
         return response()->download($file, 'po_file.pdf',$headers);
+    }
+
+    public function getProjectStatus()
+    {
+        $statuses = DB::table('project_status')->get();
+        return response()->json($statuses);
+    }
+
+    public function setProjectStatus($status)
+    {
+        DB::table('project_status')->insert([
+            'project_status' => $status
+        ]);
     }
 }

@@ -2,7 +2,6 @@ import AllProjectoffers from "./AllProjectoffers";
 import AddProjectOffer from "./AddProjectOffer";
 import EditProjectOffer from "./EditProjectOffer";
 import ShowProjectOffer from "./ShowProjectOffer";
-import FileUploader from "./FileUploader";
 
 export const routes = [
     {
@@ -24,11 +23,6 @@ export const routes = [
         name: 'show',
         path: '/show',
         component: ShowProjectOffer
-    },
-    {
-        name: 'uploadFile',
-        path: '/uploadFile',
-        component: FileUploader
     }
 ];
 

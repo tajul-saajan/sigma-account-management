@@ -14,6 +14,7 @@ class CreateProjectOffersTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('project_offers');
         Schema::create('project_offers', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
@@ -22,7 +23,8 @@ class CreateProjectOffersTable extends Migration
             $table->dateTime(ProjectOffer::FIELD_OFFER_DATE)->nullable();
             $table->string(ProjectOffer::FIELD_PROJECT_NAME)->nullable();
             $table->string(ProjectOffer::FIELD_CLIENT)->nullable();
-            $table->string(ProjectOffer::FIELD_POC)->nullable();
+            $table->string(ProjectOffer::FIELD_POC_NAME)->nullable();
+            $table->string(ProjectOffer::FIELD_POC_CONTACT)->nullable();
             $table->string(ProjectOffer::FIELD_PO_AMOUNT_WITH_VAT)->nullable();
             $table->string(ProjectOffer::FIELD_VAT)->nullable();
             $table->string(ProjectOffer::FIELD_AIT)->nullable();

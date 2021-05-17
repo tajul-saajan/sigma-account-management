@@ -27,7 +27,8 @@ class ProjectOffer extends Model
     const FIELD_MUSHOK_NO = "mushok_no";
     const FIELD_TRACKING_NO_ROBI = "tracking_no_robi";
     const FIELD_CLIENT = "client";
-    const FIELD_POC = "poc";
+    const FIELD_POC_NAME = "poc_name";
+    const FIELD_POC_CONTACT = "poc_contact";
     const FIELD_PO_AMOUNT_WITH_VAT = "po_amount_with_vat";
     const FIELD_VAT = "vat";
     const FIELD_AIT = "ait";

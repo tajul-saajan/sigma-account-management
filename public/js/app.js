@@ -1957,12 +1957,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       projectOffer: {},
+      statuses: {},
+      addStatusMode: false,
+      newStatus: null,
       subcontract: null
     };
+  },
+  created: function created() {
+    this.loadStatuses();
   },
   methods: {
     addProjectOffer: function addProjectOffer() {
@@ -1981,6 +2007,24 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateSubContracted: function updateSubContracted() {
       this.subcontract = this.projectOffer.sub_contract;
+    },
+    loadStatuses: function loadStatuses() {
+      var _this2 = this;
+
+      this.axios.get("http://po-management.test/api/projectOffers/projectStatus").then(function (response) {
+        _this2.statuses = response.data; // console.log(response.data);
+      });
+    },
+    addNewStatus: function addNewStatus() {
+      var _this3 = this;
+
+      this.axios.post("http://po-management.test/api/projectOffers/projectStatus/".concat(this.newStatus)).then(function (response) {
+        _this3.addStatusMode = false;
+
+        _this3.loadStatuses();
+
+        alert("New Status Added");
+      });
     }
   }
 });
@@ -2311,10 +2355,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       projectOffer: {},
+      statues: {},
       poStatus: null,
       subcontracted: null,
       poFile: null
@@ -2327,6 +2376,9 @@ __webpack_require__.r(__webpack_exports__);
       _this.projectOffer = response.data;
       _this.poStatus = _this.projectOffer.po_status;
       _this.subcontracted = _this.projectOffer.sub_contract; // console.log(response.data);
+    });
+    this.axios.get("http://po-management.test/api/projectOffers/projectStatus").then(function (response) {
+      _this.statues = response.data; // console.log(response.data);
     });
   },
   methods: {
@@ -2344,73 +2396,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateSubContracted: function updateSubContracted() {
       this.subcontracted = this.projectOffer.sub_contract;
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/FileUploader.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/FileUploader.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "FileUploader",
-  data: function data() {
-    return {
-      file: null
-    };
-  },
-  methods: {
-    addPofile: function addPofile() {
-      var _this = this;
-
-      var dat = new FormData();
-      dat.append('file', this.file);
-      this.axios.post("http://po-management.test/api/projectOffers/handleFiles/".concat(this.$route.params.id), dat).then(function (response) {
-        _this.$router.push({
-          name: 'show',
-          params: {
-            id: _this.$route.params.id
-          }
-        });
-      });
-    },
-    selectFile: function selectFile(event) {
-      this.file = event.target.files[0];
-      console.log(this.file);
-
-      if (!this.file) {
-        event.preventDefault();
-        alert('No file chosen');
-      }
     }
   }
 });
@@ -2656,8 +2641,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AddProjectOffer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddProjectOffer */ "./resources/js/AddProjectOffer.vue");
 /* harmony import */ var _EditProjectOffer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EditProjectOffer */ "./resources/js/EditProjectOffer.vue");
 /* harmony import */ var _ShowProjectOffer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ShowProjectOffer */ "./resources/js/ShowProjectOffer.vue");
-/* harmony import */ var _FileUploader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FileUploader */ "./resources/js/FileUploader.vue");
-
 
 
 
@@ -2678,11 +2661,131 @@ var routes = [{
   name: 'show',
   path: '/show',
   component: _ShowProjectOffer__WEBPACK_IMPORTED_MODULE_3__.default
-}, {
-  name: 'uploadFile',
-  path: '/uploadFile',
-  component: _FileUploader__WEBPACK_IMPORTED_MODULE_4__.default
 }];
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/AddProjectOffer.vue?vue&type=style&index=0&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/AddProjectOffer.vue?vue&type=style&index=0&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\nselect:disabled {\n    background: rgba(98, 159, 234, 0.82);\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/EditProjectOffer.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/EditProjectOffer.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\ninput:disabled {\n    background: rgba(98, 159, 234, 0.82);\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/runtime/api.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
+  \*****************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+// eslint-disable-next-line func-names
+module.exports = function (cssWithMappingToString) {
+  var list = []; // return the list of modules as css string
+
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = cssWithMappingToString(item);
+
+      if (item[2]) {
+        return "@media ".concat(item[2], " {").concat(content, "}");
+      }
+
+      return content;
+    }).join("");
+  }; // import a list of modules into the list
+  // eslint-disable-next-line func-names
+
+
+  list.i = function (modules, mediaQuery, dedupe) {
+    if (typeof modules === "string") {
+      // eslint-disable-next-line no-param-reassign
+      modules = [[null, modules, ""]];
+    }
+
+    var alreadyImportedModules = {};
+
+    if (dedupe) {
+      for (var i = 0; i < this.length; i++) {
+        // eslint-disable-next-line prefer-destructuring
+        var id = this[i][0];
+
+        if (id != null) {
+          alreadyImportedModules[id] = true;
+        }
+      }
+    }
+
+    for (var _i = 0; _i < modules.length; _i++) {
+      var item = [].concat(modules[_i]);
+
+      if (dedupe && alreadyImportedModules[item[0]]) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
+
+      if (mediaQuery) {
+        if (!item[2]) {
+          item[2] = mediaQuery;
+        } else {
+          item[2] = "".concat(mediaQuery, " and ").concat(item[2]);
+        }
+      }
+
+      list.push(item);
+    }
+  };
+
+  return list;
+};
 
 /***/ }),
 
@@ -3511,15 +3614,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _AddProjectOffer_vue_vue_type_template_id_2963e854___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddProjectOffer.vue?vue&type=template&id=2963e854& */ "./resources/js/AddProjectOffer.vue?vue&type=template&id=2963e854&");
 /* harmony import */ var _AddProjectOffer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddProjectOffer.vue?vue&type=script&lang=js& */ "./resources/js/AddProjectOffer.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _AddProjectOffer_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AddProjectOffer.vue?vue&type=style&index=0&lang=css& */ "./resources/js/AddProjectOffer.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
   _AddProjectOffer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
   _AddProjectOffer_vue_vue_type_template_id_2963e854___WEBPACK_IMPORTED_MODULE_0__.render,
   _AddProjectOffer_vue_vue_type_template_id_2963e854___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
@@ -3628,15 +3733,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _EditProjectOffer_vue_vue_type_template_id_7e6457ea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditProjectOffer.vue?vue&type=template&id=7e6457ea& */ "./resources/js/EditProjectOffer.vue?vue&type=template&id=7e6457ea&");
 /* harmony import */ var _EditProjectOffer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditProjectOffer.vue?vue&type=script&lang=js& */ "./resources/js/EditProjectOffer.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _EditProjectOffer_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EditProjectOffer.vue?vue&type=style&index=0&lang=css& */ "./resources/js/EditProjectOffer.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
   _EditProjectOffer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
   _EditProjectOffer_vue_vue_type_template_id_7e6457ea___WEBPACK_IMPORTED_MODULE_0__.render,
   _EditProjectOffer_vue_vue_type_template_id_7e6457ea___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
@@ -3650,45 +3757,6 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/EditProjectOffer.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/FileUploader.vue":
-/*!***************************************!*\
-  !*** ./resources/js/FileUploader.vue ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _FileUploader_vue_vue_type_template_id_551c42a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FileUploader.vue?vue&type=template&id=551c42a8&scoped=true& */ "./resources/js/FileUploader.vue?vue&type=template&id=551c42a8&scoped=true&");
-/* harmony import */ var _FileUploader_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FileUploader.vue?vue&type=script&lang=js& */ "./resources/js/FileUploader.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
-  _FileUploader_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _FileUploader_vue_vue_type_template_id_551c42a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
-  _FileUploader_vue_vue_type_template_id_551c42a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  "551c42a8",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/FileUploader.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -3796,22 +3864,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/FileUploader.vue?vue&type=script&lang=js&":
-/*!****************************************************************!*\
-  !*** ./resources/js/FileUploader.vue?vue&type=script&lang=js& ***!
-  \****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUploader_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FileUploader.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/FileUploader.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUploader_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
-
-/***/ }),
-
 /***/ "./resources/js/ShowProjectOffer.vue?vue&type=script&lang=js&":
 /*!********************************************************************!*\
   !*** ./resources/js/ShowProjectOffer.vue?vue&type=script&lang=js& ***!
@@ -3896,23 +3948,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/FileUploader.vue?vue&type=template&id=551c42a8&scoped=true&":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/FileUploader.vue?vue&type=template&id=551c42a8&scoped=true& ***!
-  \**********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUploader_vue_vue_type_template_id_551c42a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUploader_vue_vue_type_template_id_551c42a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUploader_vue_vue_type_template_id_551c42a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FileUploader.vue?vue&type=template&id=551c42a8&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/FileUploader.vue?vue&type=template&id=551c42a8&scoped=true&");
-
-
-/***/ }),
-
 /***/ "./resources/js/ShowProjectOffer.vue?vue&type=template&id=2fb9fafe&scoped=true&":
 /*!**************************************************************************************!*\
   !*** ./resources/js/ShowProjectOffer.vue?vue&type=template&id=2fb9fafe&scoped=true& ***!
@@ -3926,6 +3961,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowProjectOffer_vue_vue_type_template_id_2fb9fafe_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowProjectOffer_vue_vue_type_template_id_2fb9fafe_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ShowProjectOffer.vue?vue&type=template&id=2fb9fafe&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ShowProjectOffer.vue?vue&type=template&id=2fb9fafe&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/AddProjectOffer.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/AddProjectOffer.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AddProjectOffer_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-style-loader/index.js!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddProjectOffer.vue?vue&type=style&index=0&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/AddProjectOffer.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AddProjectOffer_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AddProjectOffer_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AddProjectOffer_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AddProjectOffer_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
+/***/ "./resources/js/EditProjectOffer.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/EditProjectOffer.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EditProjectOffer_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-style-loader/index.js!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EditProjectOffer.vue?vue&type=style&index=0&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/EditProjectOffer.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EditProjectOffer_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EditProjectOffer_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EditProjectOffer_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EditProjectOffer_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 
 
 /***/ }),
@@ -3962,7 +4031,7 @@ var render = function() {
           }
         },
         [
-          _c("p", { staticClass: "text-gray-800 font-bold text-center" }, [
+          _c("p", { staticClass: "text-gray-800 mb-2 text-center text-2xl" }, [
             _vm._v("Add Project Offer")
           ]),
           _vm._v(" "),
@@ -3971,59 +4040,100 @@ var render = function() {
               _vm._v("PO Status")
             ]),
             _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.projectOffer.po_status,
-                    expression: "projectOffer.po_status"
+            _c("div", { staticClass: "flex items-center" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.projectOffer.po_status,
+                      expression: "projectOffer.po_status"
+                    }
+                  ],
+                  staticClass:
+                    "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                  attrs: { disabled: _vm.addStatusMode === true },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.projectOffer,
+                        "po_status",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
                   }
-                ],
-                staticClass:
-                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.projectOffer,
-                      "po_status",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
-                }
-              },
-              [
-                _c("option", { attrs: { value: "PO Pending" } }, [
-                  _vm._v("PO Pending")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "PO Received" } }, [
-                  _vm._v("PO Received")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "eBill Submitted" } }, [
-                  _vm._v("eBill Submitted")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "Hard Copy Submitted" } }, [
-                  _vm._v(" Hard Copy Submitted")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "Money received" } }, [
-                  _vm._v(" Money received")
+                },
+                _vm._l(_vm.statuses, function(status) {
+                  return _c(
+                    "option",
+                    { domProps: { value: status.project_status } },
+                    [
+                      _vm._v(
+                        " " +
+                          _vm._s(status.project_status) +
+                          "\n                    "
+                      )
+                    ]
+                  )
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _vm.addStatusMode === false
+                ? _c("span", {
+                    staticClass: "fas fa-plus-square ml-2 text-2xl",
+                    on: {
+                      click: function($event) {
+                        _vm.addStatusMode = true
+                      }
+                    }
+                  })
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _vm.addStatusMode === true
+              ? _c("div", { staticClass: "flex items-center mt-2" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.newStatus,
+                        expression: "newStatus"
+                      }
+                    ],
+                    staticClass:
+                      "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                    attrs: { type: "text", placeholder: "Enter New Status" },
+                    domProps: { value: _vm.newStatus },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.newStatus = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticClass: "fas fa-plus-square ml-2 text-2xl",
+                    on: { click: _vm.addNewStatus }
+                  })
                 ])
-              ]
-            )
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "my-2" }, [
@@ -4139,26 +4249,52 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "mt-2" }, [
-            _c("label", [_vm._v("POC")]),
+            _c("label", [_vm._v("POC Name")]),
             _vm._v(" "),
             _c("input", {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.projectOffer.poc,
-                  expression: "projectOffer.poc"
+                  value: _vm.projectOffer.poc_name,
+                  expression: "projectOffer.poc_name"
                 }
               ],
               staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
               attrs: { type: "text" },
-              domProps: { value: _vm.projectOffer.poc },
+              domProps: { value: _vm.projectOffer.poc_name },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.projectOffer, "poc", $event.target.value)
+                  _vm.$set(_vm.projectOffer, "poc_name", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-2" }, [
+            _c("label", [_vm._v("POC Contact")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.poc_contact,
+                  expression: "projectOffer.poc_contact"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "tel" },
+              domProps: { value: _vm.projectOffer.poc_contact },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.projectOffer, "poc_contact", $event.target.value)
                 }
               }
             })
@@ -4782,7 +4918,7 @@ var render = function() {
         },
         [
           _c("p", { staticClass: "text-gray-800 font-bold text-center" }, [
-            _vm._v("Add Project Offer")
+            _vm._v("Edit Project Offer")
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
@@ -4826,291 +4962,284 @@ var render = function() {
                   ]
                 }
               },
-              [
-                _c("option", { attrs: { value: "PO Pending" } }, [
-                  _vm._v("PO Pending")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "PO Received" } }, [
-                  _vm._v("PO Received")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "eBill Submitted" } }, [
-                  _vm._v("eBill Submitted")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "Hard Copy Submitted" } }, [
-                  _vm._v(" Hard Copy Submitted")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "Money received" } }, [
-                  _vm._v(" Money received")
-                ])
-              ]
+              _vm._l(_vm.statues, function(status) {
+                return _c(
+                  "option",
+                  { domProps: { value: status.project_status } },
+                  [_vm._v(" " + _vm._s(status.project_status) + " ")]
+                )
+              }),
+              0
             )
           ]),
           _vm._v(" "),
-          _vm.poStatus === "PO Received"
-            ? _c("div", [
-                _c("div", { staticClass: "my-2" }, [
-                  _c("label", [_vm._v("PO No")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.projectOffer.po,
-                        expression: "projectOffer.po"
-                      }
-                    ],
-                    staticClass:
-                      "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                    attrs: { type: "number" },
-                    domProps: { value: _vm.projectOffer.po },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.projectOffer, "po", $event.target.value)
-                      }
+          _c("div", [
+            _c("div", { staticClass: "my-2" }, [
+              _c("label", [_vm._v("PO No")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.projectOffer.po,
+                    expression: "projectOffer.po"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: {
+                  type: "number",
+                  disabled: _vm.poStatus !== "PO Received"
+                },
+                domProps: { value: _vm.projectOffer.po },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "my-2" }, [
-                  _c("label", [_vm._v("PO Date")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.projectOffer.po_date,
-                        expression: "projectOffer.po_date"
-                      }
-                    ],
-                    staticClass:
-                      "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                    attrs: { type: "date" },
-                    domProps: { value: _vm.projectOffer.po_date },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.projectOffer,
-                          "po_date",
-                          $event.target.value
-                        )
-                      }
+                    _vm.$set(_vm.projectOffer, "po", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "my-2" }, [
+              _c("label", [_vm._v("PO Date")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.projectOffer.po_date,
+                    expression: "projectOffer.po_date"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: {
+                  type: "date",
+                  disabled: _vm.poStatus !== "PO Received"
+                },
+                domProps: { value: _vm.projectOffer.po_date },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  })
-                ])
-              ])
-            : _vm._e(),
+                    _vm.$set(_vm.projectOffer, "po_date", $event.target.value)
+                  }
+                }
+              })
+            ])
+          ]),
           _vm._v(" "),
-          _vm.poStatus === "eBill Submitted"
-            ? _c("div", [
-                _c("div", { staticClass: "my-2" }, [
-                  _c("label", [_vm._v("eBill Submission Date")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.projectOffer.ebill_submission_date,
-                        expression: "projectOffer.ebill_submission_date"
-                      }
-                    ],
-                    staticClass:
-                      "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                    attrs: { type: "date" },
-                    domProps: { value: _vm.projectOffer.ebill_submission_date },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.projectOffer,
-                          "ebill_submission_date",
-                          $event.target.value
-                        )
-                      }
+          _c("div", [
+            _c("div", { staticClass: "my-2" }, [
+              _c("label", [_vm._v("eBill Submission Date")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.projectOffer.ebill_submission_date,
+                    expression: "projectOffer.ebill_submission_date"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: {
+                  type: "date",
+                  disabled: _vm.poStatus !== "eBill Submitted"
+                },
+                domProps: { value: _vm.projectOffer.ebill_submission_date },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "my-2" }, [
-                  _c("label", [_vm._v("Mushok NO")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.projectOffer.mushok_no,
-                        expression: "projectOffer.mushok_no"
-                      }
-                    ],
-                    staticClass:
-                      "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.projectOffer.mushok_no },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.projectOffer,
-                          "mushok_no",
-                          $event.target.value
-                        )
-                      }
+                    _vm.$set(
+                      _vm.projectOffer,
+                      "ebill_submission_date",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "my-2" }, [
+              _c("label", [_vm._v("Mushok NO")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.projectOffer.mushok_no,
+                    expression: "projectOffer.mushok_no"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: {
+                  type: "text",
+                  disabled: _vm.poStatus !== "eBill Submitted"
+                },
+                domProps: { value: _vm.projectOffer.mushok_no },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "my-2" }, [
-                  _c("label", [_vm._v("Tracking NO")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.projectOffer.tracking_no_robi,
-                        expression: "projectOffer.tracking_no_robi"
-                      }
-                    ],
-                    staticClass:
-                      "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.projectOffer.tracking_no_robi },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.projectOffer,
-                          "tracking_no_robi",
-                          $event.target.value
-                        )
-                      }
+                    _vm.$set(_vm.projectOffer, "mushok_no", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "my-2" }, [
+              _c("label", [_vm._v("Tracking NO")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.projectOffer.tracking_no_robi,
+                    expression: "projectOffer.tracking_no_robi"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: {
+                  type: "text",
+                  disabled: _vm.poStatus !== "eBill Submitted"
+                },
+                domProps: { value: _vm.projectOffer.tracking_no_robi },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  })
-                ])
-              ])
-            : _vm._e(),
+                    _vm.$set(
+                      _vm.projectOffer,
+                      "tracking_no_robi",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ])
+          ]),
           _vm._v(" "),
-          _vm.poStatus === "Hard Copy Submitted"
-            ? _c("div", [
-                _c("div", { staticClass: "my-2" }, [
-                  _c("label", [_vm._v("Hard Copy Submission Date")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.projectOffer.hard_copy_submission_date,
-                        expression: "projectOffer.hard_copy_submission_date"
-                      }
-                    ],
-                    staticClass:
-                      "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                    attrs: { type: "date" },
-                    domProps: {
-                      value: _vm.projectOffer.hard_copy_submission_date
-                    },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.projectOffer,
-                          "hard_copy_submission_date",
-                          $event.target.value
-                        )
-                      }
+          _c("div", [
+            _c("div", { staticClass: "my-2" }, [
+              _c("label", [_vm._v("Hard Copy Submission Date")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.projectOffer.hard_copy_submission_date,
+                    expression: "projectOffer.hard_copy_submission_date"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: {
+                  type: "date",
+                  disabled: _vm.poStatus !== "Hard Copy Submitted"
+                },
+                domProps: { value: _vm.projectOffer.hard_copy_submission_date },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  })
-                ])
-              ])
-            : _vm._e(),
+                    _vm.$set(
+                      _vm.projectOffer,
+                      "hard_copy_submission_date",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ])
+          ]),
           _vm._v(" "),
-          _vm.poStatus === "Money received"
-            ? _c("div", [
-                _c("div", { staticClass: "my-2" }, [
-                  _c("label", [_vm._v("Money Receive Date")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.projectOffer.money_received_date,
-                        expression: "projectOffer.money_received_date"
-                      }
-                    ],
-                    staticClass:
-                      "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                    attrs: { type: "date" },
-                    domProps: { value: _vm.projectOffer.money_received_date },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.projectOffer,
-                          "money_received_date",
-                          $event.target.value
-                        )
-                      }
+          _c("div", [
+            _c("div", { staticClass: "my-2" }, [
+              _c("label", [_vm._v("Money Receive Date")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.projectOffer.money_received_date,
+                    expression: "projectOffer.money_received_date"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: {
+                  type: "date",
+                  disabled: _vm.poStatus !== "Money received"
+                },
+                domProps: { value: _vm.projectOffer.money_received_date },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "my-2" }, [
-                  _c("label", [_vm._v("Received Amount")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.projectOffer.received_amount,
-                        expression: "projectOffer.received_amount"
-                      }
-                    ],
-                    staticClass:
-                      "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                    attrs: { type: "number" },
-                    domProps: { value: _vm.projectOffer.received_amount },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.projectOffer,
-                          "received_amount",
-                          $event.target.value
-                        )
-                      }
+                    _vm.$set(
+                      _vm.projectOffer,
+                      "money_received_date",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "my-2" }, [
+              _c("label", [_vm._v("Received Amount")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.projectOffer.received_amount,
+                    expression: "projectOffer.received_amount"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: {
+                  type: "number",
+                  disabled: _vm.poStatus !== "Money received"
+                },
+                domProps: { value: _vm.projectOffer.received_amount },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  })
-                ])
-              ])
-            : _vm._e(),
+                    _vm.$set(
+                      _vm.projectOffer,
+                      "received_amount",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "my-2" }, [
             _c("label", [_vm._v("Offer Ref No")]),
@@ -5225,26 +5354,52 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "mt-2" }, [
-            _c("label", [_vm._v("POC")]),
+            _c("label", [_vm._v("POC Name")]),
             _vm._v(" "),
             _c("input", {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.projectOffer.poc,
-                  expression: "projectOffer.poc"
+                  value: _vm.projectOffer.poc_name,
+                  expression: "projectOffer.poc_name"
                 }
               ],
               staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
               attrs: { type: "text" },
-              domProps: { value: _vm.projectOffer.poc },
+              domProps: { value: _vm.projectOffer.poc_name },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.projectOffer, "poc", $event.target.value)
+                  _vm.$set(_vm.projectOffer, "poc_name", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-2" }, [
+            _c("label", [_vm._v("POC Contact")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.projectOffer.poc_contact,
+                  expression: "projectOffer.poc_contact"
+                }
+              ],
+              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+              attrs: { type: "text" },
+              domProps: { value: _vm.projectOffer.poc_contact },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.projectOffer, "poc_contact", $event.target.value)
                 }
               }
             })
@@ -5389,104 +5544,103 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm.subcontracted === "Yes"
-            ? _c("div", [
-                _c("div", { staticClass: "mt-2" }, [
-                  _c("label", [_vm._v("Sub Contracted To")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.projectOffer.sub_contracted_to,
-                        expression: "projectOffer.sub_contracted_to"
-                      }
-                    ],
-                    staticClass:
-                      "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.projectOffer.sub_contracted_to },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.projectOffer,
-                          "sub_contracted_to",
-                          $event.target.value
-                        )
-                      }
+          _c("div", [
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Sub Contracted To")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.projectOffer.sub_contracted_to,
+                    expression: "projectOffer.sub_contracted_to"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text", disabled: _vm.subcontracted !== "Yes" },
+                domProps: { value: _vm.projectOffer.sub_contracted_to },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "mt-2" }, [
-                  _c("label", [_vm._v("Sub Contracted Amount")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.projectOffer.sub_contracted_amount,
-                        expression: "projectOffer.sub_contracted_amount"
-                      }
-                    ],
-                    staticClass:
-                      "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                    attrs: { type: "number" },
-                    domProps: { value: _vm.projectOffer.sub_contracted_amount },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.projectOffer,
-                          "sub_contracted_amount",
-                          $event.target.value
-                        )
-                      }
+                    _vm.$set(
+                      _vm.projectOffer,
+                      "sub_contracted_to",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Sub Contracted Amount")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.projectOffer.sub_contracted_amount,
+                    expression: "projectOffer.sub_contracted_amount"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: {
+                  type: "number",
+                  disabled: _vm.subcontracted !== "Yes"
+                },
+                domProps: { value: _vm.projectOffer.sub_contracted_amount },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "mt-2" }, [
-                  _c("label", [_vm._v("Sub Contracted Balance")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.projectOffer.sub_contracted_balance,
-                        expression: "projectOffer.sub_contracted_balance"
-                      }
-                    ],
-                    staticClass:
-                      "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                    attrs: { type: "number" },
-                    domProps: {
-                      value: _vm.projectOffer.sub_contracted_balance
-                    },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.projectOffer,
-                          "sub_contracted_balance",
-                          $event.target.value
-                        )
-                      }
+                    _vm.$set(
+                      _vm.projectOffer,
+                      "sub_contracted_amount",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Sub Contracted Balance")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.projectOffer.sub_contracted_balance,
+                    expression: "projectOffer.sub_contracted_balance"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "number" },
+                domProps: { value: _vm.projectOffer.sub_contracted_balance },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  })
-                ])
-              ])
-            : _vm._e(),
+                    _vm.$set(
+                      _vm.projectOffer,
+                      "sub_contracted_balance",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "mt-2" }, [
             _c("label", [_vm._v("PO Amount + VAT")]),
@@ -5578,74 +5732,6 @@ var render = function() {
               attrs: { type: "submit" }
             },
             [_vm._v("\n            Update Project Offer\n        ")]
-          )
-        ]
-      )
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/FileUploader.vue?vue&type=template&id=551c42a8&scoped=true&":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/FileUploader.vue?vue&type=template&id=551c42a8&scoped=true& ***!
-  \*************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render),
-/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "leading-loose flex items-center justify-center col-md-6" },
-    [
-      _c(
-        "form",
-        {
-          staticClass: "max-w-xl m-4 p-10 bg-white rounded shadow-xl",
-          attrs: { enctype: "multipart/form-data" },
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.addPofile($event)
-            }
-          }
-        },
-        [
-          _c("p", { staticClass: "text-gray-800 font-bold text-center" }, [
-            _vm._v("Upload PO File")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "my-2" }, [
-            _c("label", [_vm._v("Offer Ref No")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-              attrs: { type: "file", required: "" },
-              on: { change: _vm.selectFile }
-            })
-          ]),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
-              attrs: { type: "submit" }
-            },
-            [_vm._v("\n            Add PO File\n        ")]
           )
         ]
       )
@@ -10666,6 +10752,328 @@ if (inBrowser && window.Vue) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VueRouter);
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/AddProjectOffer.vue?vue&type=style&index=0&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/AddProjectOffer.vue?vue&type=style&index=0&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddProjectOffer.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/AddProjectOffer.vue?vue&type=style&index=0&lang=css&");
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.id, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! !../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("a95bbcb0", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/EditProjectOffer.vue?vue&type=style&index=0&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/EditProjectOffer.vue?vue&type=style&index=0&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EditProjectOffer.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/EditProjectOffer.vue?vue&type=style&index=0&lang=css&");
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.id, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! !../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("4a916618", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/lib/addStylesClient.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/vue-style-loader/lib/addStylesClient.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ addStylesClient)
+/* harmony export */ });
+/* harmony import */ var _listToStyles__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./listToStyles */ "./node_modules/vue-style-loader/lib/listToStyles.js");
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+  Modified by Evan You @yyx990803
+*/
+
+
+
+var hasDocument = typeof document !== 'undefined'
+
+if (typeof DEBUG !== 'undefined' && DEBUG) {
+  if (!hasDocument) {
+    throw new Error(
+    'vue-style-loader cannot be used in a non-browser environment. ' +
+    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
+  ) }
+}
+
+/*
+type StyleObject = {
+  id: number;
+  parts: Array<StyleObjectPart>
+}
+
+type StyleObjectPart = {
+  css: string;
+  media: string;
+  sourceMap: ?string
+}
+*/
+
+var stylesInDom = {/*
+  [id: number]: {
+    id: number,
+    refs: number,
+    parts: Array<(obj?: StyleObjectPart) => void>
+  }
+*/}
+
+var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
+var singletonElement = null
+var singletonCounter = 0
+var isProduction = false
+var noop = function () {}
+var options = null
+var ssrIdKey = 'data-vue-ssr-id'
+
+// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+// tags it will allow on a page
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
+
+function addStylesClient (parentId, list, _isProduction, _options) {
+  isProduction = _isProduction
+
+  options = _options || {}
+
+  var styles = (0,_listToStyles__WEBPACK_IMPORTED_MODULE_0__.default)(parentId, list)
+  addStylesToDom(styles)
+
+  return function update (newList) {
+    var mayRemove = []
+    for (var i = 0; i < styles.length; i++) {
+      var item = styles[i]
+      var domStyle = stylesInDom[item.id]
+      domStyle.refs--
+      mayRemove.push(domStyle)
+    }
+    if (newList) {
+      styles = (0,_listToStyles__WEBPACK_IMPORTED_MODULE_0__.default)(parentId, newList)
+      addStylesToDom(styles)
+    } else {
+      styles = []
+    }
+    for (var i = 0; i < mayRemove.length; i++) {
+      var domStyle = mayRemove[i]
+      if (domStyle.refs === 0) {
+        for (var j = 0; j < domStyle.parts.length; j++) {
+          domStyle.parts[j]()
+        }
+        delete stylesInDom[domStyle.id]
+      }
+    }
+  }
+}
+
+function addStylesToDom (styles /* Array<StyleObject> */) {
+  for (var i = 0; i < styles.length; i++) {
+    var item = styles[i]
+    var domStyle = stylesInDom[item.id]
+    if (domStyle) {
+      domStyle.refs++
+      for (var j = 0; j < domStyle.parts.length; j++) {
+        domStyle.parts[j](item.parts[j])
+      }
+      for (; j < item.parts.length; j++) {
+        domStyle.parts.push(addStyle(item.parts[j]))
+      }
+      if (domStyle.parts.length > item.parts.length) {
+        domStyle.parts.length = item.parts.length
+      }
+    } else {
+      var parts = []
+      for (var j = 0; j < item.parts.length; j++) {
+        parts.push(addStyle(item.parts[j]))
+      }
+      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
+    }
+  }
+}
+
+function createStyleElement () {
+  var styleElement = document.createElement('style')
+  styleElement.type = 'text/css'
+  head.appendChild(styleElement)
+  return styleElement
+}
+
+function addStyle (obj /* StyleObjectPart */) {
+  var update, remove
+  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
+
+  if (styleElement) {
+    if (isProduction) {
+      // has SSR styles and in production mode.
+      // simply do nothing.
+      return noop
+    } else {
+      // has SSR styles but in dev mode.
+      // for some reason Chrome can't handle source map in server-rendered
+      // style tags - source maps in <style> only works if the style tag is
+      // created and inserted dynamically. So we remove the server rendered
+      // styles and inject new ones.
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  if (isOldIE) {
+    // use singleton mode for IE9.
+    var styleIndex = singletonCounter++
+    styleElement = singletonElement || (singletonElement = createStyleElement())
+    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
+    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
+  } else {
+    // use multi-style-tag mode in all other cases
+    styleElement = createStyleElement()
+    update = applyToTag.bind(null, styleElement)
+    remove = function () {
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  update(obj)
+
+  return function updateStyle (newObj /* StyleObjectPart */) {
+    if (newObj) {
+      if (newObj.css === obj.css &&
+          newObj.media === obj.media &&
+          newObj.sourceMap === obj.sourceMap) {
+        return
+      }
+      update(obj = newObj)
+    } else {
+      remove()
+    }
+  }
+}
+
+var replaceText = (function () {
+  var textStore = []
+
+  return function (index, replacement) {
+    textStore[index] = replacement
+    return textStore.filter(Boolean).join('\n')
+  }
+})()
+
+function applyToSingletonTag (styleElement, index, remove, obj) {
+  var css = remove ? '' : obj.css
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = replaceText(index, css)
+  } else {
+    var cssNode = document.createTextNode(css)
+    var childNodes = styleElement.childNodes
+    if (childNodes[index]) styleElement.removeChild(childNodes[index])
+    if (childNodes.length) {
+      styleElement.insertBefore(cssNode, childNodes[index])
+    } else {
+      styleElement.appendChild(cssNode)
+    }
+  }
+}
+
+function applyToTag (styleElement, obj) {
+  var css = obj.css
+  var media = obj.media
+  var sourceMap = obj.sourceMap
+
+  if (media) {
+    styleElement.setAttribute('media', media)
+  }
+  if (options.ssrId) {
+    styleElement.setAttribute(ssrIdKey, obj.id)
+  }
+
+  if (sourceMap) {
+    // https://developer.chrome.com/devtools/docs/javascript-debugging
+    // this makes source maps inside style tags work properly in Chrome
+    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
+    // http://stackoverflow.com/a/26603875
+    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
+  }
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css
+  } else {
+    while (styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild)
+    }
+    styleElement.appendChild(document.createTextNode(css))
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/lib/listToStyles.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/vue-style-loader/lib/listToStyles.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ listToStyles)
+/* harmony export */ });
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
 
 
 /***/ }),
@@ -22689,7 +23097,7 @@ Vue.compile = compileToFunctions;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
+/******/ 			id: moduleId,
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};

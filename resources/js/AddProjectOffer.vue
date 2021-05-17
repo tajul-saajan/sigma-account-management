@@ -1,17 +1,30 @@
 <template>
     <div class="leading-loose flex items-center justify-center col-md-6">
         <form @submit.prevent="addProjectOffer" class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
-            <p class="text-gray-800 font-bold text-center">Add Project Offer</p>
+            <p class="text-gray-800 mb-2 text-center text-2xl">Add Project Offer</p>
 
-            <div class="form-group" >
+            <div class="form-group">
                 <label class="block text-sm text-gray-00">PO Status</label>
-                <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" v-model="projectOffer.po_status">
-                    <option value="PO Pending">PO Pending</option>
-                    <option value="PO Received">PO Received</option>
-                    <option value="eBill Submitted">eBill Submitted</option>
-                    <option value="Hard Copy Submitted"> Hard Copy Submitted</option>
-                    <option value="Money received"> Money received</option>
-                </select>
+                <div class="flex items-center">
+                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" :disabled="addStatusMode===true"
+                            v-model="projectOffer.po_status">
+                        <option v-for="status in statuses" :value="status.project_status"> {{
+                                status.project_status
+                            }}
+                        </option>
+                    </select>
+                    <span class="fas fa-plus-square ml-2 text-2xl" @click="addStatusMode=true"
+                          v-if="addStatusMode===false"></span>
+                </div>
+
+                <!--for adding new statuses-->
+                <div class="flex items-center mt-2" v-if="addStatusMode===true">
+                    <input type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                           v-model="newStatus" placeholder="Enter New Status">
+                    <span class="fas fa-plus-square ml-2 text-2xl" @click="addNewStatus"></span>
+                </div>
+                <!--end-->
+
             </div>
 
             <div class="my-2">
@@ -39,9 +52,15 @@
             </div>
 
             <div class="mt-2">
-                <label>POC</label>
+                <label>POC Name</label>
                 <input type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-                       v-model="projectOffer.poc">
+                       v-model="projectOffer.poc_name">
+            </div>
+
+            <div class="mt-2">
+                <label>POC Contact</label>
+                <input type="tel" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                       v-model="projectOffer.poc_contact">
             </div>
 
             <div class="form-group">
@@ -62,7 +81,8 @@
 
             <div class="form-group">
                 <label class="block text-sm text-gray-00">Sub Contract</label>
-                <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" v-model="projectOffer.sub_contract" @change="updateSubContracted">
+                <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" v-model="projectOffer.sub_contract"
+                        @change="updateSubContracted">
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
@@ -115,8 +135,14 @@ export default {
     data() {
         return {
             projectOffer: {},
+            statuses: {},
+            addStatusMode: false,
+            newStatus: null,
             subcontract: null
         }
+    },
+    created() {
+        this.loadStatuses()
     },
     methods: {
         addProjectOffer() {
@@ -130,10 +156,33 @@ export default {
                 .catch(error => console.log(error))
                 .finally(() => this.loading = false)
         },
-        updateSubContracted(){
+        updateSubContracted() {
             this.subcontract = this.projectOffer.sub_contract;
+        },
+        loadStatuses() {
+            this.axios
+                .get(`http://po-management.test/api/projectOffers/projectStatus`)
+                .then((response) => {
+                    this.statuses = response.data;
+                    // console.log(response.data);
+                });
+        }
+        ,
+        addNewStatus() {
+            this.axios
+                .post(`http://po-management.test/api/projectOffers/projectStatus/${this.newStatus}`)
+                .then((response) => {
+                    this.addStatusMode=false;
+                    this.loadStatuses();
+                    alert("New Status Added");
+                });
         }
 
     }
 }
 </script>
+<style>
+select:disabled {
+    background: rgba(98, 159, 234, 0.82);
+}
+</style>

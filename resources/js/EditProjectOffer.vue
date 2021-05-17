@@ -1,31 +1,29 @@
 <template>
     <div class="leading-loose flex items-center justify-center col-md-6">
         <form @submit.prevent="updateProjectOffer" class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
-            <p class="text-gray-800 font-bold text-center">Add Project Offer</p>
+            <p class="text-gray-800 font-bold text-center">Edit Project Offer</p>
             <div class="form-group">
                 <label class="block text-sm text-gray-00">PO Status</label>
                 <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" v-model="projectOffer.po_status"
                         @change="updatePoStatus">
-                    <option value="PO Pending">PO Pending</option>
-                    <option value="PO Received">PO Received</option>
-                    <option value="eBill Submitted">eBill Submitted</option>
-                    <option value="Hard Copy Submitted"> Hard Copy Submitted</option>
-                    <option value="Money received"> Money received</option>
+                    <option v-for="status in statues" :value="status.project_status"> {{ status.project_status }} </option>
                 </select>
             </div>
 
             <!--  ******  Fields Based On PO Status START    ******    -->
 
             <!--     PO Received     -->
-            <div v-if="poStatus==='PO Received'">
+            <div>
                 <div class="my-2">
                     <label>PO No</label>
-                    <input type="number" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <input type="number" :disabled="poStatus!=='PO Received'"
+                           class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                            v-model="projectOffer.po">
                 </div>
                 <div class="my-2">
                     <label>PO Date</label>
-                    <input type="date" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <input type="date" :disabled="poStatus!=='PO Received'"
+                           class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                            v-model="projectOffer.po_date">
                 </div>
 
@@ -33,31 +31,31 @@
 
 
             <!--     eBill Submitted     -->
-            <div v-if="poStatus==='eBill Submitted'">
+            <div>
                 <div class="my-2">
                     <label>eBill Submission Date</label>
-                    <input type="date" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <input type="date" :disabled="poStatus!=='eBill Submitted'" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                            v-model="projectOffer.ebill_submission_date">
                 </div>
                 <div class="my-2">
                     <label>Mushok NO</label>
-                    <input type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <input type="text" :disabled="poStatus!=='eBill Submitted'" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                            v-model="projectOffer.mushok_no">
                 </div>
 
                 <div class="my-2">
                     <label>Tracking NO</label>
-                    <input type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <input type="text" :disabled="poStatus!=='eBill Submitted'" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                            v-model="projectOffer.tracking_no_robi">
                 </div>
 
             </div>
 
             <!--     Hard Copy Submitted     -->
-            <div v-if="poStatus==='Hard Copy Submitted'">
+            <div>
                 <div class="my-2">
                     <label>Hard Copy Submission Date</label>
-                    <input type="date" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <input type="date" :disabled="poStatus!=='Hard Copy Submitted'" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                            v-model="projectOffer.hard_copy_submission_date">
                 </div>
 
@@ -66,15 +64,15 @@
             </div>
 
             <!--     Money Received     -->
-            <div v-if="poStatus==='Money received'">
+            <div>
                 <div class="my-2">
                     <label>Money Receive Date</label>
-                    <input type="date" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <input type="date" :disabled="poStatus!=='Money received'" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                            v-model="projectOffer.money_received_date">
                 </div>
                 <div class="my-2">
                     <label>Received Amount</label>
-                    <input type="number" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <input type="number" :disabled="poStatus!=='Money received'" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                            v-model="projectOffer.received_amount">
                 </div>
 
@@ -104,10 +102,16 @@
                        v-model="projectOffer.client">
             </div>
             <div class="mt-2">
-                <label>POC</label>
+                <label>POC Name</label>
                 <input type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-                       v-model="projectOffer.poc">
+                       v-model="projectOffer.poc_name">
             </div>
+            <div class="mt-2">
+                <label>POC Contact</label>
+                <input type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                       v-model="projectOffer.poc_contact">
+            </div>
+
             <div class="form-group">
                 <label class="block text-sm text-gray-00">Submit Type</label>
                 <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" v-model="projectOffer.submit_type">
@@ -131,15 +135,15 @@
                 </select>
             </div>
             <!-- will be visible if sub-contract = yes -->
-            <div v-if="subcontracted === 'Yes'">
+            <div>
                 <div class="mt-2">
                     <label>Sub Contracted To</label>
-                    <input type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <input type="text" :disabled="subcontracted!=='Yes'" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                            v-model="projectOffer.sub_contracted_to">
                 </div>
                 <div class="mt-2">
                     <label>Sub Contracted Amount</label>
-                    <input type="number" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <input type="number" :disabled="subcontracted!=='Yes'" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                            v-model="projectOffer.sub_contracted_amount">
                 </div>
 
@@ -175,6 +179,7 @@ export default {
     data() {
         return {
             projectOffer: {},
+            statues: {},
             poStatus: null,
             subcontracted: null,
             poFile: null,
@@ -187,6 +192,13 @@ export default {
                 this.projectOffer = response.data;
                 this.poStatus = this.projectOffer.po_status;
                 this.subcontracted = this.projectOffer.sub_contract;
+                // console.log(response.data);
+            });
+
+        this.axios
+            .get(`http://po-management.test/api/projectOffers/projectStatus`)
+            .then((response) => {
+                this.statues = response.data;
                 // console.log(response.data);
             });
     },
@@ -207,3 +219,8 @@ export default {
     }
 }
 </script>
+<style>
+input:disabled {
+    background: rgba(98, 159, 234, 0.82);
+}
+</style>
