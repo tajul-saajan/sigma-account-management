@@ -1,7 +1,7 @@
-import AllProjectoffers from "./AllProjectoffers";
-import AddProjectOffer from "./AddProjectOffer";
-import EditProjectOffer from "./EditProjectOffer";
-import ShowProjectOffer from "./ShowProjectOffer";
+import AllProjectoffers from "./ProjectOffer/AllProjectoffers";
+import AddProjectOffer from "./ProjectOffer/AddProjectOffer";
+import EditProjectOffer from "./ProjectOffer/EditProjectOffer";
+import ShowProjectOffer from "./ProjectOffer/ShowProjectOffer";
 
 export const routes = [
     {
