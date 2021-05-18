@@ -1,5 +1,5 @@
 <template>
-    <nav class="flex items-center justify-between flex-wrap bg-blue-500 p-6">
+    <nav class="flex items-center justify-between flex-wrap bg-gray-400 p-6">
         <div class="flex items-center flex-shrink-0 text-white mr-6">
             <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54"
                  xmlns="http://www.w3.org/2000/svg">
@@ -23,10 +23,10 @@
                     class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" to="/">
                     Project Offers
                 </router-link>
-                <a href="#"
-                   class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                <router-link
+                   class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :to="{name:'allAccountTypes'}">
                     Account Types
-                </a>
+                </router-link>
                 <a href="#" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
                     TBA
                 </a>

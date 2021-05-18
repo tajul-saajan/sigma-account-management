@@ -7,7 +7,7 @@
 
 <script>
 
-import NavBar from "./ProjectOffer/NavBar";
+import NavBar from "./NavBar";
 
 export default {
     components: {
