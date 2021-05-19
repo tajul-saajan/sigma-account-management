@@ -15,4 +15,9 @@ class AccountType extends Model
 
 
     protected $guarded = ['id' , 'created_at' , 'updated_at'];
+
+    public function accountSubTypes()
+    {
+        return $this->hasMany(AccountSubType::class);
+    }
 }

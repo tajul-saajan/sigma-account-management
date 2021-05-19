@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProjectOfferController;
 use App\Http\Controllers\AccountTypeController;
+use App\Http\Controllers\AccountSubTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,4 +41,12 @@ Route::group(['prefix' => 'accountTypes'], function () {
     Route::get('/edit/{id}', [AccountTypeController::class, 'edit']);
     Route::post('/update/{id}', [AccountTypeController::class, 'update']);
     Route::post('/delete/{id}', [AccountTypeController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'accountSubTypes'], function () {
+    Route::get('/', [AccountSubTypeController::class, 'index']);
+    Route::post('/add', [AccountSubTypeController::class, 'create']);
+    Route::get('/edit/{id}', [AccountSubTypeController::class, 'edit']);
+    Route::post('/update/{id}', [AccountSubTypeController::class, 'update']);
+    Route::post('/delete/{id}', [AccountSubTypeController::class, 'delete']);
 });
