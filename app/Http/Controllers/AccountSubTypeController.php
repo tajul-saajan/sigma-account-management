@@ -18,6 +18,10 @@ class AccountSubTypeController extends Controller
         return response()->json($accountSubTypes);
     }
 
+    public function getAll() {
+        return AccountSubType::all();
+    }
+
     /**
      * Show the form for creating a new resource.
      *

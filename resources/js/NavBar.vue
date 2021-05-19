@@ -34,6 +34,14 @@
                 <router-link  class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :to="{name: 'allSubProjects'}">
                     SubProjects
                 </router-link>
+
+                <router-link  class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :to="{name: 'allCharts'}">
+                    COAs
+                </router-link>
+
+                <router-link  class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :to="{name: 'allJournals'}">
+                    Journals
+                </router-link>
             </div>
             <div>
                 <a href="#"

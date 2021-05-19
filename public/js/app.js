@@ -2447,10 +2447,322 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Journals/AddJournal.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Journals/AddJournal.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/AddChart.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/AddChart.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partials/TopBar */ "./resources/js/ChartOfAccounts/partials/TopBar.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "AddChart",
+  components: {
+    'top-bar': _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  data: function data() {
+    return {
+      chart: {},
+      subAccounts: {},
+      selectedSubAccount: null
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.axios.get("http://po-management.test/api/accountSubTypes/all").then(function (response) {
+      return response.data;
+    }).then(function (data) {
+      _this.subAccounts = data;
+    });
+  },
+  methods: {
+    addChart: function addChart() {
+      var _this2 = this;
+
+      this.axios.post("http://po-management.test/api/coas/add", this.chart).then(function (response) {
+        _this2.$router.push({
+          name: 'allCharts'
+        });
+      });
+    },
+    setSubProjects: function setSubProjects() {
+      this.chart.account_subtype_id = this.selectedSubAccount.id;
+      this.chart.account_subtype_name = this.selectedSubAccount.name;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/AllCharts.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/AllCharts.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partials/TopBar */ "./resources/js/ChartOfAccounts/partials/TopBar.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "AllCharts",
+  components: {
+    "top-bar": _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  data: function data() {
+    return {
+      charts: {}
+    };
+  },
+  created: function created() {
+    this.getResults();
+  },
+  methods: {
+    deleteAccountSubType: function deleteAccountSubType(id) {
+      var _this = this;
+
+      this.axios["delete"]("http://po-management.test/api/coas/delete/".concat(id)).then(function (response) {
+        var i = _this.charts.data.map(function (item) {
+          return item.id;
+        }).indexOf(id); // find index of your object
+
+
+        _this.charts.data.splice(i, 1);
+      });
+    },
+    getResults: function getResults(page) {
+      var _this2 = this;
+
+      if (typeof page === "undefined") {
+        page = 1;
+      }
+
+      this.axios.get("http://po-management.test/api/coas?page=" + page).then(function (response) {
+        return response.data;
+      }).then(function (data) {
+        _this2.charts = data;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/EditChart.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/EditChart.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partials/TopBar */ "./resources/js/ChartOfAccounts/partials/TopBar.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "EditChart",
+  components: {
+    'top-bar': _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  data: function data() {
+    return {
+      chart: {},
+      subAccounts: {},
+      selectedSubAccount: null
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.axios.get("http://po-management.test/api/coas/edit/".concat(this.$route.params.id)).then(function (response) {
+      _this.chart = response.data;
+      _this.selectedSubAccount = _this.chart.account_subtype_name; // console.log(response.data);
+    }); // get sub projects
+
+    this.axios.get("http://po-management.test/api/accountSubTypes/all").then(function (response) {
+      return response.data;
+    }).then(function (data) {
+      _this.subAccounts = data;
+    });
+  },
+  methods: {
+    updateChart: function updateChart() {
+      var _this2 = this;
+
+      this.axios.post("http://po-management.test/api/coas/update/".concat(this.$route.params.id), this.chart).then(function (response) {
+        _this2.$router.push({
+          name: 'allCharts'
+        });
+      });
+    },
+    setSubAccount: function setSubAccount() {
+      this.chart.account_subtype_id = this.selectedSubAccount.id;
+      this.chart.account_subtype_name = this.selectedSubAccount.name;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/partials/TopBar.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/partials/TopBar.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2462,8 +2774,123 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "AddJournal"
+  name: "TopBar"
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Journals/AddJournal.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Journals/AddJournal.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partials/TopBar */ "./resources/js/Journals/partials/TopBar.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "AddJournal",
+  components: {
+    'top-bar': _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  data: function data() {
+    return {
+      journal: {}
+    };
+  },
+  methods: {
+    addJournal: function addJournal() {
+      var _this = this;
+
+      this.axios.post("http://po-management.test/api/journals/add", this.journal).then(function (response) {
+        _this.$router.push({
+          name: 'allJournals'
+        });
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -2753,6 +3180,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
 //
 //
 //
@@ -3904,12 +4335,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partials/TopBar */ "./resources/js/SubProjects/partials/TopBar.vue");
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "EditSubProjects"
+  name: "EditSubProjects",
+  components: {
+    'top-bar': _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  data: function data() {
+    return {
+      subProject: {}
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.axios.get("http://po-management.test/api/subProjects/edit/".concat(this.$route.params.id)).then(function (response) {
+      _this.subProject = response.data; // console.log(response.data);
+    });
+  },
+  methods: {
+    updateSubProject: function updateSubProject() {
+      var _this2 = this;
+
+      this.axios.post("http://po-management.test/api/subProjects/update/".concat(this.$route.params.id), this.subProject).then(function (response) {
+        _this2.$router.push({
+          name: 'allSubProjects'
+        });
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -4007,6 +4501,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Journals_AddJournal__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Journals/AddJournal */ "./resources/js/Journals/AddJournal.vue");
 /* harmony import */ var _Journals_EditJournal__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Journals/EditJournal */ "./resources/js/Journals/EditJournal.vue");
 /* harmony import */ var _ProjectOffer_FileUploader__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./ProjectOffer/FileUploader */ "./resources/js/ProjectOffer/FileUploader.vue");
+/* harmony import */ var _ChartOfAccounts_AllCharts__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./ChartOfAccounts/AllCharts */ "./resources/js/ChartOfAccounts/AllCharts.vue");
+/* harmony import */ var _ChartOfAccounts_AddChart__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./ChartOfAccounts/AddChart */ "./resources/js/ChartOfAccounts/AddChart.vue");
+/* harmony import */ var _ChartOfAccounts_EditChart__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./ChartOfAccounts/EditChart */ "./resources/js/ChartOfAccounts/EditChart.vue");
+
+
+
+
 
 
 
@@ -4093,6 +4594,18 @@ var routes = [{
   name: 'editJournal',
   path: '/editJournal',
   component: _Journals_EditJournal__WEBPACK_IMPORTED_MODULE_15__.default
+}, {
+  name: 'allCharts',
+  path: '/allCharts',
+  component: _ChartOfAccounts_AllCharts__WEBPACK_IMPORTED_MODULE_17__.default
+}, {
+  name: 'addChart',
+  path: '/addChart',
+  component: _ChartOfAccounts_AddChart__WEBPACK_IMPORTED_MODULE_18__.default
+}, {
+  name: 'editChart',
+  path: '/editChart',
+  component: _ChartOfAccounts_EditChart__WEBPACK_IMPORTED_MODULE_19__.default
 }];
 
 /***/ }),
@@ -5384,6 +5897,162 @@ component.options.__file = "resources/js/App.vue"
 
 /***/ }),
 
+/***/ "./resources/js/ChartOfAccounts/AddChart.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/ChartOfAccounts/AddChart.vue ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AddChart_vue_vue_type_template_id_d28c87a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddChart.vue?vue&type=template&id=d28c87a2&scoped=true& */ "./resources/js/ChartOfAccounts/AddChart.vue?vue&type=template&id=d28c87a2&scoped=true&");
+/* harmony import */ var _AddChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddChart.vue?vue&type=script&lang=js& */ "./resources/js/ChartOfAccounts/AddChart.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _AddChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _AddChart_vue_vue_type_template_id_d28c87a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _AddChart_vue_vue_type_template_id_d28c87a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "d28c87a2",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/ChartOfAccounts/AddChart.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/ChartOfAccounts/AllCharts.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/ChartOfAccounts/AllCharts.vue ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AllCharts_vue_vue_type_template_id_28dc2bd4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AllCharts.vue?vue&type=template&id=28dc2bd4&scoped=true& */ "./resources/js/ChartOfAccounts/AllCharts.vue?vue&type=template&id=28dc2bd4&scoped=true&");
+/* harmony import */ var _AllCharts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AllCharts.vue?vue&type=script&lang=js& */ "./resources/js/ChartOfAccounts/AllCharts.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _AllCharts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _AllCharts_vue_vue_type_template_id_28dc2bd4_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _AllCharts_vue_vue_type_template_id_28dc2bd4_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "28dc2bd4",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/ChartOfAccounts/AllCharts.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/ChartOfAccounts/EditChart.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/ChartOfAccounts/EditChart.vue ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _EditChart_vue_vue_type_template_id_e94b611c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditChart.vue?vue&type=template&id=e94b611c&scoped=true& */ "./resources/js/ChartOfAccounts/EditChart.vue?vue&type=template&id=e94b611c&scoped=true&");
+/* harmony import */ var _EditChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditChart.vue?vue&type=script&lang=js& */ "./resources/js/ChartOfAccounts/EditChart.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _EditChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _EditChart_vue_vue_type_template_id_e94b611c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _EditChart_vue_vue_type_template_id_e94b611c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "e94b611c",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/ChartOfAccounts/EditChart.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/ChartOfAccounts/partials/TopBar.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/ChartOfAccounts/partials/TopBar.vue ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _TopBar_vue_vue_type_template_id_8873e84e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TopBar.vue?vue&type=template&id=8873e84e&scoped=true& */ "./resources/js/ChartOfAccounts/partials/TopBar.vue?vue&type=template&id=8873e84e&scoped=true&");
+/* harmony import */ var _TopBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TopBar.vue?vue&type=script&lang=js& */ "./resources/js/ChartOfAccounts/partials/TopBar.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _TopBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _TopBar_vue_vue_type_template_id_8873e84e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _TopBar_vue_vue_type_template_id_8873e84e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "8873e84e",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/ChartOfAccounts/partials/TopBar.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Journals/AddJournal.vue":
 /*!**********************************************!*\
   !*** ./resources/js/Journals/AddJournal.vue ***!
@@ -6117,6 +6786,70 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/ChartOfAccounts/AddChart.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/ChartOfAccounts/AddChart.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/AddChart.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/ChartOfAccounts/AllCharts.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/ChartOfAccounts/AllCharts.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AllCharts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AllCharts.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/AllCharts.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AllCharts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/ChartOfAccounts/EditChart.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/ChartOfAccounts/EditChart.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EditChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/EditChart.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/ChartOfAccounts/partials/TopBar.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/ChartOfAccounts/partials/TopBar.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TopBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TopBar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/partials/TopBar.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TopBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/Journals/AddJournal.vue?vue&type=script&lang=js&":
 /*!***********************************************************************!*\
   !*** ./resources/js/Journals/AddJournal.vue?vue&type=script&lang=js& ***!
@@ -6506,6 +7239,74 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_f348271a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_f348271a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./App.vue?vue&type=template&id=f348271a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=template&id=f348271a&");
+
+
+/***/ }),
+
+/***/ "./resources/js/ChartOfAccounts/AddChart.vue?vue&type=template&id=d28c87a2&scoped=true&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/ChartOfAccounts/AddChart.vue?vue&type=template&id=d28c87a2&scoped=true& ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddChart_vue_vue_type_template_id_d28c87a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddChart_vue_vue_type_template_id_d28c87a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddChart_vue_vue_type_template_id_d28c87a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddChart.vue?vue&type=template&id=d28c87a2&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/AddChart.vue?vue&type=template&id=d28c87a2&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/ChartOfAccounts/AllCharts.vue?vue&type=template&id=28dc2bd4&scoped=true&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/ChartOfAccounts/AllCharts.vue?vue&type=template&id=28dc2bd4&scoped=true& ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AllCharts_vue_vue_type_template_id_28dc2bd4_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AllCharts_vue_vue_type_template_id_28dc2bd4_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AllCharts_vue_vue_type_template_id_28dc2bd4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AllCharts.vue?vue&type=template&id=28dc2bd4&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/AllCharts.vue?vue&type=template&id=28dc2bd4&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/ChartOfAccounts/EditChart.vue?vue&type=template&id=e94b611c&scoped=true&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/ChartOfAccounts/EditChart.vue?vue&type=template&id=e94b611c&scoped=true& ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditChart_vue_vue_type_template_id_e94b611c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditChart_vue_vue_type_template_id_e94b611c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditChart_vue_vue_type_template_id_e94b611c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EditChart.vue?vue&type=template&id=e94b611c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/EditChart.vue?vue&type=template&id=e94b611c&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/ChartOfAccounts/partials/TopBar.vue?vue&type=template&id=8873e84e&scoped=true&":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/ChartOfAccounts/partials/TopBar.vue?vue&type=template&id=8873e84e&scoped=true& ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TopBar_vue_vue_type_template_id_8873e84e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TopBar_vue_vue_type_template_id_8873e84e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TopBar_vue_vue_type_template_id_8873e84e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TopBar.vue?vue&type=template&id=8873e84e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/partials/TopBar.vue?vue&type=template&id=8873e84e&scoped=true&");
 
 
 /***/ }),
@@ -7806,6 +8607,559 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/AddChart.vue?vue&type=template&id=d28c87a2&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/AddChart.vue?vue&type=template&id=d28c87a2&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "flex-col  justify-center items-center" },
+    [
+      _c("top-bar"),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex justify-center mt-4" }, [
+        _c(
+          "form",
+          {
+            staticClass: "max-w-xl m-4 p-10 bg-white rounded shadow-xl",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.addChart($event)
+              }
+            }
+          },
+          [
+            _c("p", { staticClass: "text-gray-800 font-bold text-center" }, [
+              _vm._v("Add COA")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("GL Name")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.chart.gl_name,
+                    expression: "chart.gl_name"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.chart.gl_name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.chart, "gl_name", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Balance")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.chart.balance,
+                    expression: "chart.balance"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.chart.balance },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.chart, "balance", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Sub Account")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selectedSubAccount,
+                      expression: "selectedSubAccount"
+                    }
+                  ],
+                  staticClass:
+                    "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.selectedSubAccount = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                      _vm.setSubProjects
+                    ]
+                  }
+                },
+                _vm._l(_vm.subAccounts, function(subAccount) {
+                  return _c("option", { domProps: { value: subAccount } }, [
+                    _vm._v(" " + _vm._s(subAccount.name) + " ")
+                  ])
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass:
+                  "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("\n                    Add\n                ")]
+            )
+          ]
+        )
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/AllCharts.vue?vue&type=template&id=28dc2bd4&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/AllCharts.vue?vue&type=template&id=28dc2bd4&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "flex-col justify-center items-center" },
+    [
+      _c("top-bar"),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex justify-center mt-4" }, [
+        _c(
+          "table",
+          {
+            staticClass:
+              "border-2 rounded-lg bg-white flex-col items-center justify-center"
+          },
+          [
+            _c(
+              "caption",
+              {
+                staticClass:
+                  "text-white text-2xl bg-gray-600 p-4 font-bold text-center"
+              },
+              [_vm._v("\n                All COAs\n            ")]
+            ),
+            _vm._v(" "),
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              { staticClass: "divide-y divide-gray-200 align-middle" },
+              _vm._l(_vm.charts.data, function(chart, id) {
+                return _c("tr", { key: id }, [
+                  _c("td", { staticClass: "px-6 py-4 text-center" }, [
+                    _vm._v(_vm._s(chart.gl_name))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "px-6 py-4 text-center" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(chart.balance) +
+                        "\n                "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "px-6 py-4 text-center" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(chart.account_subtype_name) +
+                        "\n                "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    {
+                      staticClass: "px-6 py-4 text-center flex justify-between"
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "flex", attrs: { role: "group" } },
+                        [
+                          _c("router-link", {
+                            staticClass:
+                              "text-blue-600 rounded-md m-2 p-2 fas fa-pen hover:bg-blue-600 hover:text-white",
+                            attrs: {
+                              to: {
+                                name: "editChart",
+                                params: { id: chart.id }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass:
+                              "m-2 p-2 rounded-md fas fa-trash-restore text-red-500 hover:bg-red-600 hover:text-white",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteAccountSubType(chart.id)
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ]
+                  )
+                ])
+              }),
+              0
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "pagination",
+        {
+          staticClass:
+            "flex justify-evenly text-2xl m-2 p-4 bg-gray-200 rounded-lg",
+          attrs: { data: _vm.charts },
+          on: { "pagination-change-page": _vm.getResults }
+        },
+        [
+          _c("span", { attrs: { slot: "prev-nav" }, slot: "prev-nav" }, [
+            _c("span", { staticClass: "fas fa-arrow-circle-left" }),
+            _vm._v(" "),
+            _c("span", [_vm._v("Previous")])
+          ]),
+          _vm._v(" "),
+          _c("span", { attrs: { slot: "next-nav" }, slot: "next-nav" }, [
+            _c("span", [_vm._v("Next")]),
+            _vm._v(" "),
+            _c("span", { staticClass: "fas fa-arrow-circle-right" })
+          ])
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "bg-gray-200" }, [
+      _c("tr", { staticClass: "text-gray-600 text-left" }, [
+        _c(
+          "th",
+          {
+            staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
+          },
+          [_vm._v("\n                    GL Name\n                ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
+          },
+          [_vm._v("\n                    Balance\n                ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
+          },
+          [_vm._v("\n                    Sub Account\n                ")]
+        ),
+        _c(
+          "th",
+          {
+            staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
+          },
+          [_vm._v("\n                    Actions\n                ")]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/EditChart.vue?vue&type=template&id=e94b611c&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/EditChart.vue?vue&type=template&id=e94b611c&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "flex-col  justify-center items-center" },
+    [
+      _c("top-bar"),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex justify-center mt-4" }, [
+        _c(
+          "form",
+          {
+            staticClass: "max-w-xl m-4 p-10 bg-white rounded shadow-xl",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.updateChart($event)
+              }
+            }
+          },
+          [
+            _c("p", { staticClass: "text-gray-800 font-bold text-center" }, [
+              _vm._v("Edit COA")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("GL Name")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.chart.gl_name,
+                    expression: "chart.gl_name"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.chart.gl_name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.chart, "gl_name", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Balance")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.chart.balance,
+                    expression: "chart.balance"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.chart.balance },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.chart, "balance", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Sub Account")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selectedSubAccount,
+                      expression: "selectedSubAccount"
+                    }
+                  ],
+                  staticClass:
+                    "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.selectedSubAccount = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                      _vm.setSubAccount
+                    ]
+                  }
+                },
+                [
+                  _vm._v("Select Sub Account\n                        "),
+                  _vm._l(_vm.subAccounts, function(subAccount) {
+                    return _c("option", { domProps: { value: subAccount } }, [
+                      _vm._v(" " + _vm._s(subAccount.name) + " ")
+                    ])
+                  })
+                ],
+                2
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass:
+                  "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("\n                    Update\n                ")]
+            )
+          ]
+        )
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/partials/TopBar.vue?vue&type=template&id=8873e84e&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/ChartOfAccounts/partials/TopBar.vue?vue&type=template&id=8873e84e&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "flex justify-around mt-4" },
+    [
+      _c(
+        "router-link",
+        {
+          staticClass: "p-2 bg-gray-700 text-white rounded-md",
+          attrs: { to: { name: "allCharts" } }
+        },
+        [_vm._v("Home")]
+      ),
+      _vm._v(" "),
+      _c(
+        "router-link",
+        {
+          staticClass: "p-2 bg-gray-700 text-white rounded-md",
+          attrs: { to: { name: "addChart" } }
+        },
+        [_vm._v("Add COA\n        ")]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Journals/AddJournal.vue?vue&type=template&id=48207d9b&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Journals/AddJournal.vue?vue&type=template&id=48207d9b&scoped=true& ***!
@@ -7822,7 +9176,291 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    { staticClass: "flex-col  justify-center items-center" },
+    [
+      _c("top-bar"),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex justify-center mt-4" }, [
+        _c(
+          "form",
+          {
+            staticClass: "max-w-xl m-4 p-10 bg-white rounded shadow-xl",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.addJournal($event)
+              }
+            }
+          },
+          [
+            _c("p", { staticClass: "text-gray-800 font-bold text-center" }, [
+              _vm._v("Edit Journal")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Transaction Date ")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.journal.transaction_date,
+                    expression: "journal.transaction_date"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "date" },
+                domProps: { value: _vm.journal.transaction_date },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.journal,
+                      "transaction_date",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Description")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.journal.description,
+                    expression: "journal.description"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.journal.description },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.journal, "description", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Debit Account")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.journal.debit_account,
+                    expression: "journal.debit_account"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.journal.debit_account },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.journal, "debit_account", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Credit Account")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.journal.credit_account,
+                    expression: "journal.credit_account"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.journal.credit_account },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.journal, "credit_account", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Refrence")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.journal.reference,
+                    expression: "journal.reference"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.journal.reference },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.journal, "reference", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Adjusted Entry")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.journal.adjusted_entry,
+                    expression: "journal.adjusted_entry"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.journal.adjusted_entry },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.journal, "adjusted_entry", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Sub Project")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.journal.sub_project,
+                    expression: "journal.sub_project"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.journal.sub_project },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.journal, "sub_project", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Amount")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.journal.amount,
+                    expression: "journal.amount"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "number" },
+                domProps: { value: _vm.journal.amount },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.journal, "amount", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Invoice No.")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.journal.invoice_no,
+                    expression: "journal.invoice_no"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.journal.invoice_no },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.journal, "invoice_no", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass:
+                  "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("\n                    Update\n                ")]
+            )
+          ]
+        )
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -8602,6 +10240,16 @@ var render = function() {
                   attrs: { to: { name: "allSubProjects" } }
                 },
                 [_vm._v("\n                SubProjects\n            ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass:
+                    "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4",
+                  attrs: { to: { name: "allCharts" } }
+                },
+                [_vm._v("\n                COAs\n            ")]
               ),
               _vm._v(" "),
               _c(
@@ -11168,7 +12816,145 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    { staticClass: "flex-col  justify-center items-center" },
+    [
+      _c("top-bar"),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex justify-center mt-4" }, [
+        _c(
+          "form",
+          {
+            staticClass: "max-w-xl m-4 p-10 bg-white rounded shadow-xl",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.updateSubProject($event)
+              }
+            }
+          },
+          [
+            _c("p", { staticClass: "text-gray-800 font-bold text-center" }, [
+              _vm._v("Edit Sub Project")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Name")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.subProject.name,
+                    expression: "subProject.name"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.subProject.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.subProject, "name", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Description")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.subProject.description,
+                    expression: "subProject.description"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.subProject.description },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.subProject, "description", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Project")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.number",
+                      value: _vm.subProject.main_project,
+                      expression: "subProject.main_project",
+                      modifiers: { number: true }
+                    }
+                  ],
+                  staticClass:
+                    "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return _vm._n(val)
+                        })
+                      _vm.$set(
+                        _vm.subProject,
+                        "main_project",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "1" } }, [
+                    _vm._v("Sigma Solutions")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "2" } }, [_vm._v("Pixmama")])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass:
+                  "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("\n                Update\n            ")]
+            )
+          ]
+        )
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

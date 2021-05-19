@@ -15,6 +15,10 @@ import AllJournals from "./Journals/AllJournals";
 import AddJournal from "./Journals/AddJournal";
 import EditJournal from "./Journals/EditJournal";
 import FileUploader from "./ProjectOffer/FileUploader";
+import AllCharts from "./ChartOfAccounts/AllCharts";
+import AddCharts from "./ChartOfAccounts/AddChart";
+import AddChart from "./ChartOfAccounts/AddChart";
+import EditChart from "./ChartOfAccounts/EditChart";
 
 export const routes = [
     {
@@ -108,6 +112,22 @@ export const routes = [
         name: 'editJournal',
         path: '/editJournal',
         component: EditJournal
+    },
+    {
+        name: 'allCharts',
+        path: '/allCharts',
+        component: AllCharts
+    },
+
+    {
+        name: 'addChart',
+        path: '/addChart',
+        component: AddChart
+    },
+    {
+        name: 'editChart',
+        path: '/editChart',
+        component: EditChart
     },
 
 ];
