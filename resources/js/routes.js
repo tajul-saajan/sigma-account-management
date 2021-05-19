@@ -11,6 +11,10 @@ import EditAccountSubType from "./AccountSubTypes/EditAccountSubType";
 import AllSubProjects from "./SubProjects/AllSubProjects";
 import AddSubProjects from "./SubProjects/AddSubProjects";
 import EditSubProjects from "./SubProjects/EditSubProjects";
+import AllJournals from "./Journals/AllJournals";
+import AddJournal from "./Journals/AddJournal";
+import EditJournal from "./Journals/EditJournal";
+import FileUploader from "./ProjectOffer/FileUploader";
 
 export const routes = [
     {
@@ -32,6 +36,11 @@ export const routes = [
         name: 'show',
         path: '/show',
         component: ShowProjectOffer
+    },
+    {
+        name: 'uploadFile',
+        path: '/uploadFile',
+        component: FileUploader
     },
 
     // account types routes
@@ -69,7 +78,7 @@ export const routes = [
         component: EditAccountSubType
     },
     {
-            name: 'allSubProjects',
+        name: 'allSubProjects',
         path: '/allSubProjects',
         component: AllSubProjects
     },
@@ -83,6 +92,22 @@ export const routes = [
         name: 'editSubProjects',
         path: '/editSubProjects',
         component: EditSubProjects
+    },
+    {
+        name: 'allJournals',
+        path: '/allJournals',
+        component: AllJournals
+    },
+
+    {
+        name: 'addJournal',
+        path: '/addJournal',
+        component: AddJournal
+    },
+    {
+        name: 'editJournal',
+        path: '/editJournal',
+        component: EditJournal
     },
 
 ];

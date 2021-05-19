@@ -72,8 +72,8 @@ export default {
             this.axios
                 .delete(`http://po-management.test/api/accountTypes/delete/${id}`)
                 .then(response => {
-                    let i = this.accountTypes.map(item => item.id).indexOf(id); // find index of your object
-                    this.accountTypes.splice(i, 1)
+                    let i = this.accountTypes.data.map(item => item.id).indexOf(id); // find index of your object
+                    this.accountTypes.data.splice(i, 1)
                 });
         },
         showProjectOffer() {

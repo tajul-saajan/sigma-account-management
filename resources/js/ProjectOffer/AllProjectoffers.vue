@@ -1,9 +1,7 @@
 <template>
     <div class="flex-col  justify-center items-center">
-        <div class="flex justify-around mt-4">
-            <router-link to="/" class="p-2 bg-gray-700 text-white rounded-md">Home</router-link>
-            <router-link to="/add" class="p-2 bg-gray-700 text-white rounded-md">Add Project Offer</router-link>
-        </div>
+
+        <top-bar></top-bar>
 
         <div class="flex justify-center mt-4">
             <table class="border-2 rounded-lg bg-white flex-col items-center justify-center">
@@ -58,7 +56,13 @@
 </template>
 
 <script>
+
+import TopBar from "./partials/TopBar";
+
 export default {
+    components : {
+        'top-bar' : TopBar
+    },
     data() {
         return {
             projectOffers: {}
@@ -72,8 +76,8 @@ export default {
             this.axios
                 .delete(`http://po-management.test/api/projectOffers/delete/${id}`)
                 .then(response => {
-                    let i = this.projectOffers.map(item => item.id).indexOf(id); // find index of your object
-                    this.projectOffers.splice(i, 1)
+                    let i = this.projectOffers.data.map(item => item.id).indexOf(id); // find index of your object
+                    this.projectOffers.data.splice(i, 1)
                 });
         },
         showProjectOffer() {

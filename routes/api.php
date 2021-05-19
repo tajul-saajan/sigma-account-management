@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JournalController;
 use App\Http\Controllers\ProjectOfferController;
 use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\AccountSubTypeController;
@@ -41,7 +42,7 @@ Route::group(['prefix' => 'accountTypes'], function () {
     Route::post('/add', [AccountTypeController::class, 'create']);
     Route::get('/edit/{id}', [AccountTypeController::class, 'edit']);
     Route::post('/update/{id}', [AccountTypeController::class, 'update']);
-    Route::post('/delete/{id}', [AccountTypeController::class, 'delete']);
+    Route::delete('/delete/{id}', [AccountTypeController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'accountSubTypes'], function () {
@@ -49,7 +50,7 @@ Route::group(['prefix' => 'accountSubTypes'], function () {
     Route::post('/add', [AccountSubTypeController::class, 'create']);
     Route::get('/edit/{id}', [AccountSubTypeController::class, 'edit']);
     Route::post('/update/{id}', [AccountSubTypeController::class, 'update']);
-    Route::post('/delete/{id}', [AccountSubTypeController::class, 'delete']);
+    Route::delete('/delete/{id}', [AccountSubTypeController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'subProjects'], function () {
@@ -57,5 +58,13 @@ Route::group(['prefix' => 'subProjects'], function () {
     Route::post('/add', [SubProjectController::class, 'create']);
     Route::get('/edit/{id}', [SubProjectController::class, 'edit']);
     Route::post('/update/{id}', [SubProjectController::class, 'update']);
-    Route::post('/delete/{id}', [SubProjectController::class, 'delete']);
+    Route::delete('/delete/{id}', [SubProjectController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'journals'], function () {
+    Route::get('/', [JournalController::class, 'index']);
+    Route::post('/add', [JournalController::class, 'create']);
+    Route::get('/edit/{id}', [JournalController::class, 'edit']);
+    Route::post('/update/{id}', [JournalController::class, 'update']);
+    Route::delete('/delete/{id}', [JournalController::class, 'delete']);
 });

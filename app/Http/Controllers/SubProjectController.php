@@ -14,8 +14,8 @@ class SubProjectController extends Controller
      */
     public function index()
     {
-        $accounts = SubProject::paginate(10);
-        return response()->json($accounts);
+        $subProjects = SubProject::paginate(10);
+        return response()->json($subProjects);
     }
 
     /**
