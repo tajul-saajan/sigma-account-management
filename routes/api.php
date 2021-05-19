@@ -52,7 +52,7 @@ Route::group(['prefix' => 'accountSubTypes'], function () {
     Route::post('/delete/{id}', [AccountSubTypeController::class, 'delete']);
 });
 
-    Route::group(['prefix' => 'subProjects'], function () {
+Route::group(['prefix' => 'subProjects'], function () {
     Route::get('/', [SubProjectController::class, 'index']);
     Route::post('/add', [SubProjectController::class, 'create']);
     Route::get('/edit/{id}', [SubProjectController::class, 'edit']);

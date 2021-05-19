@@ -27,9 +27,13 @@
                    class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :to="{name:'allAccountTypes'}">
                     Account Types
                 </router-link>
-                <a href="#" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
-                    TBA
-                </a>
+                <router-link  class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :to="{name: 'allAccountSubTypes'}">
+                    Account SubTypes
+                </router-link>
+
+                <router-link  class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :to="{name: 'allSubProjects'}">
+                    SubProjects
+                </router-link>
             </div>
             <div>
                 <a href="#"
