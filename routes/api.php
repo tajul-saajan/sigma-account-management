@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProjectOfferController;
 use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\AccountSubTypeController;
+use App\Http\Controllers\SubProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,4 +50,12 @@ Route::group(['prefix' => 'accountSubTypes'], function () {
     Route::get('/edit/{id}', [AccountSubTypeController::class, 'edit']);
     Route::post('/update/{id}', [AccountSubTypeController::class, 'update']);
     Route::post('/delete/{id}', [AccountSubTypeController::class, 'delete']);
+});
+
+    Route::group(['prefix' => 'subProjects'], function () {
+    Route::get('/', [SubProjectController::class, 'index']);
+    Route::post('/add', [SubProjectController::class, 'create']);
+    Route::get('/edit/{id}', [SubProjectController::class, 'edit']);
+    Route::post('/update/{id}', [SubProjectController::class, 'update']);
+    Route::post('/delete/{id}', [SubProjectController::class, 'delete']);
 });
