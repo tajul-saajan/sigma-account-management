@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\JournalController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectOfferController;
 use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\AccountSubTypeController;
@@ -32,7 +33,7 @@ Route::group(['prefix' => 'projectOffers'], function () {
     Route::post('update/{id}', [ProjectOfferController::class, 'update']);
     Route::delete('delete/{id}', [ProjectOfferController::class, 'delete']);
 
-    Route::post('handleFiles', [ProjectOfferController::class, 'handleFiles']);
+    Route::post('handleFiles/{id}', [ProjectOfferController::class, 'handleFiles']);
 
     Route::get('projectStatus', [ProjectOfferController::class, 'getProjectStatus']);
     Route::post('projectStatus/{status}', [ProjectOfferController::class, 'setProjectStatus']);
@@ -53,6 +54,8 @@ Route::group(['prefix' => 'accountSubTypes'], function () {
     Route::get('/edit/{id}', [AccountSubTypeController::class, 'edit']);
     Route::post('/update/{id}', [AccountSubTypeController::class, 'update']);
     Route::delete('/delete/{id}', [AccountSubTypeController::class, 'delete']);
+
+    Route::get('/edit/{id}/getAccountType', [AccountSubTypeController::class, 'getAccountType']);
 });
 
 Route::group(['prefix' => 'subProjects'], function () {
@@ -78,4 +81,12 @@ Route::group(['prefix' => 'coas'], function () {
     Route::get('/edit/{id}', [ChartOfAccountController::class, 'edit']);
     Route::post('/update/{id}', [ChartOfAccountController::class, 'update']);
     Route::delete('/delete/{id}', [ChartOfAccountController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'projects'], function () {
+    Route::get('/', [ProjectController::class, 'index']);
+    Route::post('/add', [ProjectController::class, 'create']);
+    Route::get('/edit/{id}', [ProjectController::class, 'edit']);
+    Route::post('/update/{id}', [ProjectController::class, 'update']);
+    Route::delete('/delete/{id}', [ProjectController::class, 'delete']);
 });

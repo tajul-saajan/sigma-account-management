@@ -19,8 +19,12 @@ import AllCharts from "./ChartOfAccounts/AllCharts";
 import AddCharts from "./ChartOfAccounts/AddChart";
 import AddChart from "./ChartOfAccounts/AddChart";
 import EditChart from "./ChartOfAccounts/EditChart";
+import AllProjects from "./Projects/AllProjects";
+import AddProject from "./Projects/AddProject";
+import EditProject from "./Projects/EditProject";
 
 export const routes = [
+    // Projectoffers
     {
         name: 'home',
         path: '/',
@@ -65,6 +69,7 @@ export const routes = [
         path: '/editAccountTypes',
         component: EditAccountType
     },
+    // AccountSubTypes
     {
         name: 'allAccountSubTypes',
         path: '/allAccountSubTypes',
@@ -81,6 +86,7 @@ export const routes = [
         path: '/editAccountSubTypes',
         component: EditAccountSubType
     },
+    //SubProjects
     {
         name: 'allSubProjects',
         path: '/allSubProjects',
@@ -97,6 +103,7 @@ export const routes = [
         path: '/editSubProjects',
         component: EditSubProjects
     },
+    // Journals
     {
         name: 'allJournals',
         path: '/allJournals',
@@ -113,6 +120,7 @@ export const routes = [
         path: '/editJournal',
         component: EditJournal
     },
+    //charts
     {
         name: 'allCharts',
         path: '/allCharts',
@@ -128,6 +136,23 @@ export const routes = [
         name: 'editChart',
         path: '/editChart',
         component: EditChart
+    },
+    //projects
+    {
+        name: 'allProjects',
+        path: '/allProjects',
+        component: AllProjects
+    },
+
+    {
+        name: 'addProject',
+        path: '/addProject',
+        component: AddProject
+    },
+    {
+        name: 'editProject',
+        path: '/editProject',
+        component: EditProject
     },
 
 ];
