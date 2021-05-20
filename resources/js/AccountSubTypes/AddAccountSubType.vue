@@ -19,6 +19,15 @@
                            v-model="accountSubType.description">
                 </div>
 
+                <div class="mt-2">
+                    <label>Account Type</label>
+                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" @change="setAccountTypeName(accountSubType.account_type_id)"
+                            v-model="accountSubType.account_type_id">
+                        <option v-for="accountType in accountTypes" :value="accountType.id"> {{ accountType.type }}
+                        </option>
+                    </select>
+                </div>
+
                 <button type="submit" class="mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded">
                     Add
                 </button>
@@ -39,7 +48,21 @@ export default {
     data() {
         return {
             accountSubType: {},
+            accountTypes: null,
         }
+    },
+
+    created() {
+        //get account types
+        this.axios
+            .get("http://po-management.test/api/accountTypes")
+            .then((response) => {
+                return response.data.data;
+            })
+            .then((data) => {
+                this.accountTypes = data;
+                console.log(data)
+            });
     },
 
     methods: {
@@ -49,6 +72,10 @@ export default {
                 .then((response) => {
                     this.$router.push({name: 'allAccountSubTypes'});
                 });
+        },
+        setAccountTypeName(id) {
+            let el = this.accountTypes.map((item)=>item.id).indexOf(id);
+            this.accountSubType.account_type_name = this.accountTypes[el].type;
         }
     }
 }

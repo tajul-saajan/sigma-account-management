@@ -22,6 +22,11 @@ class AccountSubTypeController extends Controller
         return AccountSubType::all();
     }
 
+    public function getAccountType($id){
+        $accountSubType = AccountSubType::find($id);
+        return $accountSubType?$accountSubType->accountType:response()->json(null,404);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

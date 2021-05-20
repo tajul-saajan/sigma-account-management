@@ -14,11 +14,15 @@ class CreateAccountSubTypesTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('account_sub_types');
         Schema::create('account_sub_types', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string(AccountSubType::FIELD_NAME);
             $table->text(AccountSubType::FIELD_DESCRIPTION);
+            $table->unsignedBigInteger(AccountSubType::FIELD_ACCOUNT_TYPE_ID);
+            $table->string(AccountSubType::FIELD_ACCOUNT_TYPE_NAME);
+
         });
     }
 
