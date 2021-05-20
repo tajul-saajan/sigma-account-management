@@ -11,7 +11,8 @@ class SubProject extends Model
 
     CONST FIELD_NAME = "name";
     CONST FIELD_DESCRIPTION = "description";
-    CONST FIELD_PROJECT = "main_project";
+    CONST FIELD_PROJECT_ID = "main_project_id";
+    CONST FIELD_PROJECT_NAME = "main_project_name";
 
     protected $guarded=[];
 }

@@ -11,11 +11,19 @@ class Journal extends Model
 
     CONST FIELD_TRANSACTION_DATE = "transaction_date";
     CONST FIELD_DESCRIPTION = "description";
-    CONST FIELD_DEBIT_ACCOUNT = "debit_account";
-    CONST FIELD_CREDIT_ACCOUNT = "credit_account";
+
+    CONST FIELD_DEBIT_ACCOUNT_ID = "debit_account_id";
+    CONST FIELD_DEBIT_ACCOUNT_NAME = "debit_account_name";
+
+    CONST FIELD_CREDIT_ACCOUNT_ID = "credit_account_id";
+    CONST FIELD_CREDIT_ACCOUNT_NAME = "credit_account_name";
+
     CONST FIELD_REFERENCE = "reference";
     CONST FIELD_ADJUSTED_ENTRY = "adjusted_entry";
-    CONST FIELD_SUB_PROJECT = "sub_project";
+
+    CONST FIELD_SUB_PROJECT_ID = "sub_project_id";
+    CONST FIELD_SUB_PROJECT_NAME = "sub_project_name";
+
     CONST FIELD_AMOUNT = "amount";
     CONST FIELD_INVOICE_NO = "invoice_no";
     CONST FIELD_ATTACHMENT_1 = "attachment_1";

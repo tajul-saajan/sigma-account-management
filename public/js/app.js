@@ -1875,6 +1875,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AddAccountSubType",
@@ -1883,18 +1892,36 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      accountSubType: {}
+      accountSubType: {},
+      accountTypes: null
     };
+  },
+  created: function created() {
+    var _this = this;
+
+    //get account types
+    this.axios.get("http://po-management.test/api/accountTypes").then(function (response) {
+      return response.data.data;
+    }).then(function (data) {
+      _this.accountTypes = data;
+      console.log(data);
+    });
   },
   methods: {
     addAccountSubType: function addAccountSubType() {
-      var _this = this;
+      var _this2 = this;
 
       this.axios.post("http://po-management.test/api/accountSubTypes/add", this.accountSubType).then(function (response) {
-        _this.$router.push({
+        _this2.$router.push({
           name: 'allAccountSubTypes'
         });
       });
+    },
+    setAccountTypeName: function setAccountTypeName(id) {
+      var el = this.accountTypes.map(function (item) {
+        return item.id;
+      }).indexOf(id);
+      this.accountSubType.account_type_name = this.accountTypes[el].type;
     }
   }
 });
@@ -2071,6 +2098,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "EditAccountSubType",
@@ -2079,14 +2115,22 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      accountSubType: {}
+      accountSubType: {},
+      accountTypes: null
     };
   },
   created: function created() {
     var _this = this;
 
     this.axios.get("http://po-management.test/api/accountSubTypes/edit/".concat(this.$route.params.id)).then(function (response) {
-      _this.accountSubType = response.data; // console.log(response.data);
+      _this.accountSubType = response.data;
+      console.log(_this.$route.params.type);
+    }); //account types
+
+    this.axios.get("http://po-management.test/api/accountTypes").then(function (response) {
+      return response.data.data;
+    }).then(function (data) {
+      _this.accountTypes = data;
     });
   },
   methods: {
@@ -2098,6 +2142,12 @@ __webpack_require__.r(__webpack_exports__);
           name: 'allAccountSubTypes'
         });
       });
+    },
+    setAccountTypeName: function setAccountTypeName(id) {
+      var el = this.accountTypes.map(function (item) {
+        return item.id;
+      }).indexOf(id);
+      this.accountSubType.account_type_name = this.accountTypes[el].type;
     }
   }
 });
@@ -2505,8 +2555,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       chart: {},
-      subAccounts: {},
-      selectedSubAccount: null
+      subAccounts: {}
     };
   },
   created: function created() {
@@ -2528,9 +2577,11 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    setSubProjects: function setSubProjects() {
-      this.chart.account_subtype_id = this.selectedSubAccount.id;
-      this.chart.account_subtype_name = this.selectedSubAccount.name;
+    setSubProjectName: function setSubProjectName(id) {
+      var el = this.subAccounts.map(function (item) {
+        return item.id;
+      }).indexOf(id);
+      this.chart.account_subtype_name = this.subAccounts[el].name;
     }
   }
 });
@@ -2869,6 +2920,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AddJournal",
@@ -2877,18 +2934,50 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      journal: {}
+      journal: {},
+      chartOfAccounts: null,
+      subProjects: null
     };
+  },
+  created: function created() {
+    var _this = this;
+
+    //get chart of accounts
+    this.axios.get("http://po-management.test/api/coas/").then(function (response) {
+      _this.chartOfAccounts = response.data.data; // console.log(this.chartOfAccounts)
+    }); //get sub projects
+
+    this.axios.get("http://po-management.test/api/subProjects/").then(function (response) {
+      _this.subProjects = response.data.data; // console.log(this.chartOfAccounts)
+    });
   },
   methods: {
     addJournal: function addJournal() {
-      var _this = this;
+      var _this2 = this;
 
       this.axios.post("http://po-management.test/api/journals/add", this.journal).then(function (response) {
-        _this.$router.push({
+        _this2.$router.push({
           name: 'allJournals'
         });
       });
+    },
+    setDebitAccountName: function setDebitAccountName(id) {
+      var el = this.chartOfAccounts.map(function (item) {
+        return item.id;
+      }).indexOf(id);
+      this.journal.debit_account_name = this.chartOfAccounts[el].gl_name;
+    },
+    setCreditAccountName: function setCreditAccountName(id) {
+      var el = this.chartOfAccounts.map(function (item) {
+        return item.id;
+      }).indexOf(id);
+      this.journal.credit_account_name = this.chartOfAccounts[el].gl_name;
+    },
+    setSubProjectName: function setSubProjectName(id) {
+      var el = this.subProjects.map(function (item) {
+        return item.id;
+      }).indexOf(id);
+      this.journal.sub_project_name = this.subProjects[el].name;
     }
   }
 });
@@ -3111,6 +3200,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "EditJournal",
@@ -3119,7 +3213,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      journal: {}
+      journal: {},
+      chartOfAccounts: null,
+      subProjects: null
     };
   },
   created: function created() {
@@ -3127,6 +3223,14 @@ __webpack_require__.r(__webpack_exports__);
 
     this.axios.get("http://po-management.test/api/journals/edit/".concat(this.$route.params.id)).then(function (response) {
       _this.journal = response.data; // console.log(response.data);
+    }); //get chart of accounts
+
+    this.axios.get("http://po-management.test/api/coas/").then(function (response) {
+      _this.chartOfAccounts = response.data.data; // console.log(this.chartOfAccounts)
+    }); //get sub projects
+
+    this.axios.get("http://po-management.test/api/subProjects/").then(function (response) {
+      _this.subProjects = response.data.data; // console.log(this.chartOfAccounts)
     });
   },
   methods: {
@@ -3138,6 +3242,25 @@ __webpack_require__.r(__webpack_exports__);
           name: 'allJournals'
         });
       });
+    },
+    setDebitAccountName: function setDebitAccountName(id) {
+      var el = this.chartOfAccounts.map(function (item) {
+        return item.id;
+      }).indexOf(id);
+      this.journal.debit_account_name = this.chartOfAccounts[el].gl_name;
+    },
+    setCreditAccountName: function setCreditAccountName(id) {
+      var el = this.chartOfAccounts.map(function (item) {
+        return item.id;
+      }).indexOf(id);
+      this.journal.credit_account_name = this.chartOfAccounts[el].gl_name;
+    },
+    setSubProjectName: function setSubProjectName(id) {
+      var el = this.subProjects.map(function (item) {
+        return item.id;
+      }).indexOf(id);
+      this.journal.sub_project_name = this.subProjects[el].name;
+      console.log(this.journal);
     }
   }
 });
@@ -3180,6 +3303,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
 //
 //
 //
@@ -3936,6 +4063,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partials/TopBar */ "./resources/js/ProjectOffer/partials/TopBar.vue");
 //
 //
 //
@@ -4061,8 +4189,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ShowProjectOffer",
+  components: {
+    'top-bar': _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__.default
+  },
   data: function data() {
     return {
       projectOffer: {},
@@ -4133,6 +4270,294 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/AddProject.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/AddProject.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partials/TopBar */ "./resources/js/Projects/partials/TopBar.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "AddProject",
+  components: {
+    'top-bar': _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  data: function data() {
+    return {
+      project: {}
+    };
+  },
+  methods: {
+    addProject: function addProject() {
+      var _this = this;
+
+      this.axios.post("http://po-management.test/api/projects/add", this.project).then(function (response) {
+        _this.$router.push({
+          name: 'allProjects'
+        });
+
+        console.log(response);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/AllProjects.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/AllProjects.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partials/TopBar */ "./resources/js/Projects/partials/TopBar.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "AllProjects",
+  components: {
+    "top-bar": _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  data: function data() {
+    return {
+      projects: {}
+    };
+  },
+  created: function created() {
+    this.getResults();
+  },
+  methods: {
+    deleteProject: function deleteProject(id) {
+      var _this = this;
+
+      this.axios["delete"]("http://po-management.test/api/projects/delete/".concat(id)).then(function (response) {
+        var i = _this.projects.data.map(function (item) {
+          return item.id;
+        }).indexOf(id); // find index of your object
+
+
+        _this.projects.data.splice(i, 1);
+      });
+    },
+    getResults: function getResults(page) {
+      var _this2 = this;
+
+      if (typeof page === "undefined") {
+        page = 1;
+      }
+
+      this.axios.get("http://po-management.test/api/projects?page=" + page).then(function (response) {
+        return response.data;
+      }).then(function (data) {
+        _this2.projects = data;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/EditProject.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/EditProject.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partials/TopBar */ "./resources/js/Projects/partials/TopBar.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "EditProject",
+  components: {
+    'top-bar': _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  data: function data() {
+    return {
+      project: {}
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.axios.get("http://po-management.test/api/projects/edit/".concat(this.$route.params.id)).then(function (response) {
+      _this.project = response.data; // console.log(response.data);
+    });
+  },
+  methods: {
+    updateProject: function updateProject() {
+      var _this2 = this;
+
+      this.axios.post("http://po-management.test/api/projects/update/".concat(this.$route.params.id), this.project).then(function (response) {
+        _this2.$router.push({
+          name: 'allProjects'
+        });
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/partials/TopBar.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/partials/TopBar.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "TopBar"
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/SubProjects/AddSubProjects.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/SubProjects/AddSubProjects.vue?vue&type=script&lang=js& ***!
@@ -4182,7 +4607,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AddSubProjects",
@@ -4191,18 +4615,36 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      subProject: {}
+      subProject: {},
+      projects: null
     };
   },
+  created: function created() {
+    var _this = this;
+
+    //get projects
+    this.axios.get("http://po-management.test/api/projects").then(function (response) {
+      return response.data.data;
+    }).then(function (data) {
+      _this.projects = data;
+      console.log(data);
+    });
+  },
   methods: {
-    addSubProject: function addSubProject() {
-      var _this = this;
+    updateProject: function updateProject() {
+      var _this2 = this;
 
       this.axios.post("http://po-management.test/api/subProjects/add", this.subProject).then(function (response) {
-        _this.$router.push({
+        _this2.$router.push({
           name: 'allSubProjects'
         });
       });
+    },
+    setProjectName: function setProjectName(id) {
+      var el = this.projects.map(function (item) {
+        return item.id;
+      }).indexOf(id);
+      this.subProject.main_project_name = this.projects[el].name;
     }
   }
 });
@@ -4314,9 +4756,6 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (data) {
         _this2.subProjects = data;
       });
-    },
-    getProject: function getProject(projectCode) {
-      return projectCode === 1 ? "Sigma Solutions" : "Pixmama";
     }
   },
   computed: {}
@@ -4374,7 +4813,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "EditSubProjects",
@@ -4383,7 +4821,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      subProject: {}
+      subProject: {},
+      projects: null
     };
   },
   created: function created() {
@@ -4391,6 +4830,13 @@ __webpack_require__.r(__webpack_exports__);
 
     this.axios.get("http://po-management.test/api/subProjects/edit/".concat(this.$route.params.id)).then(function (response) {
       _this.subProject = response.data; // console.log(response.data);
+    }); //get projects
+
+    this.axios.get("http://po-management.test/api/projects").then(function (response) {
+      return response.data.data;
+    }).then(function (data) {
+      _this.projects = data;
+      console.log(data);
     });
   },
   methods: {
@@ -4402,6 +4848,12 @@ __webpack_require__.r(__webpack_exports__);
           name: 'allSubProjects'
         });
       });
+    },
+    setProjectName: function setProjectName(id) {
+      var el = this.projects.map(function (item) {
+        return item.id;
+      }).indexOf(id);
+      this.subProject.main_project_name = this.projects[el].name;
     }
   }
 });
@@ -4504,6 +4956,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ChartOfAccounts_AllCharts__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./ChartOfAccounts/AllCharts */ "./resources/js/ChartOfAccounts/AllCharts.vue");
 /* harmony import */ var _ChartOfAccounts_AddChart__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./ChartOfAccounts/AddChart */ "./resources/js/ChartOfAccounts/AddChart.vue");
 /* harmony import */ var _ChartOfAccounts_EditChart__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./ChartOfAccounts/EditChart */ "./resources/js/ChartOfAccounts/EditChart.vue");
+/* harmony import */ var _Projects_AllProjects__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./Projects/AllProjects */ "./resources/js/Projects/AllProjects.vue");
+/* harmony import */ var _Projects_AddProject__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./Projects/AddProject */ "./resources/js/Projects/AddProject.vue");
+/* harmony import */ var _Projects_EditProject__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./Projects/EditProject */ "./resources/js/Projects/EditProject.vue");
 
 
 
@@ -4525,7 +4980,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var routes = [{
+
+
+
+var routes = [// Projectoffers
+{
   name: 'home',
   path: '/',
   component: _ProjectOffer_AllProjectoffers__WEBPACK_IMPORTED_MODULE_0__.default
@@ -4558,7 +5017,8 @@ var routes = [{
   name: 'editAccountTypes',
   path: '/editAccountTypes',
   component: _AccountTypes_EditAccountType__WEBPACK_IMPORTED_MODULE_5__.default
-}, {
+}, // AccountSubTypes
+{
   name: 'allAccountSubTypes',
   path: '/allAccountSubTypes',
   component: _AccountSubTypes_AllAccountSubTypes__WEBPACK_IMPORTED_MODULE_7__.default
@@ -4570,7 +5030,8 @@ var routes = [{
   name: 'editAccountSubTypes',
   path: '/editAccountSubTypes',
   component: _AccountSubTypes_EditAccountSubType__WEBPACK_IMPORTED_MODULE_9__.default
-}, {
+}, //SubProjects
+{
   name: 'allSubProjects',
   path: '/allSubProjects',
   component: _SubProjects_AllSubProjects__WEBPACK_IMPORTED_MODULE_10__.default
@@ -4582,7 +5043,8 @@ var routes = [{
   name: 'editSubProjects',
   path: '/editSubProjects',
   component: _SubProjects_EditSubProjects__WEBPACK_IMPORTED_MODULE_12__.default
-}, {
+}, // Journals
+{
   name: 'allJournals',
   path: '/allJournals',
   component: _Journals_AllJournals__WEBPACK_IMPORTED_MODULE_13__.default
@@ -4594,7 +5056,8 @@ var routes = [{
   name: 'editJournal',
   path: '/editJournal',
   component: _Journals_EditJournal__WEBPACK_IMPORTED_MODULE_15__.default
-}, {
+}, //charts
+{
   name: 'allCharts',
   path: '/allCharts',
   component: _ChartOfAccounts_AllCharts__WEBPACK_IMPORTED_MODULE_17__.default
@@ -4606,6 +5069,19 @@ var routes = [{
   name: 'editChart',
   path: '/editChart',
   component: _ChartOfAccounts_EditChart__WEBPACK_IMPORTED_MODULE_19__.default
+}, //projects
+{
+  name: 'allProjects',
+  path: '/allProjects',
+  component: _Projects_AllProjects__WEBPACK_IMPORTED_MODULE_20__.default
+}, {
+  name: 'addProject',
+  path: '/addProject',
+  component: _Projects_AddProject__WEBPACK_IMPORTED_MODULE_21__.default
+}, {
+  name: 'editProject',
+  path: '/editProject',
+  component: _Projects_EditProject__WEBPACK_IMPORTED_MODULE_22__.default
 }];
 
 /***/ }),
@@ -6486,6 +6962,162 @@ component.options.__file = "resources/js/ProjectOffer/partials/TopBar.vue"
 
 /***/ }),
 
+/***/ "./resources/js/Projects/AddProject.vue":
+/*!**********************************************!*\
+  !*** ./resources/js/Projects/AddProject.vue ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AddProject_vue_vue_type_template_id_a5fa1f42_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddProject.vue?vue&type=template&id=a5fa1f42&scoped=true& */ "./resources/js/Projects/AddProject.vue?vue&type=template&id=a5fa1f42&scoped=true&");
+/* harmony import */ var _AddProject_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddProject.vue?vue&type=script&lang=js& */ "./resources/js/Projects/AddProject.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _AddProject_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _AddProject_vue_vue_type_template_id_a5fa1f42_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _AddProject_vue_vue_type_template_id_a5fa1f42_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "a5fa1f42",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Projects/AddProject.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Projects/AllProjects.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/Projects/AllProjects.vue ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AllProjects_vue_vue_type_template_id_7a0d3da4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AllProjects.vue?vue&type=template&id=7a0d3da4&scoped=true& */ "./resources/js/Projects/AllProjects.vue?vue&type=template&id=7a0d3da4&scoped=true&");
+/* harmony import */ var _AllProjects_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AllProjects.vue?vue&type=script&lang=js& */ "./resources/js/Projects/AllProjects.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _AllProjects_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _AllProjects_vue_vue_type_template_id_7a0d3da4_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _AllProjects_vue_vue_type_template_id_7a0d3da4_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "7a0d3da4",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Projects/AllProjects.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Projects/EditProject.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/Projects/EditProject.vue ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _EditProject_vue_vue_type_template_id_6c0f9418_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditProject.vue?vue&type=template&id=6c0f9418&scoped=true& */ "./resources/js/Projects/EditProject.vue?vue&type=template&id=6c0f9418&scoped=true&");
+/* harmony import */ var _EditProject_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditProject.vue?vue&type=script&lang=js& */ "./resources/js/Projects/EditProject.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _EditProject_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _EditProject_vue_vue_type_template_id_6c0f9418_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _EditProject_vue_vue_type_template_id_6c0f9418_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "6c0f9418",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Projects/EditProject.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Projects/partials/TopBar.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/Projects/partials/TopBar.vue ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _TopBar_vue_vue_type_template_id_dc51d778_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TopBar.vue?vue&type=template&id=dc51d778&scoped=true& */ "./resources/js/Projects/partials/TopBar.vue?vue&type=template&id=dc51d778&scoped=true&");
+/* harmony import */ var _TopBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TopBar.vue?vue&type=script&lang=js& */ "./resources/js/Projects/partials/TopBar.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _TopBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _TopBar_vue_vue_type_template_id_dc51d778_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _TopBar_vue_vue_type_template_id_dc51d778_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "dc51d778",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Projects/partials/TopBar.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/SubProjects/AddSubProjects.vue":
 /*!*****************************************************!*\
   !*** ./resources/js/SubProjects/AddSubProjects.vue ***!
@@ -7026,6 +7658,70 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Projects/AddProject.vue?vue&type=script&lang=js&":
+/*!***********************************************************************!*\
+  !*** ./resources/js/Projects/AddProject.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddProject_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddProject.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/AddProject.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddProject_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/Projects/AllProjects.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./resources/js/Projects/AllProjects.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AllProjects_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AllProjects.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/AllProjects.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AllProjects_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/Projects/EditProject.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./resources/js/Projects/EditProject.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditProject_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EditProject.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/EditProject.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditProject_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/Projects/partials/TopBar.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/Projects/partials/TopBar.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TopBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TopBar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/partials/TopBar.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TopBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/SubProjects/AddSubProjects.vue?vue&type=script&lang=js&":
 /*!******************************************************************************!*\
   !*** ./resources/js/SubProjects/AddSubProjects.vue?vue&type=script&lang=js& ***!
@@ -7498,6 +8194,74 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Projects/AddProject.vue?vue&type=template&id=a5fa1f42&scoped=true&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/Projects/AddProject.vue?vue&type=template&id=a5fa1f42&scoped=true& ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddProject_vue_vue_type_template_id_a5fa1f42_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddProject_vue_vue_type_template_id_a5fa1f42_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddProject_vue_vue_type_template_id_a5fa1f42_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddProject.vue?vue&type=template&id=a5fa1f42&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/AddProject.vue?vue&type=template&id=a5fa1f42&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Projects/AllProjects.vue?vue&type=template&id=7a0d3da4&scoped=true&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/Projects/AllProjects.vue?vue&type=template&id=7a0d3da4&scoped=true& ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AllProjects_vue_vue_type_template_id_7a0d3da4_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AllProjects_vue_vue_type_template_id_7a0d3da4_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AllProjects_vue_vue_type_template_id_7a0d3da4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AllProjects.vue?vue&type=template&id=7a0d3da4&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/AllProjects.vue?vue&type=template&id=7a0d3da4&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Projects/EditProject.vue?vue&type=template&id=6c0f9418&scoped=true&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/Projects/EditProject.vue?vue&type=template&id=6c0f9418&scoped=true& ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditProject_vue_vue_type_template_id_6c0f9418_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditProject_vue_vue_type_template_id_6c0f9418_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditProject_vue_vue_type_template_id_6c0f9418_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EditProject.vue?vue&type=template&id=6c0f9418&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/EditProject.vue?vue&type=template&id=6c0f9418&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Projects/partials/TopBar.vue?vue&type=template&id=dc51d778&scoped=true&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/Projects/partials/TopBar.vue?vue&type=template&id=dc51d778&scoped=true& ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TopBar_vue_vue_type_template_id_dc51d778_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TopBar_vue_vue_type_template_id_dc51d778_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TopBar_vue_vue_type_template_id_dc51d778_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TopBar.vue?vue&type=template&id=dc51d778&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/partials/TopBar.vue?vue&type=template&id=dc51d778&scoped=true&");
+
+
+/***/ }),
+
 /***/ "./resources/js/SubProjects/AddSubProjects.vue?vue&type=template&id=f4cbbce8&scoped=true&":
 /*!************************************************************************************************!*\
   !*** ./resources/js/SubProjects/AddSubProjects.vue?vue&type=template&id=f4cbbce8&scoped=true& ***!
@@ -7697,6 +8461,60 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Account Type")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.accountSubType.account_type_id,
+                      expression: "accountSubType.account_type_id"
+                    }
+                  ],
+                  staticClass:
+                    "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.accountSubType,
+                          "account_type_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function($event) {
+                        return _vm.setAccountTypeName(
+                          _vm.accountSubType.account_type_id
+                        )
+                      }
+                    ]
+                  }
+                },
+                _vm._l(_vm.accountTypes, function(accountType) {
+                  return _c("option", { domProps: { value: accountType.id } }, [
+                    _vm._v(
+                      " " + _vm._s(accountType.type) + "\n                    "
+                    )
+                  ])
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
             _c(
               "button",
               {
@@ -7756,7 +8574,7 @@ var render = function() {
                 staticClass:
                   "text-white text-2xl bg-gray-600 p-4 font-bold text-center"
               },
-              [_vm._v("\n        All Account Sub Types\n      ")]
+              [_vm._v("\n                All Account Sub Types\n            ")]
             ),
             _vm._v(" "),
             _vm._m(0),
@@ -7772,9 +8590,17 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", { staticClass: "px-6 py-4 text-center" }, [
                     _vm._v(
-                      "\n            " +
+                      "\n                    " +
                         _vm._s(accountSubType.description) +
-                        "\n          "
+                        "\n                "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "px-6 py-4 text-center" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(accountSubType.account_type_name) +
+                        "\n                "
                     )
                   ]),
                   _vm._v(" "),
@@ -7861,7 +8687,7 @@ var staticRenderFns = [
           {
             staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
           },
-          [_vm._v("\n            Name\n          ")]
+          [_vm._v("\n                    Name\n                ")]
         ),
         _vm._v(" "),
         _c(
@@ -7869,7 +8695,7 @@ var staticRenderFns = [
           {
             staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
           },
-          [_vm._v("\n            Description\n          ")]
+          [_vm._v("\n                    Description\n                ")]
         ),
         _vm._v(" "),
         _c(
@@ -7877,7 +8703,15 @@ var staticRenderFns = [
           {
             staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
           },
-          [_vm._v("\n            Actions\n          ")]
+          [_vm._v("\n                    Account Type\n                ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
+          },
+          [_vm._v("\n                    Actions\n                ")]
         )
       ])
     ])
@@ -7984,6 +8818,60 @@ var render = function() {
                   }
                 }
               })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Account Type")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.accountSubType.account_type_id,
+                      expression: "accountSubType.account_type_id"
+                    }
+                  ],
+                  staticClass:
+                    "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.accountSubType,
+                          "account_type_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function($event) {
+                        return _vm.setAccountTypeName(
+                          _vm.accountSubType.account_type_id
+                        )
+                      }
+                    ]
+                  }
+                },
+                _vm._l(_vm.accountTypes, function(accountType) {
+                  return _c("option", { domProps: { value: accountType.id } }, [
+                    _vm._v(
+                      " " + _vm._s(accountType.type) + "\n                    "
+                    )
+                  ])
+                }),
+                0
+              )
             ]),
             _vm._v(" "),
             _c(
@@ -8710,8 +9598,8 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.selectedSubAccount,
-                      expression: "selectedSubAccount"
+                      value: _vm.chart.account_subtype_id,
+                      expression: "chart.account_subtype_id"
                     }
                   ],
                   staticClass:
@@ -8727,16 +9615,24 @@ var render = function() {
                             var val = "_value" in o ? o._value : o.value
                             return val
                           })
-                        _vm.selectedSubAccount = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
+                        _vm.$set(
+                          _vm.chart,
+                          "account_subtype_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
                       },
-                      _vm.setSubProjects
+                      function($event) {
+                        return _vm.setSubProjectName(
+                          _vm.chart.account_subtype_id
+                        )
+                      }
                     ]
                   }
                 },
                 _vm._l(_vm.subAccounts, function(subAccount) {
-                  return _c("option", { domProps: { value: subAccount } }, [
+                  return _c("option", { domProps: { value: subAccount.id } }, [
                     _vm._v(" " + _vm._s(subAccount.name) + " ")
                   ])
                 }),
@@ -9196,7 +10092,7 @@ var render = function() {
           },
           [
             _c("p", { staticClass: "text-gray-800 font-bold text-center" }, [
-              _vm._v("Edit Journal")
+              _vm._v("Add Journal")
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "mt-2" }, [
@@ -9213,7 +10109,7 @@ var render = function() {
                 ],
                 staticClass:
                   "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                attrs: { type: "date" },
+                attrs: { type: "datetime-local" },
                 domProps: { value: _vm.journal.transaction_date },
                 on: {
                   input: function($event) {
@@ -9260,59 +10156,109 @@ var render = function() {
             _c("div", { staticClass: "mt-2" }, [
               _c("label", [_vm._v("Debit Account")]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.journal.debit_account,
-                    expression: "journal.debit_account"
-                  }
-                ],
-                staticClass:
-                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                attrs: { type: "text" },
-                domProps: { value: _vm.journal.debit_account },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.journal.debit_account_id,
+                      expression: "journal.debit_account_id"
                     }
-                    _vm.$set(_vm.journal, "debit_account", $event.target.value)
+                  ],
+                  staticClass:
+                    "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.journal,
+                          "debit_account_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function($event) {
+                        return _vm.setDebitAccountName(
+                          _vm.journal.debit_account_id
+                        )
+                      }
+                    ]
                   }
-                }
-              })
+                },
+                _vm._l(_vm.chartOfAccounts, function(coa) {
+                  return _c("option", { domProps: { value: coa.id } }, [
+                    _vm._v(" " + _vm._s(coa.gl_name) + "  ")
+                  ])
+                }),
+                0
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "mt-2" }, [
               _c("label", [_vm._v("Credit Account")]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.journal.credit_account,
-                    expression: "journal.credit_account"
-                  }
-                ],
-                staticClass:
-                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                attrs: { type: "text" },
-                domProps: { value: _vm.journal.credit_account },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.journal.credit_account_id,
+                      expression: "journal.credit_account_id"
                     }
-                    _vm.$set(_vm.journal, "credit_account", $event.target.value)
+                  ],
+                  staticClass:
+                    "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.journal,
+                          "credit_account_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function($event) {
+                        return _vm.setCreditAccountName(
+                          _vm.journal.credit_account_id
+                        )
+                      }
+                    ]
                   }
-                }
-              })
+                },
+                _vm._l(_vm.chartOfAccounts, function(coa) {
+                  return _c("option", { domProps: { value: coa.id } }, [
+                    _vm._v(" " + _vm._s(coa.gl_name) + " ")
+                  ])
+                }),
+                0
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "mt-2" }, [
-              _c("label", [_vm._v("Refrence")]),
+              _c("label", [_vm._v("Reference")]),
               _vm._v(" "),
               _c("input", {
                 directives: [
@@ -9368,28 +10314,51 @@ var render = function() {
             _c("div", { staticClass: "mt-2" }, [
               _c("label", [_vm._v("Sub Project")]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.journal.sub_project,
-                    expression: "journal.sub_project"
-                  }
-                ],
-                staticClass:
-                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                attrs: { type: "text" },
-                domProps: { value: _vm.journal.sub_project },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.journal.sub_project_id,
+                      expression: "journal.sub_project_id"
                     }
-                    _vm.$set(_vm.journal, "sub_project", $event.target.value)
+                  ],
+                  staticClass:
+                    "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.journal,
+                          "sub_project_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function($event) {
+                        return _vm.setSubProjectName(_vm.journal.sub_project_id)
+                      }
+                    ]
                   }
-                }
-              })
+                },
+                _vm._l(_vm.subProjects, function(subProject) {
+                  return _c("option", { domProps: { value: subProject.id } }, [
+                    _vm._v(" " + _vm._s(subProject.name) + " ")
+                  ])
+                }),
+                0
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "mt-2" }, [
@@ -9453,7 +10422,7 @@ var render = function() {
                   "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
                 attrs: { type: "submit" }
               },
-              [_vm._v("\n                    Update\n                ")]
+              [_vm._v("\n                    Add\n                ")]
             )
           ]
         )
@@ -9524,11 +10493,11 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "px-6 py-4 text-center" }, [
-                    _vm._v(_vm._s(journal.debit_account))
+                    _vm._v(_vm._s(journal.debit_account_name))
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "px-6 py-4 text-center" }, [
-                    _vm._v(_vm._s(journal.credit_account))
+                    _vm._v(_vm._s(journal.credit_account_name))
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "px-6 py-4 text-center" }, [
@@ -9548,7 +10517,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "px-6 py-4 text-center" }, [
-                    _vm._v(_vm._s(journal.sub_project))
+                    _vm._v(_vm._s(journal.sub_project_name))
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "px-6 py-4 text-center" }, [
@@ -9805,7 +10774,7 @@ var render = function() {
                 ],
                 staticClass:
                   "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                attrs: { type: "date" },
+                attrs: { type: "datetime-local" },
                 domProps: { value: _vm.journal.transaction_date },
                 on: {
                   input: function($event) {
@@ -9852,59 +10821,109 @@ var render = function() {
             _c("div", { staticClass: "mt-2" }, [
               _c("label", [_vm._v("Debit Account")]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.journal.debit_account,
-                    expression: "journal.debit_account"
-                  }
-                ],
-                staticClass:
-                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                attrs: { type: "text" },
-                domProps: { value: _vm.journal.debit_account },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.journal.debit_account_id,
+                      expression: "journal.debit_account_id"
                     }
-                    _vm.$set(_vm.journal, "debit_account", $event.target.value)
+                  ],
+                  staticClass:
+                    "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.journal,
+                          "debit_account_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function($event) {
+                        return _vm.setDebitAccountName(
+                          _vm.journal.debit_account_id
+                        )
+                      }
+                    ]
                   }
-                }
-              })
+                },
+                _vm._l(_vm.chartOfAccounts, function(coa) {
+                  return _c("option", { domProps: { value: coa.id } }, [
+                    _vm._v(" " + _vm._s(coa.gl_name) + "  ")
+                  ])
+                }),
+                0
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "mt-2" }, [
               _c("label", [_vm._v("Credit Account")]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.journal.credit_account,
-                    expression: "journal.credit_account"
-                  }
-                ],
-                staticClass:
-                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                attrs: { type: "text" },
-                domProps: { value: _vm.journal.credit_account },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.journal.credit_account_id,
+                      expression: "journal.credit_account_id"
                     }
-                    _vm.$set(_vm.journal, "credit_account", $event.target.value)
+                  ],
+                  staticClass:
+                    "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.journal,
+                          "credit_account_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function($event) {
+                        return _vm.setCreditAccountName(
+                          _vm.journal.credit_account_id
+                        )
+                      }
+                    ]
                   }
-                }
-              })
+                },
+                _vm._l(_vm.chartOfAccounts, function(coa) {
+                  return _c("option", { domProps: { value: coa.id } }, [
+                    _vm._v(" " + _vm._s(coa.gl_name) + " ")
+                  ])
+                }),
+                0
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "mt-2" }, [
-              _c("label", [_vm._v("Refrence")]),
+              _c("label", [_vm._v("Reference")]),
               _vm._v(" "),
               _c("input", {
                 directives: [
@@ -9960,28 +10979,51 @@ var render = function() {
             _c("div", { staticClass: "mt-2" }, [
               _c("label", [_vm._v("Sub Project")]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.journal.sub_project,
-                    expression: "journal.sub_project"
-                  }
-                ],
-                staticClass:
-                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
-                attrs: { type: "text" },
-                domProps: { value: _vm.journal.sub_project },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.journal.sub_project_id,
+                      expression: "journal.sub_project_id"
                     }
-                    _vm.$set(_vm.journal, "sub_project", $event.target.value)
+                  ],
+                  staticClass:
+                    "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.journal,
+                          "sub_project_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function($event) {
+                        return _vm.setSubProjectName(_vm.journal.sub_project_id)
+                      }
+                    ]
                   }
-                }
-              })
+                },
+                _vm._l(_vm.subProjects, function(subProject) {
+                  return _c("option", { domProps: { value: subProject.id } }, [
+                    _vm._v(" " + _vm._s(subProject.name) + " ")
+                  ])
+                }),
+                0
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "mt-2" }, [
@@ -10230,6 +11272,16 @@ var render = function() {
                   attrs: { to: { name: "allAccountSubTypes" } }
                 },
                 [_vm._v("\n                Account SubTypes\n            ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass:
+                    "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4",
+                  attrs: { to: { name: "allProjects" } }
+                },
+                [_vm._v("\n                Projects\n            ")]
               ),
               _vm._v(" "),
               _c(
@@ -12170,242 +13222,268 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "grid grid-cols-2 gap-4" }, [
-    _c(
-      "div",
-      { staticClass: "p-4 bg-gray-200 border-black rounded-md shadow-lg" },
-      [
-        _c("div", { staticClass: "flex justify-between mb-2" }, [
-          _c("span", [_vm._v(" Client ")]),
-          _vm._v(" "),
-          _c("span", [_vm._v(" " + _vm._s(_vm.projectOffer.client) + " ")])
+  return _c(
+    "div",
+    { staticClass: "flex-col  justify-center items-center" },
+    [
+      _c("top-bar"),
+      _vm._v(" "),
+      _c("div", { staticClass: "grid grid-cols-2 gap-4" }, [
+        _c(
+          "div",
+          { staticClass: "p-4 bg-gray-200 border-black rounded-md shadow-lg" },
+          [
+            _c("div", { staticClass: "flex justify-between mb-2" }, [
+              _c("span", [_vm._v(" Client ")]),
+              _vm._v(" "),
+              _c("span", [_vm._v(" " + _vm._s(_vm.projectOffer.client) + " ")])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex justify-between my-2" }, [
+              _c("span", [_vm._v(" PO Status ")]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(" " + _vm._s(_vm.projectOffer.po_status) + " ")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex justify-between mt-2" }, [
+              _c("span", [_vm._v(" Submit Type ")]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(" " + _vm._s(_vm.projectOffer.submit_type) + " ")
+              ])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "p-4 bg-gray-200 border-black rounded-md shadow-lg flex-row justify-between"
+          },
+          [
+            _c("div", { staticClass: "flex justify-between mb-2" }, [
+              _c("span", [_vm._v(" PO ")]),
+              _vm._v(" "),
+              _c("span", [_vm._v(" " + _vm._s(_vm.projectOffer.po) + " ")])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex justify-between my-2" }, [
+              _c("span", [_vm._v(" POC ")]),
+              _vm._v(" "),
+              _c("span", [_vm._v(" " + _vm._s(_vm.projectOffer.poc) + " ")])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex justify-between my-2" }, [
+              _c("span", [_vm._v(" PO Date ")]),
+              _vm._v(" "),
+              _c("span", [_vm._v(" " + _vm._s(_vm.projectOffer.po_date) + " ")])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex justify-between mt-2" }, [
+              _c("span", [_vm._v(" Offer Date ")]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(" " + _vm._s(_vm.projectOffer.offer_date) + " ")
+              ])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "p-4 bg-gray-200 border-black rounded-md shadow-lg flex-row justify-between"
+          },
+          [
+            _c("div", { staticClass: "flex justify-between mb-2" }, [
+              _c("span", [_vm._v(" Sub Contracted To ")]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(" " + _vm._s(_vm.projectOffer.sub_contracted_to) + " ")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex justify-between my-2" }, [
+              _c("span", [_vm._v(" Sub Contract Amount ")]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(
+                  " " + _vm._s(_vm.projectOffer.sub_contracted_amount) + " "
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex justify-between mt-2" }, [
+              _c("span", [_vm._v(" Sub Contract Balance ")]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(
+                  " " + _vm._s(_vm.projectOffer.sub_contracted_balance) + " "
+                )
+              ])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "p-4 bg-gray-200 border-black rounded-md shadow-lg flex-row justify-between"
+          },
+          [
+            _c("div", { staticClass: "flex justify-between mb-2" }, [
+              _c("span", [_vm._v(" PO Amount + VAT ")]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(" " + _vm._s(_vm.projectOffer.po_amount_with_vat) + " ")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex justify-between my-2" }, [
+              _c("span", [_vm._v(" Received Amount ")]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(" " + _vm._s(_vm.projectOffer.received_amount) + " ")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex justify-between my-2 " }, [
+              _c("span", [_vm._v(" VAT ")]),
+              _vm._v(" "),
+              _c("span", [_vm._v(" " + _vm._s(_vm.projectOffer.vat) + " ")])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex justify-between my-2" }, [
+              _c("span", [_vm._v(" AIT ")]),
+              _vm._v(" "),
+              _c("span", [_vm._v(" " + _vm._s(_vm.projectOffer.ait) + " ")])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex justify-between mt-2" }, [
+              _c("span", [_vm._v(" Mushok No ")]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(" " + _vm._s(_vm.projectOffer.mushok_no) + " ")
+              ])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "p-4 bg-gray-200 border-black rounded-md shadow-lg col-span-2 flex-row justify-between"
+          },
+          [
+            _c("div", { staticClass: "flex justify-between mb-2" }, [
+              _c("span", [_vm._v(" eBill Submission Date ")]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(
+                  " " + _vm._s(_vm.projectOffer.ebill_submission_date) + " "
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex justify-between my-2" }, [
+              _c("span", [_vm._v(" Hard Copy Submission Date ")]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(
+                  " " + _vm._s(_vm.projectOffer.hard_copy_submission_date) + " "
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex justify-between mt-2" }, [
+              _c("span", [_vm._v(" Money Receive Date ")]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(" " + _vm._s(_vm.projectOffer.money_received_date) + " ")
+              ])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "p-4 col-span-2 flex-row justify-between" }, [
+          _vm.filePath !== null
+            ? _c("div", { staticClass: "flex justify-center text-white" }, [
+                _c(
+                  "span",
+                  {
+                    staticClass:
+                      "fas fa-download px-4 py-2 bg-gray-500 hover:bg-green-500 ml-2 rounded-md",
+                    on: {
+                      click: function($event) {
+                        return _vm.downloadBook(_vm.projectOffer.id)
+                      }
+                    }
+                  },
+                  [_vm._v(" Download")]
+                )
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between my-2" }, [
-          _c("span", [_vm._v(" PO Status ")]),
-          _vm._v(" "),
-          _c("span", [_vm._v(" " + _vm._s(_vm.projectOffer.po_status) + " ")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between mt-2" }, [
-          _c("span", [_vm._v(" Submit Type ")]),
-          _vm._v(" "),
-          _c("span", [_vm._v(" " + _vm._s(_vm.projectOffer.submit_type) + " ")])
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass:
-          "p-4 bg-gray-200 border-black rounded-md shadow-lg flex-row justify-between"
-      },
-      [
-        _c("div", { staticClass: "flex justify-between mb-2" }, [
-          _c("span", [_vm._v(" PO ")]),
-          _vm._v(" "),
-          _c("span", [_vm._v(" " + _vm._s(_vm.projectOffer.po) + " ")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between my-2" }, [
-          _c("span", [_vm._v(" POC ")]),
-          _vm._v(" "),
-          _c("span", [_vm._v(" " + _vm._s(_vm.projectOffer.poc) + " ")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between my-2" }, [
-          _c("span", [_vm._v(" PO Date ")]),
-          _vm._v(" "),
-          _c("span", [_vm._v(" " + _vm._s(_vm.projectOffer.po_date) + " ")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between mt-2" }, [
-          _c("span", [_vm._v(" Offer Date ")]),
-          _vm._v(" "),
-          _c("span", [_vm._v(" " + _vm._s(_vm.projectOffer.offer_date) + " ")])
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass:
-          "p-4 bg-gray-200 border-black rounded-md shadow-lg flex-row justify-between"
-      },
-      [
-        _c("div", { staticClass: "flex justify-between mb-2" }, [
-          _c("span", [_vm._v(" Sub Contracted To ")]),
-          _vm._v(" "),
-          _c("span", [
-            _vm._v(" " + _vm._s(_vm.projectOffer.sub_contracted_to) + " ")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between my-2" }, [
-          _c("span", [_vm._v(" Sub Contract Amount ")]),
-          _vm._v(" "),
-          _c("span", [
-            _vm._v(" " + _vm._s(_vm.projectOffer.sub_contracted_amount) + " ")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between mt-2" }, [
-          _c("span", [_vm._v(" Sub Contract Balance ")]),
-          _vm._v(" "),
-          _c("span", [
-            _vm._v(" " + _vm._s(_vm.projectOffer.sub_contracted_balance) + " ")
-          ])
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass:
-          "p-4 bg-gray-200 border-black rounded-md shadow-lg flex-row justify-between"
-      },
-      [
-        _c("div", { staticClass: "flex justify-between mb-2" }, [
-          _c("span", [_vm._v(" PO Amount + VAT ")]),
-          _vm._v(" "),
-          _c("span", [
-            _vm._v(" " + _vm._s(_vm.projectOffer.po_amount_with_vat) + " ")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between my-2" }, [
-          _c("span", [_vm._v(" Received Amount ")]),
-          _vm._v(" "),
-          _c("span", [
-            _vm._v(" " + _vm._s(_vm.projectOffer.received_amount) + " ")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between my-2 " }, [
-          _c("span", [_vm._v(" VAT ")]),
-          _vm._v(" "),
-          _c("span", [_vm._v(" " + _vm._s(_vm.projectOffer.vat) + " ")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between my-2" }, [
-          _c("span", [_vm._v(" AIT ")]),
-          _vm._v(" "),
-          _c("span", [_vm._v(" " + _vm._s(_vm.projectOffer.ait) + " ")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between mt-2" }, [
-          _c("span", [_vm._v(" Mushok No ")]),
-          _vm._v(" "),
-          _c("span", [_vm._v(" " + _vm._s(_vm.projectOffer.mushok_no) + " ")])
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass:
-          "p-4 bg-gray-200 border-black rounded-md shadow-lg col-span-2 flex-row justify-between"
-      },
-      [
-        _c("div", { staticClass: "flex justify-between mb-2" }, [
-          _c("span", [_vm._v(" eBill Submission Date ")]),
-          _vm._v(" "),
-          _c("span", [
-            _vm._v(" " + _vm._s(_vm.projectOffer.ebill_submission_date) + " ")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between my-2" }, [
-          _c("span", [_vm._v(" Hard Copy Submission Date ")]),
-          _vm._v(" "),
-          _c("span", [
-            _vm._v(
-              " " + _vm._s(_vm.projectOffer.hard_copy_submission_date) + " "
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between mt-2" }, [
-          _c("span", [_vm._v(" Money Receive Date ")]),
-          _vm._v(" "),
-          _c("span", [
-            _vm._v(" " + _vm._s(_vm.projectOffer.money_received_date) + " ")
-          ])
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "p-4 col-span-2 flex-row justify-between" }, [
-      _vm.filePath !== null
-        ? _c("div", { staticClass: "flex justify-center text-white" }, [
-            _c(
-              "span",
-              {
-                staticClass:
-                  "fas fa-download px-4 py-2 bg-gray-500 hover:bg-green-500 ml-2 rounded-md",
-                on: {
-                  click: function($event) {
-                    return _vm.downloadBook(_vm.projectOffer.id)
+        _c("div", { staticClass: "p-4 col-span-2 flex-row justify-between" }, [
+          _c(
+            "div",
+            { staticClass: "flex justify-center text-white" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass:
+                    "fas fa-upload px-4 py-2  bg-gray-500 hover:bg-blue-500  mr-2 rounded-md",
+                  attrs: {
+                    to: {
+                      name: "uploadFile",
+                      params: { id: _vm.projectOffer.id }
+                    }
                   }
-                }
-              },
-              [_vm._v(" Download")]
-            )
-          ])
-        : _vm._e()
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "p-4 col-span-2 flex-row justify-between" }, [
-      _c(
-        "div",
-        { staticClass: "flex justify-center text-white" },
-        [
-          _c(
-            "router-link",
-            {
-              staticClass:
-                "fas fa-upload px-4 py-2  bg-gray-500 hover:bg-blue-500  mr-2 rounded-md",
-              attrs: {
-                to: { name: "uploadFile", params: { id: _vm.projectOffer.id } }
-              }
-            },
-            [_vm._v(" Upload\n            ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "router-link",
-            {
-              staticClass:
-                "fas fa-pen px-4 py-2  bg-gray-500 hover:bg-blue-500  mr-2 rounded-md",
-              attrs: {
-                to: { name: "edit", params: { id: _vm.projectOffer.id } }
-              }
-            },
-            [_vm._v(" Edit\n            ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass:
-                "fas fa-trash px-4 py-2 bg-gray-500 hover:bg-red-500 ml-2 rounded-md",
-              on: {
-                click: function($event) {
-                  return _vm.deleteBook(_vm.projectOffer.id)
-                }
-              }
-            },
-            [_vm._v(" Delete")]
+                },
+                [_vm._v(" Upload\n                ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass:
+                    "fas fa-pen px-4 py-2  bg-gray-500 hover:bg-blue-500  mr-2 rounded-md",
+                  attrs: {
+                    to: { name: "edit", params: { id: _vm.projectOffer.id } }
+                  }
+                },
+                [_vm._v(" Edit\n                ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "fas fa-trash px-4 py-2 bg-gray-500 hover:bg-red-500 ml-2 rounded-md",
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteBook(_vm.projectOffer.id)
+                    }
+                  }
+                },
+                [_vm._v(" Delete")]
+              )
+            ],
+            1
           )
-        ],
-        1
-      )
-    ])
-  ])
+        ])
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12462,6 +13540,453 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/AddProject.vue?vue&type=template&id=a5fa1f42&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/AddProject.vue?vue&type=template&id=a5fa1f42&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "flex-col  justify-center items-center" },
+    [
+      _c("top-bar"),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex justify-center mt-4" }, [
+        _c(
+          "form",
+          {
+            staticClass: "max-w-xl m-4 p-10 bg-white rounded shadow-xl",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.addProject($event)
+              }
+            }
+          },
+          [
+            _c("p", { staticClass: "text-gray-800 font-bold text-center" }, [
+              _vm._v("Add Project")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Project Name")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.project.name,
+                    expression: "project.name"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.project.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.project, "name", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Description")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.project.description,
+                    expression: "project.description"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.project.description },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.project, "description", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass:
+                  "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("\n                    Add\n                ")]
+            )
+          ]
+        )
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/AllProjects.vue?vue&type=template&id=7a0d3da4&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/AllProjects.vue?vue&type=template&id=7a0d3da4&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "flex-col justify-center items-center" },
+    [
+      _c("top-bar"),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex justify-center mt-4" }, [
+        _c(
+          "table",
+          {
+            staticClass:
+              "border-2 rounded-lg bg-white flex-col items-center justify-center"
+          },
+          [
+            _c(
+              "caption",
+              {
+                staticClass:
+                  "text-white text-2xl bg-gray-600 p-4 font-bold text-center"
+              },
+              [_vm._v("\n                All Projects\n            ")]
+            ),
+            _vm._v(" "),
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              { staticClass: "divide-y divide-gray-200 align-middle" },
+              _vm._l(_vm.projects.data, function(project, id) {
+                return _c("tr", { key: id }, [
+                  _c("td", { staticClass: "px-6 py-4 text-center" }, [
+                    _vm._v(_vm._s(project.name))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "px-6 py-4 text-center" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(project.description) +
+                        "\n                "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    {
+                      staticClass: "px-6 py-4 text-center flex justify-between"
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "flex", attrs: { role: "group" } },
+                        [
+                          _c("router-link", {
+                            staticClass:
+                              "text-blue-600 rounded-md m-2 p-2 fas fa-pen hover:bg-blue-600 hover:text-white",
+                            attrs: {
+                              to: {
+                                name: "editProject",
+                                params: { id: project.id }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass:
+                              "m-2 p-2 rounded-md fas fa-trash-restore text-red-500 hover:bg-red-600 hover:text-white",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteProject(project.id)
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ]
+                  )
+                ])
+              }),
+              0
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "pagination",
+        {
+          staticClass:
+            "flex justify-evenly text-2xl m-2 p-4 bg-gray-200 rounded-lg",
+          attrs: { data: _vm.projects },
+          on: { "pagination-change-page": _vm.getResults }
+        },
+        [
+          _c("span", { attrs: { slot: "prev-nav" }, slot: "prev-nav" }, [
+            _c("span", { staticClass: "fas fa-arrow-circle-left" }),
+            _vm._v(" "),
+            _c("span", [_vm._v("Previous")])
+          ]),
+          _vm._v(" "),
+          _c("span", { attrs: { slot: "next-nav" }, slot: "next-nav" }, [
+            _c("span", [_vm._v("Next")]),
+            _vm._v(" "),
+            _c("span", { staticClass: "fas fa-arrow-circle-right" })
+          ])
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "bg-gray-200" }, [
+      _c("tr", { staticClass: "text-gray-600 text-left" }, [
+        _c(
+          "th",
+          {
+            staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
+          },
+          [_vm._v("\n                    Name\n                ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
+          },
+          [_vm._v("\n                    Description\n                ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
+          },
+          [_vm._v("\n                    Actions\n                ")]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/EditProject.vue?vue&type=template&id=6c0f9418&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/EditProject.vue?vue&type=template&id=6c0f9418&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "flex-col  justify-center items-center" },
+    [
+      _c("top-bar"),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex justify-center mt-4" }, [
+        _c(
+          "form",
+          {
+            staticClass: "max-w-xl m-4 p-10 bg-white rounded shadow-xl",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.updateProject($event)
+              }
+            }
+          },
+          [
+            _c("p", { staticClass: "text-gray-800 font-bold text-center" }, [
+              _vm._v("Edit Project")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Project Name")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.project.name,
+                    expression: "project.name"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.project.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.project, "name", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c("label", [_vm._v("Description")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.project.description,
+                    expression: "project.description"
+                  }
+                ],
+                staticClass:
+                  "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                attrs: { type: "text" },
+                domProps: { value: _vm.project.description },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.project, "description", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass:
+                  "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("\n                Update\n            ")]
+            )
+          ]
+        )
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/partials/TopBar.vue?vue&type=template&id=dc51d778&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Projects/partials/TopBar.vue?vue&type=template&id=dc51d778&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "flex justify-around mt-4" },
+    [
+      _c(
+        "router-link",
+        {
+          staticClass: "p-2 bg-gray-700 text-white rounded-md",
+          attrs: { to: { name: "allProjects" } }
+        },
+        [_vm._v("Home")]
+      ),
+      _vm._v(" "),
+      _c(
+        "router-link",
+        {
+          staticClass: "p-2 bg-gray-700 text-white rounded-md",
+          attrs: { to: { name: "addProject" } }
+        },
+        [_vm._v("Add Project\n    ")]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/SubProjects/AddSubProjects.vue?vue&type=template&id=f4cbbce8&scoped=true&":
 /*!***************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/SubProjects/AddSubProjects.vue?vue&type=template&id=f4cbbce8&scoped=true& ***!
@@ -12492,7 +14017,7 @@ var render = function() {
             on: {
               submit: function($event) {
                 $event.preventDefault()
-                return _vm.addSubProject($event)
+                return _vm.updateProject($event)
               }
             }
           },
@@ -12565,40 +14090,46 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model.number",
-                      value: _vm.subProject.main_project,
-                      expression: "subProject.main_project",
+                      value: _vm.subProject.main_project_id,
+                      expression: "subProject.main_project_id",
                       modifiers: { number: true }
                     }
                   ],
                   staticClass:
                     "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
                   on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return _vm._n(val)
-                        })
-                      _vm.$set(
-                        _vm.subProject,
-                        "main_project",
-                        $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      )
-                    }
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return _vm._n(val)
+                          })
+                        _vm.$set(
+                          _vm.subProject,
+                          "main_project_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function($event) {
+                        return _vm.setProjectName(
+                          _vm.subProject.main_project_id
+                        )
+                      }
+                    ]
                   }
                 },
-                [
-                  _c("option", { attrs: { value: "1" } }, [
-                    _vm._v("Sigma Solutions")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "2" } }, [_vm._v("Pixmama")])
-                ]
+                _vm._l(_vm.projects, function(project) {
+                  return _c("option", { domProps: { value: project.id } }, [
+                    _vm._v(" " + _vm._s(project.name) + " ")
+                  ])
+                }),
+                0
               )
             ]),
             _vm._v(" "),
@@ -12680,7 +14211,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "px-6 py-4 text-center" }, [
-                    _vm._v(_vm._s(_vm.getProject(subProject.main_project)))
+                    _vm._v(_vm._s(subProject.main_project_name))
                   ]),
                   _vm._v(" "),
                   _c(
@@ -12903,40 +14434,46 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model.number",
-                      value: _vm.subProject.main_project,
-                      expression: "subProject.main_project",
+                      value: _vm.subProject.main_project_id,
+                      expression: "subProject.main_project_id",
                       modifiers: { number: true }
                     }
                   ],
                   staticClass:
                     "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
                   on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return _vm._n(val)
-                        })
-                      _vm.$set(
-                        _vm.subProject,
-                        "main_project",
-                        $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      )
-                    }
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return _vm._n(val)
+                          })
+                        _vm.$set(
+                          _vm.subProject,
+                          "main_project_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function($event) {
+                        return _vm.setProjectName(
+                          _vm.subProject.main_project_id
+                        )
+                      }
+                    ]
                   }
                 },
-                [
-                  _c("option", { attrs: { value: "1" } }, [
-                    _vm._v("Sigma Solutions")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "2" } }, [_vm._v("Pixmama")])
-                ]
+                _vm._l(_vm.projects, function(project) {
+                  return _c("option", { domProps: { value: project.id } }, [
+                    _vm._v(" " + _vm._s(project.name) + " ")
+                  ])
+                }),
+                0
               )
             ]),
             _vm._v(" "),

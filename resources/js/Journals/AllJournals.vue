@@ -29,13 +29,13 @@
                 <tr v-for="(journal,id) in journals.data" :key="id">
                     <td class="px-6 py-4 text-center">{{ journal.transaction_date }}</td>
                     <td class="px-6 py-4 text-center">{{ journal.description }}</td>
-                    <td class="px-6 py-4 text-center">{{ journal.debit_account }}</td>
-                    <td class="px-6 py-4 text-center">{{ journal.credit_account }}</td>
+                    <td class="px-6 py-4 text-center">{{ journal.debit_account_name }}</td>
+                    <td class="px-6 py-4 text-center">{{ journal.credit_account_name }}</td>
                     <td class="px-6 py-4 text-center">{{ journal.amount }}</td>
                     <td class="px-6 py-4 text-center">{{ journal.invoice_no }}</td>
                     <td class="px-6 py-4 text-center">{{ journal.reference }}</td>
                     <td class="px-6 py-4 text-center">{{ journal.adjusted_entry }}</td>
-                    <td class="px-6 py-4 text-center">{{ journal.sub_project }}</td>
+                    <td class="px-6 py-4 text-center">{{ journal.sub_project_name }}</td>
                     <td class="px-6 py-4 text-center">{{ journal.last_update_time }}</td>
                     <td class="px-6 py-4 text-center">{{ journal.updated_by }}</td>
                     <td class="px-6 py-4 text-center">{{ journal.inserted_by }}</td>
