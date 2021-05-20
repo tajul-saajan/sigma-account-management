@@ -19,7 +19,7 @@
                 <tr v-for="(subProject,id) in subProjects.data" :key="id">
                     <td class="px-6 py-4 text-center">{{ subProject.name }}</td>
                     <td class="px-6 py-4 text-center">{{ subProject.description }}</td>
-                    <td class="px-6 py-4 text-center">{{ getProject(subProject.main_project) }}</td>
+                    <td class="px-6 py-4 text-center">{{ subProject.main_project_name }}</td>
                     <td class="px-6 py-4 text-center flex justify-between">
                         <div class="flex " role="group">
                             <router-link :to="{name: 'editSubProjects', params: { id: subProject.id }}"
@@ -90,9 +90,6 @@ export default {
                 this.subProjects = data;
             });
         },
-        getProject(projectCode) {
-            return projectCode===1? "Sigma Solutions" : "Pixmama";
-        }
     },
     computed: {
 

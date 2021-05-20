@@ -14,12 +14,14 @@ class CreateSubProjectsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('sub_projects');
         Schema::create('sub_projects', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string(SubProject::FIELD_NAME);
             $table->string(SubProject::FIELD_DESCRIPTION);
-            $table->integer(SubProject::FIELD_PROJECT);
+            $table->integer(SubProject::FIELD_PROJECT_ID);
+            $table->string(SubProject::FIELD_PROJECT_NAME);
         });
     }
 

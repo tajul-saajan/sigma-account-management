@@ -4,7 +4,7 @@
         <top-bar></top-bar>
         <div class="flex justify-center mt-4">
 
-            <form @submit.prevent="addSubProject" class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
+            <form @submit.prevent="updateProject" class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
                 <p class="text-gray-800 font-bold text-center">Add Sub Project</p>
 
                 <div class="mt-2">
@@ -21,10 +21,9 @@
 
                 <div class="mt-2">
                     <label>Project</label>
-                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-                           v-model.number="subProject.main_project">
-                        <option value="1">Sigma Solutions</option>
-                        <option value="2">Pixmama</option>
+                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" @change="setProjectName(subProject.main_project_id)"
+                           v-model.number="subProject.main_project_id">
+                        <option v-for="project in projects" :value="project.id"> {{ project.name }} </option>
                     </select>
                 </div>
 
@@ -48,16 +47,34 @@ export default {
     data() {
         return {
             subProject: {},
+            projects: null,
         }
     },
 
+    created() {
+        //get projects
+        this.axios
+            .get("http://po-management.test/api/projects")
+            .then((response) => {
+                return response.data.data;
+            })
+            .then((data) => {
+                this.projects = data;
+                console.log(data)
+            });
+    },
+
     methods: {
-        addSubProject() {
+        updateProject() {
             this.axios
                 .post(`http://po-management.test/api/subProjects/add`, this.subProject)
                 .then((response) => {
                     this.$router.push({name: 'allSubProjects'});
                 });
+        },
+        setProjectName(id) {
+            let el = this.projects.map((item)=>item.id).indexOf(id);
+            this.subProject.main_project_name = this.projects[el].name;
         }
     }
 }
