@@ -1,9 +1,8 @@
 <template>
     <div class="flex-col  justify-center items-center">
-        <div class="flex justify-around mt-4">
-            <router-link to="/" class="p-2 bg-gray-700 text-white rounded-md">Home</router-link>
-            <router-link to="/add" class="p-2 bg-gray-700 text-white rounded-md">Add Project Offer</router-link>
-        </div>
+
+        <top-bar></top-bar>
+
         <div class="flex justify-center mt-4">
             <form @submit.prevent="addProjectOffer" class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
                 <p class="text-gray-800 mb-2 text-center text-2xl">Add Project Offer</p>
@@ -139,7 +138,13 @@
 </template>
 
 <script>
+
+import TopBar from "./partials/TopBar";
+
 export default {
+    components: {
+        'top-bar':TopBar
+    },
     data() {
         return {
             projectOffer: {},

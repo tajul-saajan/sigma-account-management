@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AccountSubType;
+use App\Models\SubProject;
 use Illuminate\Http\Request;
 
-class AccountSubTypeController extends Controller
+class SubProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,12 +14,12 @@ class AccountSubTypeController extends Controller
      */
     public function index()
     {
-        $accountSubTypes = AccountSubType::paginate(10);
-        return response()->json($accountSubTypes);
+        $subProjects = SubProject::paginate(10);
+        return response()->json($subProjects);
     }
 
     public function getAll() {
-        return AccountSubType::all();
+        return SubProject::all();
     }
 
     /**
@@ -29,61 +29,61 @@ class AccountSubTypeController extends Controller
      */
     public function create(Request $request)
     {
-        AccountSubType::create($request->all());
+        SubProject::create($request->all());
 
-        return response()->json('Account Sub Type Successfully added');
+        return response()->json('Sub Project Successfully added');
     }
 
 
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\AccountSubType $accountSubType
+     * @param \App\Models\SubProject $subProject
      * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        $accountSubType = AccountSubType::find($id);
-        return response()->json($accountSubType);
+        $subProject = SubProject::find($id);
+        return response()->json($subProject);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\AccountSubType $accountSubType
+     * @param \App\Models\SubProject $subProject
      * @return \Illuminate\Http\JsonResponse
      */
     public function edit($id)
     {
-        $accountSubType = AccountSubType::find($id);
-        return response()->json($accountSubType);
+        $subProject = SubProject::find($id);
+        return response()->json($subProject);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\AccountSubType $accountSubType
+     * @param \App\Models\SubProject $subProject
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
-        $accountSubType = AccountSubType::find($id);
-        $accountSubType->update($request->all());
-        return response()->json('The Account Sub Type successfully updated');
+        $subProject = SubProject::find($id);
+        $subProject->update($request->all());
+        return response()->json('The Sub Project successfully updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\AccountSubType $accountSubType
+     * @param \App\Models\SubProject $subProject
      * @return \Illuminate\Http\JsonResponse
      */
     public function delete($id)
     {
-        $accountSubType = AccountSubType::find($id);
-        $accountSubType->delete();
+        $subProject = SubProject::find($id);
+        $subProject->delete();
 
-        return  response()->json('The Account Sub Type successfully deleted');
+        return  response()->json('The Sub Project successfully deleted');
     }
 }

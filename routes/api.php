@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\ChartOfAccountController;
+use App\Http\Controllers\JournalController;
 use App\Http\Controllers\ProjectOfferController;
 use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\AccountSubTypeController;
+use App\Http\Controllers\SubProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,13 +43,39 @@ Route::group(['prefix' => 'accountTypes'], function () {
     Route::post('/add', [AccountTypeController::class, 'create']);
     Route::get('/edit/{id}', [AccountTypeController::class, 'edit']);
     Route::post('/update/{id}', [AccountTypeController::class, 'update']);
-    Route::post('/delete/{id}', [AccountTypeController::class, 'delete']);
+    Route::delete('/delete/{id}', [AccountTypeController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'accountSubTypes'], function () {
     Route::get('/', [AccountSubTypeController::class, 'index']);
+    Route::get('/all', [AccountSubTypeController::class, 'getAll']);
     Route::post('/add', [AccountSubTypeController::class, 'create']);
     Route::get('/edit/{id}', [AccountSubTypeController::class, 'edit']);
     Route::post('/update/{id}', [AccountSubTypeController::class, 'update']);
-    Route::post('/delete/{id}', [AccountSubTypeController::class, 'delete']);
+    Route::delete('/delete/{id}', [AccountSubTypeController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'subProjects'], function () {
+    Route::get('/', [SubProjectController::class, 'index']);
+    Route::get('/all', [SubProjectController::class, 'getAll']);
+    Route::post('/add', [SubProjectController::class, 'create']);
+    Route::get('/edit/{id}', [SubProjectController::class, 'edit']);
+    Route::post('/update/{id}', [SubProjectController::class, 'update']);
+    Route::delete('/delete/{id}', [SubProjectController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'journals'], function () {
+    Route::get('/', [JournalController::class, 'index']);
+    Route::post('/add', [JournalController::class, 'create']);
+    Route::get('/edit/{id}', [JournalController::class, 'edit']);
+    Route::post('/update/{id}', [JournalController::class, 'update']);
+    Route::delete('/delete/{id}', [JournalController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'coas'], function () {
+    Route::get('/', [ChartOfAccountController::class, 'index']);
+    Route::post('/add', [ChartOfAccountController::class, 'create']);
+    Route::get('/edit/{id}', [ChartOfAccountController::class, 'edit']);
+    Route::post('/update/{id}', [ChartOfAccountController::class, 'update']);
+    Route::delete('/delete/{id}', [ChartOfAccountController::class, 'delete']);
 });
