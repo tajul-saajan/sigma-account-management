@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ChartOfAccountController;
+use App\Http\Controllers\InventoryItemsController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\ProjectOfferController;
 use App\Http\Controllers\AccountTypeController;
@@ -78,4 +80,20 @@ Route::group(['prefix' => 'coas'], function () {
     Route::get('/edit/{id}', [ChartOfAccountController::class, 'edit']);
     Route::post('/update/{id}', [ChartOfAccountController::class, 'update']);
     Route::delete('/delete/{id}', [ChartOfAccountController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'items'], function () {
+    Route::get('/', [ItemController::class, 'index']);
+    Route::post('/add', [ItemController::class, 'create']);
+    Route::get('/edit/{id}', [ItemController::class, 'edit']);
+    Route::post('/update/{id}', [ItemController::class, 'update']);
+    Route::post('/delete/{id}', [ItemController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'inventoryItems'], function () {
+    Route::get('/', [InventoryItemsController::class, 'index']);
+    Route::post('/add', [InventoryItemsController::class, 'create']);
+    Route::get('/edit/{id}', [InventoryItemsController::class, 'edit']);
+    Route::post('/update/{id}', [InventoryItemsController::class, 'update']);
+    Route::post('/delete/{id}', [InventoryItemsController::class, 'delete']);
 });

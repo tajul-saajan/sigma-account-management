@@ -4627,7 +4627,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nselect:disabled {\n    background: rgba(98, 159, 234, 0.82);\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nselect:disabled {\r\n    background: rgba(98, 159, 234, 0.82);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4651,7 +4651,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ninput:disabled {\n    background: rgba(98, 159, 234, 0.82);\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\ninput:disabled {\r\n    background: rgba(98, 159, 234, 0.82);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -8751,7 +8751,7 @@ var render = function() {
                   "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
                 attrs: { type: "submit" }
               },
-              [_vm._v("\n                    Add\n                ")]
+              [_vm._v("\r\n                    Add\r\n                ")]
             )
           ]
         )
@@ -9078,7 +9078,7 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._v("Select Sub Account\n                        "),
+                  _vm._v("Select Sub Account\r\n                        "),
                   _vm._l(_vm.subAccounts, function(subAccount) {
                     return _c("option", { domProps: { value: subAccount } }, [
                       _vm._v(" " + _vm._s(subAccount.name) + " ")
@@ -9096,7 +9096,7 @@ var render = function() {
                   "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
                 attrs: { type: "submit" }
               },
-              [_vm._v("\n                    Update\n                ")]
+              [_vm._v("\r\n                    Update\r\n                ")]
             )
           ]
         )
@@ -9147,7 +9147,7 @@ var render = function() {
           staticClass: "p-2 bg-gray-700 text-white rounded-md",
           attrs: { to: { name: "addChart" } }
         },
-        [_vm._v("Add COA\n        ")]
+        [_vm._v("Add COA\r\n        ")]
       )
     ],
     1
@@ -9453,7 +9453,7 @@ var render = function() {
                   "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
                 attrs: { type: "submit" }
               },
-              [_vm._v("\n                    Update\n                ")]
+              [_vm._v("\r\n                    Update\r\n                ")]
             )
           ]
         )
@@ -10045,7 +10045,7 @@ var render = function() {
                   "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
                 attrs: { type: "submit" }
               },
-              [_vm._v("\n                    Update\n                ")]
+              [_vm._v("\r\n                    Update\r\n                ")]
             )
           ]
         )
@@ -10096,7 +10096,7 @@ var render = function() {
           staticClass: "p-2 bg-gray-700 text-white rounded-md",
           attrs: { to: { name: "addJournal" } }
         },
-        [_vm._v("Add Journal\n        ")]
+        [_vm._v("Add Journal\r\n        ")]
       )
     ],
     1
