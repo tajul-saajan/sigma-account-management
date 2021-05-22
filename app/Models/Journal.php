@@ -33,4 +33,12 @@ class Journal extends Model
     CONST FIELD_UPDATED_BY = "updated_by";
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function debitAccount(){
+        return $this->belongsTo(ChartOfAccount::class, self::FIELD_DEBIT_ACCOUNT_ID);
+    }
+
+    public function creditAccount(){
+        return $this->belongsTo(ChartOfAccount::class, self::FIELD_CREDIT_ACCOUNT_ID);
+    }
 }

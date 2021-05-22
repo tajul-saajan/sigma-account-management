@@ -104,7 +104,6 @@ export default {
         this.axios.get(`http://po-management.test/api/subProjects/`)
             .then((response)=>{
                 this.subProjects = response.data.data;
-                // console.log(this.chartOfAccounts)
             });
     },
 
@@ -128,7 +127,23 @@ export default {
             let el = this.subProjects.map((item)=>item.id).indexOf(id);
             this.journal.sub_project_name = this.subProjects[el].name;
         },
-        
+
+        //todo do after sharif vai meeting
+        updateCOA(){
+            //debit acc
+            let debitCOA = this.getChartOfAccount(this.journal.debit_account_id)
+
+        },
+        getChartOfAccount(id)
+        {
+            let coa = null;
+            this.axios.get(`http://po-management.test/api/coas/edit/`+id)
+                .then((response)=>{
+                    coa = response.data
+                });
+            return coa;
+        }
+
     }
 }
 </script>

@@ -20,4 +20,8 @@ class AccountSubType extends Model
         return $this->belongsTo(AccountType::class,self::FIELD_ACCOUNT_TYPE_ID);
     }
 
+    public function chartOfAccounts() {
+        return $this->hasMany(ChartOfAccount::class);
+    }
+
 }

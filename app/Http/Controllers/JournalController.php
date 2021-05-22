@@ -25,10 +25,30 @@ class JournalController extends Controller
     public function create(Request $request)
     {
         $journal = Journal::create($request->all());
+        $this->updateChartOfAccount($journal);
 
-        return response()->json($journal,201);
+        return response()->json($journal, 201);
     }
 
+    /**
+     * update COA for debit and credit accounts
+     *
+     * @param \App\Models\Journal $journal
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function updateChartOfAccount($journal) // todo discuss logic again
+    {
+        $debitAccount = $journal->debitAccount;
+        $creditAccount = $journal->creditAccount;
+
+        $debitAccount->balance -= $journal->amount;
+        $creditAccount->balance += $journal->amount;
+
+        $debitAccount->update();
+        $creditAccount->update();
+
+        return response()->json("COA updated", 200);
+    }
 
     /**
      * Display the specified resource.
@@ -65,6 +85,7 @@ class JournalController extends Controller
     {
         $journal = Journal::find($id);
         $journal->update($request->all());
+        $this->updateChartOfAccount($journal);
         return response()->json($journal, 200);
     }
 
@@ -79,6 +100,6 @@ class JournalController extends Controller
         $journal = Journal::find($id);
         $journal->delete();
 
-        return response()->json(null,204);
+        return response()->json(null, 204);
     }
 }
