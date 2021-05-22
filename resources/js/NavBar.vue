@@ -1,5 +1,5 @@
 <template>
-    <nav class="flex items-center justify-between flex-wrap bg-gray-400 p-6">
+    <nav class="flex items-center justify-between flex-wrap bg-gray-600 p-6">
         <div class="flex items-center flex-shrink-0 text-white mr-6">
             <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54"
                  xmlns="http://www.w3.org/2000/svg">
@@ -10,7 +10,7 @@
         </div>
         <div class="block lg:hidden">
             <button
-                class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+                class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 text-white hover:border-white">
                 <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>
                     Menu</title>
                     <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
@@ -20,35 +20,43 @@
         <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
             <div class="text-sm lg:flex-grow">
                 <router-link
-                    class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" to="/">
+                     class="block mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" to="/">
                     Project Offers
                 </router-link>
                 <router-link
-                   class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :to="{name:'allAccountTypes'}">
+                    class="block mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name:'allAccountTypes'}">
                     Account Types
                 </router-link>
-                <router-link  class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :to="{name: 'allAccountSubTypes'}">
+
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allAccountSubTypes'}">
                     Account SubTypes
                 </router-link>
 
-                <router-link  class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :to="{name: 'allProjects'}">
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allProjects'}">
                     Projects
                 </router-link>
 
-                <router-link  class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :to="{name: 'allSubProjects'}">
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allSubProjects'}">
                     SubProjects
                 </router-link>
 
-                <router-link  class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :to="{name: 'allCharts'}">
+                <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allCharts'}">
                     COAs
                 </router-link>
 
-                <router-link  class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :to="{name: 'allJournals'}">
+                <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allJournals'}">
                     Journals
                 </router-link>
 
-                <router-link  class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :to="{name: 'allInventories'}">
+                <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allInventories'}">
                     Inventories
+                </router-link>
+
+                <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allInventoryItems'}">
+                    Inventory Items
                 </router-link>
             </div>
             <div>
@@ -62,10 +70,24 @@
 
 <script>
 export default {
-    name: "NavBar"
+    name: "NavBar",
+    data() {
+        return {
+
+        }
+    },
+    methods: {
+
+    }
 }
 </script>
 
 <style scoped>
+
+.active {
+    background: #7f9da1;
+    color: black;
+    font-weight: bold;
+}
 
 </style>

@@ -10,6 +10,8 @@ class InventoryItems extends Model
     use HasFactory;
 
     const FIELD_INVENTORY_ID = 'inventory_id';
+    const FIELD_ITEM_NAME = 'item_name';
+    const FIELD_INVENTORY_NAME = 'inventory_name';
     const FIELD_BALANCE = 'balance';
 
     protected $guarded = ['id', 'created_at', 'updated_at'];

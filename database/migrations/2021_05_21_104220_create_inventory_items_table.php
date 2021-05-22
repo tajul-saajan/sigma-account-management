@@ -14,10 +14,13 @@ class CreateInventoryItemsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('inventory_items');
         Schema::create('inventory_items', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string(InventoryItems::FIELD_INVENTORY_ID);
+            $table->string(InventoryItems::FIELD_ITEM_NAME);
+            $table->unsignedBigInteger(InventoryItems::FIELD_INVENTORY_ID);
+            $table->string(InventoryItems::FIELD_INVENTORY_NAME);
             $table->string(InventoryItems::FIELD_BALANCE);
         });
     }

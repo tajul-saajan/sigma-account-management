@@ -111,7 +111,7 @@ Route::group(['prefix' => 'items'], function () {
     Route::post('/add', [ItemController::class, 'create']);
     Route::get('/edit/{id}', [ItemController::class, 'edit']);
     Route::post('/update/{id}', [ItemController::class, 'update']);
-    Route::post('/delete/{id}', [ItemController::class, 'delete']);
+    Route::delete('/delete/{id}', [ItemController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'inventoryItems'], function () {
@@ -119,6 +119,6 @@ Route::group(['prefix' => 'inventoryItems'], function () {
     Route::post('/add', [InventoryItemsController::class, 'create']);
     Route::get('/edit/{id}', [InventoryItemsController::class, 'edit']);
     Route::post('/update/{id}', [InventoryItemsController::class, 'update']);
-    Route::post('/delete/{id}', [InventoryItemsController::class, 'delete']);
+    Route::delete('/delete/{id}', [InventoryItemsController::class, 'delete']);
     Route::get('/{id}/inventory', [InventoryItemsController::class, 'inventory']);
 });
