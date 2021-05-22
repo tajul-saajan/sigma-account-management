@@ -103,6 +103,7 @@ Route::group(['prefix' => 'inventories'], function () {
     Route::get('/edit/{id}', [InventoryController::class, 'edit']);
     Route::post('/update/{id}', [InventoryController::class, 'update']);
     Route::delete('/delete/{id}', [InventoryController::class, 'delete']);
+    Route::get('/{id}/inventoryItems', [InventoryController::class, 'inventoryItems']);
 });
 
 Route::group(['prefix' => 'items'], function () {
@@ -119,4 +120,5 @@ Route::group(['prefix' => 'inventoryItems'], function () {
     Route::get('/edit/{id}', [InventoryItemsController::class, 'edit']);
     Route::post('/update/{id}', [InventoryItemsController::class, 'update']);
     Route::post('/delete/{id}', [InventoryItemsController::class, 'delete']);
+    Route::get('/{id}/inventory', [InventoryItemsController::class, 'inventory']);
 });

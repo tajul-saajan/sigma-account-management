@@ -20,14 +20,12 @@ class InventoryItemsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function create(Request $request)
     {
-        $inventoryItems = InventoryItems::create($request->all());
-        return response()->json($inventoryItems,201);
-        // $item = Item::create($request->all());
-        // return response()->json('Item Successfully added');
+        $inventoryItem = InventoryItems::create($request->all());
+        return response()->json($inventoryItem,201);
     }
 
     /**
@@ -44,52 +42,63 @@ class InventoryItemsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\InventoryItems  $inventoryItems
-     * @return \Illuminate\Http\Response
+     * @param  $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(InventoryItems $inventoryItems)
+    public function show(InventoryItems $inventoryItem)
     {
-        $inventoryItems = InventoryItems::find($inventoryItems);
-        return response()->json($inventoryItems);
+        $inventoryItem = InventoryItems::find($inventoryItem);
+        return response()->json($inventoryItem);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\InventoryItems  $inventoryItems
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $inventoryItems = InventoryItems::find($id);
-        return $inventoryItems;
+        $inventoryItem = InventoryItems::find($id);
+        return $inventoryItem;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\InventoryItems  $inventoryItems
-     * @return \Illuminate\Http\Response
+     * @param  $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
-        $inventoryItems = InventoryItems::find($id);
-        $inventoryItems->update($request->all());
-        return response()->json($inventoryItems, 200);
+        $inventoryItem = InventoryItems::find($id);
+        $inventoryItem->update($request->all());
+        return response()->json($inventoryItem, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\InventoryItems  $inventoryItems
-     * @return \Illuminate\Http\Response
+     * @param  $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function delete($id)
     {
-        $inventoryItems = InventoryItems::find($id);
-        $inventoryItems->delete();
+        $inventoryItem = InventoryItems::find($id);
+        $inventoryItem->delete();
 
         return response()->json(null,204);
+    }
+
+    /**
+     * get the relevant inventory the item belong to
+     *
+     * @param  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function inventory($id)
+    {
+        return InventoryItems::find($id)->inventory;
     }
 }

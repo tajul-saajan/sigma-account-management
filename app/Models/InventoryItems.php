@@ -13,4 +13,8 @@ class InventoryItems extends Model
     const FIELD_BALANCE = 'balance';
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function inventory(){
+        return $this->belongsTo(Inventory::class,self::FIELD_INVENTORY_ID);
+    }
 }

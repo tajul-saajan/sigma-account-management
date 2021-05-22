@@ -81,4 +81,15 @@ class InventoryController extends Controller
 
         return response()->json(null,204);
     }
+
+    /**
+     * Get the items in the inventories.
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function inventoryItems($id)
+    {
+        return Inventory::find($id)->inventoryItems;
+    }
 }
