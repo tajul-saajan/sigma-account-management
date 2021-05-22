@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChartOfAccountController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectOfferController;
@@ -73,6 +74,7 @@ Route::group(['prefix' => 'journals'], function () {
     Route::get('/edit/{id}', [JournalController::class, 'edit']);
     Route::post('/update/{id}', [JournalController::class, 'update']);
     Route::delete('/delete/{id}', [JournalController::class, 'delete']);
+
 });
 
 Route::group(['prefix' => 'coas'], function () {
@@ -81,6 +83,8 @@ Route::group(['prefix' => 'coas'], function () {
     Route::get('/edit/{id}', [ChartOfAccountController::class, 'edit']);
     Route::post('/update/{id}', [ChartOfAccountController::class, 'update']);
     Route::delete('/delete/{id}', [ChartOfAccountController::class, 'delete']);
+
+    Route::get('/{id}/accountType/', [ChartOfAccountController::class, 'getAccountType']);
 });
 
 Route::group(['prefix' => 'projects'], function () {
@@ -89,4 +93,12 @@ Route::group(['prefix' => 'projects'], function () {
     Route::get('/edit/{id}', [ProjectController::class, 'edit']);
     Route::post('/update/{id}', [ProjectController::class, 'update']);
     Route::delete('/delete/{id}', [ProjectController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'inventories'], function () {
+    Route::get('/', [InventoryController::class, 'index']);
+    Route::post('/add', [InventoryController::class, 'create']);
+    Route::get('/edit/{id}', [InventoryController::class, 'edit']);
+    Route::post('/update/{id}', [InventoryController::class, 'update']);
+    Route::delete('/delete/{id}', [InventoryController::class, 'delete']);
 });

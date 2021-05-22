@@ -22,6 +22,9 @@ import EditChart from "./ChartOfAccounts/EditChart";
 import AllProjects from "./Projects/AllProjects";
 import AddProject from "./Projects/AddProject";
 import EditProject from "./Projects/EditProject";
+import AllInventories from "./Inventories/AllInventories";
+import AddInventory from "./Inventories/AddInventory";
+import EditInventory from "./Inventories/EditInventory";
 
 export const routes = [
     // Projectoffers
@@ -153,6 +156,23 @@ export const routes = [
         name: 'editProject',
         path: '/editProject',
         component: EditProject
+    },
+    //Inventories
+    {
+        name: 'allInventories',
+        path: '/allInventories',
+        component: AllInventories
+    },
+
+    {
+        name: 'addInventory',
+        path: '/addInventory',
+        component: AddInventory
+    },
+    {
+        name: 'editInventory',
+        path: '/editInventory',
+        component: EditInventory
     },
 
 ];
