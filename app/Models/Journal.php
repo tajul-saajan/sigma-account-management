@@ -18,7 +18,11 @@ class Journal extends Model
     CONST FIELD_CREDIT_ACCOUNT_ID = "credit_account_id";
     CONST FIELD_CREDIT_ACCOUNT_NAME = "credit_account_name";
 
-    CONST FIELD_REFERENCE = "reference";
+    CONST FIELD_REFERENCE_1 = "reference_1";
+    CONST FIELD_ATTACHMENT_1 = "attachment_1";
+    CONST FIELD_REFERENCE_2 = "reference_2";
+    CONST FIELD_ATTACHMENT_2 = "attachment_2";
+
     CONST FIELD_ADJUSTED_ENTRY = "adjusted_entry";
 
     CONST FIELD_SUB_PROJECT_ID = "sub_project_id";
@@ -26,8 +30,6 @@ class Journal extends Model
 
     CONST FIELD_AMOUNT = "amount";
     CONST FIELD_INVOICE_NO = "invoice_no";
-    CONST FIELD_ATTACHMENT_1 = "attachment_1";
-    CONST FIELD_ATTACHMENT_2 = "attachment_2";
     CONST FIELD_LAST_UPDATE_TIME = "last_update_time";
     CONST FIELD_INSERTED_BY = "inserted_by";
     CONST FIELD_UPDATED_BY = "updated_by";

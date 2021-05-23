@@ -37,9 +37,15 @@
                 </div>
 
                 <div class="mt-2">
-                    <label>Reference</label>
+                    <label>Reference 1</label>
                     <input type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-                           v-model="journal.reference">
+                           v-model="journal.reference_1">
+                </div>
+
+                <div class="mt-2">
+                    <label>Reference 2</label>
+                    <input type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                           v-model="journal.reference_2">
                 </div>
 
                 <div class="mt-2">
