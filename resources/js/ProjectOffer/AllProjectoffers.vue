@@ -125,7 +125,7 @@ export default {
     methods: {
         deleteBook(id) {
             this.axios
-                .delete(`http://po-management.test/api/projectOffers/delete/${id}`)
+                .delete(`http://127.0.0.1:8000/api/projectOffers/delete/${id}`)
                 .then(response => {
                     let i = this.projectOffers.data.map(item => item.id).indexOf(id); // find index of your object
                     this.projectOffers.data.splice(i, 1)
@@ -139,7 +139,7 @@ export default {
                 page = 1;
             }
 
-            this.axios.get('http://po-management.test/api/projectOffers?page=' + page)
+            this.axios.get('http://127.0.0.1:8000/api/projectOffers?page=' + page)
                 .then(response => {
                     return response.data;
                 }).then(data => {

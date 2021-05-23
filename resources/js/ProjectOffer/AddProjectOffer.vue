@@ -161,7 +161,7 @@ export default {
         addProjectOffer() {
 
             this.axios
-                .post('http://po-management.test/api/projectOffers/add', this.projectOffer)
+                .post('http://127.0.0.1:8000/api/projectOffers/add', this.projectOffer)
                 .then(response => (
                     this.$router.push({name: 'home'})
                     // console.log(response.data)
@@ -174,7 +174,7 @@ export default {
         },
         loadStatuses() {
             this.axios
-                .get(`http://po-management.test/api/projectOffers/projectStatus`)
+                .get(`http://127.0.0.1:8000/api/projectOffers/projectStatus`)
                 .then((response) => {
                     this.statuses = response.data;
                     // console.log(response.data);
@@ -183,7 +183,7 @@ export default {
         ,
         addNewStatus() {
             this.axios
-                .post(`http://po-management.test/api/projectOffers/projectStatus/${this.newStatus}`)
+                .post(`http://127.0.0.1:8000/api/projectOffers/projectStatus/${this.newStatus}`)
                 .then((response) => {
                     this.addStatusMode = false;
                     this.loadStatuses();

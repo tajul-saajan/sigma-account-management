@@ -40,7 +40,7 @@ export default {
         addPofile() {
             const dat = new FormData()
             dat.append('file', this.file)
-            this.axios.post(`http://po-management.test/api/projectOffers/handleFiles/${this.$route.params.id}`, dat)
+            this.axios.post(`http://127.0.0.1:8000/api/projectOffers/handleFiles/${this.$route.params.id}`, dat)
                 .then(response => {
                     this.$router.push({name: 'show', params: {id: this.$route.params.id}})
                 })
