@@ -19,11 +19,43 @@
         </div>
         <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
             <div class="text-sm lg:flex-grow">
+
                 <router-link
                      class="block mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" to="/">
                     Project Offers
                 </router-link>
-                <router-link
+
+                <div class="relative mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
+                    <button @click="isOpenAccount = !isOpenAccount" class="relative z-10 block overflow-hidden">
+                        Account
+                    </button>
+                    <button v-if="isOpenAccount" @click="isOpenAccount = false" tabindex="-1" class="fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default"></button>
+                    <div v-if="isOpenAccount" class="absolute mt-2 py-2 w-40 bg-gray-200 rounded-lg shadow-xl">
+                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white" :to="{name:'allAccountTypes'}">
+                            Account Types
+                        </router-link>
+                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white" :to="{name: 'allAccountSubTypes'}">
+                            Account SubTypes
+                        </router-link>
+                    </div>
+                </div>
+
+                <div class="relative mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
+                    <button @click="isOpenProject = !isOpenProject" class="relative z-10 block overflow-hidden">
+                        Project
+                    </button>
+                    <button v-if="isOpenProject" @click="isOpenProject = false" tabindex="-1" class="fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default"></button>
+                    <div v-if="isOpenProject" class="absolute mt-2 py-2 w-40 bg-gray-200 rounded-lg shadow-xl">
+                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white" :to="{name:'allProjects'}">
+                            Projects
+                        </router-link>
+                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white" :to="{name: 'allSubProjects'}">
+                            SubProjects
+                        </router-link>
+                    </div>
+                </div>
+
+                <!-- <router-link
                     class="block mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name:'allAccountTypes'}">
                     Account Types
                 </router-link>
@@ -41,7 +73,7 @@
                 <router-link
                     class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allSubProjects'}">
                     SubProjects
-                </router-link>
+                </router-link> -->
 
                 <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allCharts'}">
                     COAs
@@ -51,13 +83,28 @@
                     Journals
                 </router-link>
 
-                <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allInventories'}">
+                <div class="relative mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
+                    <button @click="isOpenInventory = !isOpenInventory" class="relative z-10 block overflow-hidden">
+                        Inventory
+                    </button>
+                    <button v-if="isOpenInventory" @click="isOpenInventory = false" tabindex="-1" class="fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default"></button>
+                    <div v-if="isOpenInventory" class="absolute mt-2 py-2 w-40 bg-gray-200 rounded-lg shadow-xl">
+                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white" :to="{name:'allInventories'}">
+                            Inventories
+                        </router-link>
+                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white" :to="{name: 'allInventoryItems'}">
+                            Inventory Items
+                        </router-link>
+                    </div>
+                </div>
+
+                <!-- <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allInventories'}">
                     Inventories
                 </router-link>
 
                 <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allInventoryItems'}">
                     Inventory Items
-                </router-link>
+                </router-link> -->
             </div>
             <div>
                 <a href="#"
@@ -73,9 +120,25 @@ export default {
     name: "NavBar",
     data() {
         return {
-
+            isOpenAccount:false,
+            isOpenProject:false,
+            isOpenInventory:false,
         }
     },
+	created(){
+		const handleEscape = (e) => {
+			if(e.key === 'Esc' || e.key === 'Escape'){
+				this.isOpen = false,
+                console.log('Click')
+			}
+		}
+
+		document.addEventListener('keydown', handleEscape)
+
+		this.$once('keydown', ()=>{
+			document.removeEventListener('keydown', handleEscape)
+		})
+	},
     methods: {
 
     }

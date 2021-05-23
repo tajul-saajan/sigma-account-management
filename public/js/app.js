@@ -4035,10 +4035,75 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "NavBar",
   data: function data() {
-    return {};
+    return {
+      isOpenAccount: false,
+      isOpenProject: false,
+      isOpenInventory: false
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    var handleEscape = function handleEscape(e) {
+      if (e.key === 'Esc' || e.key === 'Escape') {
+        _this.isOpen = false, console.log('Click');
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    this.$once('keydown', function () {
+      document.removeEventListener('keydown', handleEscape);
+    });
   },
   methods: {}
 });
@@ -4217,7 +4282,7 @@ __webpack_require__.r(__webpack_exports__);
     addProjectOffer: function addProjectOffer() {
       var _this = this;
 
-      this.axios.post('http://po-management.test/api/projectOffers/add', this.projectOffer).then(function (response) {
+      this.axios.post('http://127.0.0.1:8000/api/projectOffers/add', this.projectOffer).then(function (response) {
         return _this.$router.push({
           name: 'home'
         }) // console.log(response.data)
@@ -4234,14 +4299,14 @@ __webpack_require__.r(__webpack_exports__);
     loadStatuses: function loadStatuses() {
       var _this2 = this;
 
-      this.axios.get("http://po-management.test/api/projectOffers/projectStatus").then(function (response) {
+      this.axios.get("http://127.0.0.1:8000/api/projectOffers/projectStatus").then(function (response) {
         _this2.statuses = response.data; // console.log(response.data);
       });
     },
     addNewStatus: function addNewStatus() {
       var _this3 = this;
 
-      this.axios.post("http://po-management.test/api/projectOffers/projectStatus/".concat(this.newStatus)).then(function (response) {
+      this.axios.post("http://127.0.0.1:8000/api/projectOffers/projectStatus/".concat(this.newStatus)).then(function (response) {
         _this3.addStatusMode = false;
 
         _this3.loadStatuses();
@@ -4340,7 +4405,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteBook: function deleteBook(id) {
       var _this = this;
 
-      this.axios["delete"]("http://po-management.test/api/projectOffers/delete/".concat(id)).then(function (response) {
+      this.axios["delete"]("http://127.0.0.1:8000/api/projectOffers/delete/".concat(id)).then(function (response) {
         var i = _this.projectOffers.data.map(function (item) {
           return item.id;
         }).indexOf(id); // find index of your object
@@ -4357,7 +4422,7 @@ __webpack_require__.r(__webpack_exports__);
         page = 1;
       }
 
-      this.axios.get('http://po-management.test/api/projectOffers?page=' + page).then(function (response) {
+      this.axios.get('http://127.0.0.1:8000/api/projectOffers?page=' + page).then(function (response) {
         return response.data;
       }).then(function (data) {
         _this2.projectOffers = data;
@@ -4608,7 +4673,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get("http://po-management.test/api/projectOffers/edit/".concat(this.$route.params.id)).then(function (response) {
+    this.axios.get("http://127.0.0.1:8000/api/projectOffers/edit/".concat(this.$route.params.id)).then(function (response) {
       _this.projectOffer = response.data;
       _this.poStatus = _this.projectOffer.po_status;
       _this.subcontracted = _this.projectOffer.sub_contract; // console.log(response.data);
@@ -4619,7 +4684,7 @@ __webpack_require__.r(__webpack_exports__);
     updateProjectOffer: function updateProjectOffer() {
       var _this2 = this;
 
-      this.axios.post("http://po-management.test/api/projectOffers/update/".concat(this.$route.params.id), this.projectOffer).then(function (response) {
+      this.axios.post("http://127.0.0.1:8000/api/projectOffers/update/".concat(this.$route.params.id), this.projectOffer).then(function (response) {
         _this2.$router.push({
           name: 'home'
         });
@@ -4634,14 +4699,14 @@ __webpack_require__.r(__webpack_exports__);
     loadStatuses: function loadStatuses() {
       var _this3 = this;
 
-      this.axios.get("http://po-management.test/api/projectOffers/projectStatus").then(function (response) {
+      this.axios.get("http://127.0.0.1:8000/api/projectOffers/projectStatus").then(function (response) {
         _this3.statuses = response.data; // console.log(response.data);
       });
     },
     addNewStatus: function addNewStatus() {
       var _this4 = this;
 
-      this.axios.post("http://po-management.test/api/projectOffers/projectStatus/".concat(this.newStatus)).then(function (response) {
+      this.axios.post("http://127.0.0.1:8000/api/projectOffers/projectStatus/".concat(this.newStatus)).then(function (response) {
         _this4.addStatusMode = false;
 
         _this4.loadStatuses();
@@ -4707,7 +4772,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var dat = new FormData();
       dat.append('file', this.file);
-      this.axios.post("http://po-management.test/api/projectOffers/handleFiles/".concat(this.$route.params.id), dat).then(function (response) {
+      this.axios.post("http://127.0.0.1:8000/api/projectOffers/handleFiles/".concat(this.$route.params.id), dat).then(function (response) {
         _this.$router.push({
           name: 'show',
           params: {
@@ -4887,7 +4952,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get("http://po-management.test/api/projectOffers/edit/".concat(this.$route.params.id)).then(function (response) {
+    this.axios.get("http://127.0.0.1:8000/api/projectOffers/edit/".concat(this.$route.params.id)).then(function (response) {
       _this.projectOffer = response.data;
       _this.filePath = _this.projectOffer.po_filepath;
     });
@@ -4895,7 +4960,7 @@ __webpack_require__.r(__webpack_exports__);
   deleteBook: function deleteBook(id) {
     var _this2 = this;
 
-    this.axios["delete"]("http://po-management.test/api/projectOffers/delete/".concat(id)).then(function (response) {
+    this.axios["delete"]("http://127.0.0.1:8000/api/projectOffers/delete/".concat(id)).then(function (response) {
       var i = _this2.projectOffers.map(function (item) {
         return item.id;
       }).indexOf(id); // find index of your object
@@ -4906,7 +4971,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     downloadBook: function downloadBook(id) {
-      this.$http.get("http://po-management.test/api/projectOffers/downloadFile/".concat(id), {
+      this.$http.get("http://127.0.0.1:8000/api/projectOffers/downloadFile/".concat(id), {
         responseType: 'arraybuffer'
       }).then(function (response) {
         console.log(response.data);
@@ -10982,7 +11047,7 @@ var render = function() {
                   "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
                 attrs: { type: "submit" }
               },
-              [_vm._v("\n                    Add\n                ")]
+              [_vm._v("\r\n                    Add\r\n                ")]
             )
           ]
         )
@@ -11309,7 +11374,7 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._v("Select Sub Account\n                        "),
+                  _vm._v("Select Sub Account\r\n                        "),
                   _vm._l(_vm.subAccounts, function(subAccount) {
                     return _c("option", { domProps: { value: subAccount } }, [
                       _vm._v(" " + _vm._s(subAccount.name) + " ")
@@ -11327,7 +11392,7 @@ var render = function() {
                   "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
                 attrs: { type: "submit" }
               },
-              [_vm._v("\n                    Update\n                ")]
+              [_vm._v("\r\n                    Update\r\n                ")]
             )
           ]
         )
@@ -11378,7 +11443,7 @@ var render = function() {
           staticClass: "p-2 bg-gray-700 text-white rounded-md",
           attrs: { to: { name: "addChart" } }
         },
-        [_vm._v("Add COA\n        ")]
+        [_vm._v("Add COA\r\n        ")]
       )
     ],
     1
@@ -11518,7 +11583,7 @@ var render = function() {
                   "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
                 attrs: { type: "submit" }
               },
-              [_vm._v("\n                    Add\n                ")]
+              [_vm._v("\r\n                    Add\r\n                ")]
             )
           ]
         )
@@ -11572,7 +11637,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\n                    All Inventories\n                "
+                  "\r\n                    All Inventories\r\n                "
                 )
               ]
             ),
@@ -11590,17 +11655,17 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", { staticClass: "px-6 py-4 text-center" }, [
                     _vm._v(
-                      "\n                        " +
+                      "\r\n                        " +
                         _vm._s(inventory.description) +
-                        "\n                    "
+                        "\r\n                    "
                     )
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "px-6 py-4 text-center" }, [
                     _vm._v(
-                      "\n                        " +
+                      "\r\n                        " +
                         _vm._s(inventory.location) +
-                        "\n                    "
+                        "\r\n                    "
                     )
                   ]),
                   _vm._v(" "),
@@ -11685,7 +11750,7 @@ var staticRenderFns = [
           {
             staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
           },
-          [_vm._v("\n                        Name\n                    ")]
+          [_vm._v("\r\n                        Name\r\n                    ")]
         ),
         _vm._v(" "),
         _c(
@@ -11695,7 +11760,7 @@ var staticRenderFns = [
           },
           [
             _vm._v(
-              "\n                        Description\n                    "
+              "\r\n                        Description\r\n                    "
             )
           ]
         ),
@@ -11705,7 +11770,11 @@ var staticRenderFns = [
           {
             staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
           },
-          [_vm._v("\n                        Location\n                    ")]
+          [
+            _vm._v(
+              "\r\n                        Location\r\n                    "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -11713,7 +11782,11 @@ var staticRenderFns = [
           {
             staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
           },
-          [_vm._v("\n                        Actions\n                    ")]
+          [
+            _vm._v(
+              "\r\n                        Actions\r\n                    "
+            )
+          ]
         )
       ])
     ])
@@ -11852,7 +11925,7 @@ var render = function() {
                   "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
                 attrs: { type: "submit" }
               },
-              [_vm._v("\n                    Update\n                ")]
+              [_vm._v("\r\n                    Update\r\n                ")]
             )
           ]
         )
@@ -11903,7 +11976,7 @@ var render = function() {
           staticClass: "p-2 bg-gray-700 text-white rounded-md",
           attrs: { to: { name: "addInventory" } }
         },
-        [_vm._v("Add Inventory\n        ")]
+        [_vm._v("Add Inventory\r\n        ")]
       )
     ],
     1
@@ -12061,7 +12134,7 @@ var render = function() {
                     _vm._v(
                       " " +
                         _vm._s(inventory.name) +
-                        "\n                        "
+                        "\r\n                        "
                     )
                   ])
                 }),
@@ -12076,7 +12149,7 @@ var render = function() {
                   "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
                 attrs: { type: "submit" }
               },
-              [_vm._v("\n                    Add\n                ")]
+              [_vm._v("\r\n                    Add\r\n                ")]
             )
           ]
         )
@@ -12130,7 +12203,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\n                    All Inventory Items\n                "
+                  "\r\n                    All Inventory Items\r\n                "
                 )
               ]
             ),
@@ -12235,17 +12308,9 @@ var staticRenderFns = [
           {
             staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
           },
-          [_vm._v("\n                         Item Name\n                    ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "th",
-          {
-            staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
-          },
           [
             _vm._v(
-              "\n                         Inventory Name\n                    "
+              "\r\n                         Item Name\r\n                    "
             )
           ]
         ),
@@ -12255,7 +12320,11 @@ var staticRenderFns = [
           {
             staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
           },
-          [_vm._v("\n                        Balance\n                    ")]
+          [
+            _vm._v(
+              "\r\n                         Inventory Name\r\n                    "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -12263,7 +12332,23 @@ var staticRenderFns = [
           {
             staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
           },
-          [_vm._v("\n                        Actions\n                    ")]
+          [
+            _vm._v(
+              "\r\n                        Balance\r\n                    "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "font-semibold text-sm uppercase px-6 py-4 text-center"
+          },
+          [
+            _vm._v(
+              "\r\n                        Actions\r\n                    "
+            )
+          ]
         )
       ])
     ])
@@ -12420,7 +12505,7 @@ var render = function() {
                     _vm._v(
                       " " +
                         _vm._s(inventory.name) +
-                        "\n                        "
+                        "\r\n                        "
                     )
                   ])
                 }),
@@ -12435,7 +12520,7 @@ var render = function() {
                   "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
                 attrs: { type: "submit" }
               },
-              [_vm._v("\n                    Update\n                ")]
+              [_vm._v("\r\n                    Update\r\n                ")]
             )
           ]
         )
@@ -12865,7 +12950,7 @@ var render = function() {
                   "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
                 attrs: { type: "submit" }
               },
-              [_vm._v("\n                    Add\n                ")]
+              [_vm._v("\r\n                    Add\r\n                ")]
             )
           ]
         )
@@ -13530,7 +13615,7 @@ var render = function() {
                   "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
                 attrs: { type: "submit" }
               },
-              [_vm._v("\n                    Update\n                ")]
+              [_vm._v("\r\n                    Update\r\n                ")]
             )
           ]
         )
@@ -13581,7 +13666,7 @@ var render = function() {
           staticClass: "p-2 bg-gray-700 text-white rounded-md",
           attrs: { to: { name: "addJournal" } }
         },
-        [_vm._v("Add Journal\n        ")]
+        [_vm._v("Add Journal\r\n        ")]
       )
     ],
     1
@@ -13698,43 +13783,153 @@ var render = function() {
               ),
               _vm._v(" "),
               _c(
-                "router-link",
+                "div",
                 {
                   staticClass:
-                    "block mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4",
-                  attrs: { to: { name: "allAccountTypes" } }
+                    "relative mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
                 },
-                [_vm._v("\n                Account Types\n            ")]
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "relative z-10 block overflow-hidden",
+                      on: {
+                        click: function($event) {
+                          _vm.isOpenAccount = !_vm.isOpenAccount
+                        }
+                      }
+                    },
+                    [_vm._v("\n                    Account\n                ")]
+                  ),
+                  _vm._v(" "),
+                  _vm.isOpenAccount
+                    ? _c("button", {
+                        staticClass:
+                          "fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default",
+                        attrs: { tabindex: "-1" },
+                        on: {
+                          click: function($event) {
+                            _vm.isOpenAccount = false
+                          }
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.isOpenAccount
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "absolute mt-2 py-2 w-40 bg-gray-200 rounded-lg shadow-xl"
+                        },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass:
+                                "block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white",
+                              attrs: { to: { name: "allAccountTypes" } }
+                            },
+                            [
+                              _vm._v(
+                                "\n                        Account Types\n                    "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass:
+                                "block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white",
+                              attrs: { to: { name: "allAccountSubTypes" } }
+                            },
+                            [
+                              _vm._v(
+                                "\n                        Account SubTypes\n                    "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ]
               ),
               _vm._v(" "),
               _c(
-                "router-link",
+                "div",
                 {
                   staticClass:
-                    "block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4",
-                  attrs: { to: { name: "allAccountSubTypes" } }
+                    "relative mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
                 },
-                [_vm._v("\n                Account SubTypes\n            ")]
-              ),
-              _vm._v(" "),
-              _c(
-                "router-link",
-                {
-                  staticClass:
-                    "block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4",
-                  attrs: { to: { name: "allProjects" } }
-                },
-                [_vm._v("\n                Projects\n            ")]
-              ),
-              _vm._v(" "),
-              _c(
-                "router-link",
-                {
-                  staticClass:
-                    "block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4",
-                  attrs: { to: { name: "allSubProjects" } }
-                },
-                [_vm._v("\n                SubProjects\n            ")]
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "relative z-10 block overflow-hidden",
+                      on: {
+                        click: function($event) {
+                          _vm.isOpenProject = !_vm.isOpenProject
+                        }
+                      }
+                    },
+                    [_vm._v("\n                    Project\n                ")]
+                  ),
+                  _vm._v(" "),
+                  _vm.isOpenProject
+                    ? _c("button", {
+                        staticClass:
+                          "fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default",
+                        attrs: { tabindex: "-1" },
+                        on: {
+                          click: function($event) {
+                            _vm.isOpenProject = false
+                          }
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.isOpenProject
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "absolute mt-2 py-2 w-40 bg-gray-200 rounded-lg shadow-xl"
+                        },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass:
+                                "block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white",
+                              attrs: { to: { name: "allProjects" } }
+                            },
+                            [
+                              _vm._v(
+                                "\n                        Projects\n                    "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass:
+                                "block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white",
+                              attrs: { to: { name: "allSubProjects" } }
+                            },
+                            [
+                              _vm._v(
+                                "\n                        SubProjects\n                    "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -13758,23 +13953,82 @@ var render = function() {
               ),
               _vm._v(" "),
               _c(
-                "router-link",
+                "div",
                 {
                   staticClass:
-                    "block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4",
-                  attrs: { to: { name: "allInventories" } }
+                    "relative mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
                 },
-                [_vm._v("\n                Inventories\n            ")]
-              ),
-              _vm._v(" "),
-              _c(
-                "router-link",
-                {
-                  staticClass:
-                    "block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4",
-                  attrs: { to: { name: "allInventoryItems" } }
-                },
-                [_vm._v("\n                Inventory Items\n            ")]
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "relative z-10 block overflow-hidden",
+                      on: {
+                        click: function($event) {
+                          _vm.isOpenInventory = !_vm.isOpenInventory
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    Inventory\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.isOpenInventory
+                    ? _c("button", {
+                        staticClass:
+                          "fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default",
+                        attrs: { tabindex: "-1" },
+                        on: {
+                          click: function($event) {
+                            _vm.isOpenInventory = false
+                          }
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.isOpenInventory
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "absolute mt-2 py-2 w-40 bg-gray-200 rounded-lg shadow-xl"
+                        },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass:
+                                "block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white",
+                              attrs: { to: { name: "allInventories" } }
+                            },
+                            [
+                              _vm._v(
+                                "\n                        Inventories\n                    "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass:
+                                "block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white",
+                              attrs: { to: { name: "allInventoryItems" } }
+                            },
+                            [
+                              _vm._v(
+                                "\n                        Inventory Items\n                    "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ]
               )
             ],
             1
@@ -16103,7 +16357,7 @@ var render = function() {
                   "mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
                 attrs: { type: "submit" }
               },
-              [_vm._v("\n                    Add\n                ")]
+              [_vm._v("\r\n                    Add\r\n                ")]
             )
           ]
         )
