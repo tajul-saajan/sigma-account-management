@@ -28,6 +28,9 @@ import EditInventory from "./Inventories/EditInventory";
 import AllInventoryItems from "./InventoryItems/AllInventoryItems";
 import AddInventoryItem from "./InventoryItems/AddInventoryItem";
 import EditInventoryItem from "./InventoryItems/EditInventoryItem";
+import AllItems from "./Items/AllItems";
+import AddItem from "./Items/AddItem";
+import EditItem from "./Items/EditItem";
 
 export const routes = [
     // Projectoffers
@@ -193,6 +196,23 @@ export const routes = [
         name: 'editInventoryItem',
         path: '/editInventoryItem',
         component: EditInventoryItem
+    },
+    //Items
+    {
+        name: 'allItems',
+        path: '/allItems',
+        component: AllItems
+    },
+
+    {
+        name: 'addItem',
+        path: '/addItem',
+        component: AddItem
+    },
+    {
+        name: 'editItem',
+        path: '/editItem',
+        component: EditItem
     },
 
 ];
