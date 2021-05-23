@@ -16,8 +16,8 @@ class ProjectOfferController extends Controller
      */
     public function index()
     {
-        $projectOffers = ProjectOffer::paginate(10);
-        return response()->json($projectOffers);
+        $projectOffers = ProjectOffer::all();
+        return response()->json($projectOffers->toArray());
     }
 
 

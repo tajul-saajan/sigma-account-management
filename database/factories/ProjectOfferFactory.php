@@ -27,6 +27,7 @@ class ProjectOfferFactory extends Factory
             ProjectOffer::FIELD_PO => $this->faker->name,
             ProjectOffer::FIELD_OFFER_REFERENCE_NO => $this->faker->randomDigitNotNull,
             ProjectOffer::FIELD_OFFER_DATE => $this->faker->dateTime,
+            ProjectOffer::FIELD_PO_AMOUNT_WITH_VAT => $this->faker->numberBetween(10000,1000000),
         ];
     }
 }
