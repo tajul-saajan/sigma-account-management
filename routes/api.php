@@ -77,6 +77,8 @@ Route::group(['prefix' => 'journals'], function () {
     Route::post('/update/{id}', [JournalController::class, 'update']);
     Route::delete('/delete/{id}', [JournalController::class, 'delete']);
 
+    Route::post('/{id}/updateCOA', [JournalController::class, 'updateCOA']);
+
 });
 
 Route::group(['prefix' => 'coas'], function () {

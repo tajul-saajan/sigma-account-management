@@ -9,12 +9,11 @@ import SmartTable from 'vuejs-smart-table'
 
 
 
+
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
 Vue.use(require('vue-resource'));
 Vue.use(SmartTable)
-
-Vue.component('pagination',require('laravel-vue-pagination'))
 
 const router = new VueRouter({
     mode: 'history',

@@ -10,26 +10,23 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Item $item)
+    public function index()
     {
         $item = Item::paginate(10);
         return response()->json($item);
-        //return Item::paginate(10);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function create(Request $request)
     {
         $item = Item::create($request->all());
         return response()->json($item,201);
-        // $item = Item::create($request->all());
-        // return response()->json('Item Successfully added');
     }
 
     /**
@@ -47,7 +44,7 @@ class ItemController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Item $item)
     {
@@ -72,7 +69,7 @@ class ItemController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
@@ -85,7 +82,7 @@ class ItemController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function delete($id)
     {
