@@ -39,11 +39,24 @@
                 </select>
             </div>
 
+            <!-- Project Name-->
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <label>Project Name : </label>
+                <input class="border-black border-2" v-model="filters.project_name.value"/>
+            </div>
+
+            <!-- Client-->
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <label>Client : </label>
+                <input class="border-black border-2" v-model="filters.client.value"/>
+            </div>
+
             <!--Offer Ref no-->
             <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
                 <label>Offer Ref no : </label>
                 <input class="border-black border-2" v-model="filters.offer_reference_no.value"/>
             </div>
+
 
             <!-- Offer Date-->
             <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
@@ -67,18 +80,6 @@
             <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
                 <label>PO : </label>
                 <input class="border-black border-2" v-model="filters.po.value"/>
-            </div>
-
-             <!-- Project Name-->
-            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-                <label>Project Name : </label>
-                <input class="border-black border-2" v-model="filters.project_name.value"/>
-            </div>
-
-            <!-- Client-->
-            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-                <label>Client : </label>
-                <input class="border-black border-2" v-model="filters.client.value"/>
             </div>
 
             <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">

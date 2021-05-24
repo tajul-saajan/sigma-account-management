@@ -142,7 +142,7 @@ export default {
         }
     },
     created() {
-        this.axios.get(`http://127.0.0.1:8000/api/projectOffers/edit/${this.$route.params.id}`)
+        this.axios.get(`http://po-management.test/api/projectOffers/edit/${this.$route.params.id}`)
             .then((response) => {
                 this.projectOffer = response.data;
                 this.filePath = this.projectOffer.po_filepath
@@ -150,7 +150,7 @@ export default {
     },
     deleteBook(id) {
         this.axios
-            .delete(`http://127.0.0.1:8000/api/projectOffers/delete/${id}`)
+            .delete(`http://po-management.test/api/projectOffers/delete/${id}`)
             .then(response => {
                 let i = this.projectOffers.map(item => item.id).indexOf(id); // find index of your object
                 this.projectOffers.splice(i, 1)
@@ -159,7 +159,7 @@ export default {
 
     methods: {
         downloadBook(id) {
-            this.$http.get(`http://127.0.0.1:8000/api/projectOffers/downloadFile/${id}`, {responseType: 'arraybuffer'})
+            this.$http.get(`http://po-management.test/api/projectOffers/downloadFile/${id}`, {responseType: 'arraybuffer'})
                 .then(response => {
                     console.log(response.data)
                     let blob = new Blob([response.data], {type: 'application/pdf'})
