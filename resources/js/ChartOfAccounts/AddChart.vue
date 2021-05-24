@@ -21,8 +21,8 @@
 
                 <div class="mt-2">
                     <label>Sub Account</label>
-                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" @change="setSubProjectName(chart.account_subtype_id)"
-                           v-model="chart.account_subtype_id">
+                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" @change="setSubProjectName(chart.account_sub_type_id)"
+                           v-model="chart.account_sub_type_id">
                         <option v-for="subAccount in subAccounts"  :value="subAccount.id"> {{subAccount.name}} </option>
                     </select>
                 </div>

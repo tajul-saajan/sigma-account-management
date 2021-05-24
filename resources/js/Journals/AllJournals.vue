@@ -3,28 +3,20 @@
 
         <top-bar></top-bar>
 
-        <!-- filter start -->
-        <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-            <label class="mr-4">Select a filter : </label>
-            <select class="border-black border-2" v-model="selectedFilter">
-                <option :value="null">Select a column</option>
-                <option v-for="(filter,index) in allFilters" :key="index" :value="filter">{{filter}}</option>
-            </select>
-        </div>
+        <div class="flex">
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <label>Filter by Debit Account : </label>
+                <input class="border-black border-2" v-model="filters.debit_account_name.value"/>
+            </div>
 
-
-        <div v-if="selectedFilter==='Debit Account Name'" class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-            <label>Filter by Debit Account : </label>
-            <input class="border-black border-2" v-model="filters.debit_account_name.value"/>
-        </div>
-
-        <div v-if="selectedFilter==='Credit Account Name'" class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-            <label>Filter by Credit Account : </label>
-            <input class="border-black border-2" v-model="filters.credit_account_name.value"/>
-        </div>
-        <div v-if="selectedFilter==='Sub Project'" class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-            <label>Filter by Sub Project : </label>
-            <input class="border-black border-2" v-model="filters.sub_project_name.value"/>
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <label>Filter by Credit Account : </label>
+                <input class="border-black border-2" v-model="filters.credit_account_name.value"/>
+            </div>
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <label>Filter by Sub Project : </label>
+                <input class="border-black border-2" v-model="filters.sub_project_name.value"/>
+            </div>
         </div>
 
         <!-- filter end -->
@@ -39,13 +31,14 @@
             >
                 <caption class="text-white text-2xl bg-gray-600 p-4 font-bold text-center">All Journals
                 </caption>
-                <thead class="bg-gray-200"  slot="head">
+                <thead class="bg-gray-200" slot="head">
                 <tr class="text-gray-600 text-left">
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Transaction Date</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Description</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Debit Account</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Credit Account</th>
-                    <v-th :sort-key="getAmount" class="font-semibold text-sm uppercase px-6 py-4 text-center">Amount</v-th>
+                    <v-th :sort-key="getAmount" class="font-semibold text-sm uppercase px-6 py-4 text-center">Amount
+                    </v-th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Invoice No.</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Reference1</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Reference2</th>
@@ -92,9 +85,9 @@
         </div>
 
         <smart-pagination class="flex justify-evenly text-2xl m-2 p-4 bg-gray-200 rounded-lg"
-                :currentPage.sync="currentPage"
-                :totalPages="totalPages"
-            />
+                          :currentPage.sync="currentPage"
+                          :totalPages="totalPages"
+        />
     </div>
 </template>
 
@@ -118,7 +111,7 @@ export default {
                 sub_project_name: {value: '', keys: ['sub_project_name']},
             },
             selectedFilter: null,
-            allFilters: ['Debit Account Name', 'Credit Account Name' ,'Sub Project'],
+            allFilters: ['Debit Account Name', 'Credit Account Name', 'Sub Project'],
         }
     },
     created() {

@@ -2656,20 +2656,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AllCharts",
@@ -2704,10 +2690,11 @@ __webpack_require__.r(__webpack_exports__);
         page = 1;
       }
 
-      this.axios.get("http://po-management.test/api/coas?page=" + page).then(function (response) {
+      this.axios.get("http://po-management.test/api/coas").then(function (response) {
         return response.data;
       }).then(function (data) {
         _this2.charts = data;
+        console.log(_this2.charts);
       });
     }
   }
@@ -4130,13 +4117,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AllJournals",
@@ -4768,6 +4748,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partials/TopBar */ "./resources/js/ProjectOffer/partials/TopBar.vue");
+//
 //
 //
 //
@@ -5559,7 +5540,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get("http://127.0.0.1:8000/api/projectOffers/edit/".concat(this.$route.params.id)).then(function (response) {
+    this.axios.get("http://po-management.test/api/projectOffers/edit/".concat(this.$route.params.id)).then(function (response) {
       _this.projectOffer = response.data;
       _this.filePath = _this.projectOffer.po_filepath;
     });
@@ -5567,7 +5548,7 @@ __webpack_require__.r(__webpack_exports__);
   deleteBook: function deleteBook(id) {
     var _this2 = this;
 
-    this.axios["delete"]("http://127.0.0.1:8000/api/projectOffers/delete/".concat(id)).then(function (response) {
+    this.axios["delete"]("http://po-management.test/api/projectOffers/delete/".concat(id)).then(function (response) {
       var i = _this2.projectOffers.map(function (item) {
         return item.id;
       }).indexOf(id); // find index of your object
@@ -5578,7 +5559,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     downloadBook: function downloadBook(id) {
-      this.$http.get("http://127.0.0.1:8000/api/projectOffers/downloadFile/".concat(id), {
+      this.$http.get("http://po-management.test/api/projectOffers/downloadFile/".concat(id), {
         responseType: 'arraybuffer'
       }).then(function (response) {
         console.log(response.data);
@@ -12754,8 +12735,8 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.chart.account_subtype_id,
-                      expression: "chart.account_subtype_id"
+                      value: _vm.chart.account_sub_type_id,
+                      expression: "chart.account_sub_type_id"
                     }
                   ],
                   staticClass:
@@ -12773,7 +12754,7 @@ var render = function() {
                           })
                         _vm.$set(
                           _vm.chart,
-                          "account_subtype_id",
+                          "account_sub_type_id",
                           $event.target.multiple
                             ? $$selectedVal
                             : $$selectedVal[0]
@@ -12781,7 +12762,7 @@ var render = function() {
                       },
                       function($event) {
                         return _vm.setSubProjectName(
-                          _vm.chart.account_subtype_id
+                          _vm.chart.account_sub_type_id
                         )
                       }
                     ]
@@ -12863,7 +12844,7 @@ var render = function() {
             _c(
               "tbody",
               { staticClass: "divide-y divide-gray-200 align-middle" },
-              _vm._l(_vm.charts.data, function(chart, id) {
+              _vm._l(_vm.charts, function(chart, id) {
                 return _c("tr", { key: id }, [
                   _c("td", { staticClass: "px-6 py-4 text-center" }, [
                     _vm._v(_vm._s(chart.gl_name))
@@ -12926,30 +12907,7 @@ var render = function() {
             )
           ]
         )
-      ]),
-      _vm._v(" "),
-      _c(
-        "pagination",
-        {
-          staticClass:
-            "flex justify-evenly text-2xl m-2 p-4 bg-gray-200 rounded-lg",
-          attrs: { data: _vm.charts },
-          on: { "pagination-change-page": _vm.getResults }
-        },
-        [
-          _c("span", { attrs: { slot: "prev-nav" }, slot: "prev-nav" }, [
-            _c("span", { staticClass: "fas fa-arrow-circle-left" }),
-            _vm._v(" "),
-            _c("span", [_vm._v("Previous")])
-          ]),
-          _vm._v(" "),
-          _c("span", { attrs: { slot: "next-nav" }, slot: "next-nav" }, [
-            _c("span", [_vm._v("Next")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fas fa-arrow-circle-right" })
-          ])
-        ]
-      )
+      ])
     ],
     1
   )
@@ -15483,162 +15441,106 @@ var render = function() {
     [
       _c("top-bar"),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
-        [
-          _c("label", { staticClass: "mr-4" }, [_vm._v("Select a filter : ")]),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
+      _c("div", { staticClass: "flex" }, [
+        _c(
+          "div",
+          { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
+          [
+            _c("label", [_vm._v("Filter by Debit Account : ")]),
+            _vm._v(" "),
+            _c("input", {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.selectedFilter,
-                  expression: "selectedFilter"
+                  value: _vm.filters.debit_account_name.value,
+                  expression: "filters.debit_account_name.value"
                 }
               ],
               staticClass: "border-black border-2",
+              domProps: { value: _vm.filters.debit_account_name.value },
               on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.selectedFilter = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.filters.debit_account_name,
+                    "value",
+                    $event.target.value
+                  )
                 }
               }
-            },
-            [
-              _c("option", { domProps: { value: null } }, [
-                _vm._v("Select a column")
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.allFilters, function(filter, index) {
-                return _c(
-                  "option",
-                  { key: index, domProps: { value: filter } },
-                  [_vm._v(_vm._s(filter))]
-                )
-              })
-            ],
-            2
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _vm.selectedFilter === "Debit Account Name"
-        ? _c(
-            "div",
-            { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
-            [
-              _c("label", [_vm._v("Filter by Debit Account : ")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.filters.debit_account_name.value,
-                    expression: "filters.debit_account_name.value"
-                  }
-                ],
-                staticClass: "border-black border-2",
-                domProps: { value: _vm.filters.debit_account_name.value },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.filters.debit_account_name,
-                      "value",
-                      $event.target.value
-                    )
-                  }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
+          [
+            _c("label", [_vm._v("Filter by Credit Account : ")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filters.credit_account_name.value,
+                  expression: "filters.credit_account_name.value"
                 }
-              })
-            ]
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.selectedFilter === "Credit Account Name"
-        ? _c(
-            "div",
-            { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
-            [
-              _c("label", [_vm._v("Filter by Credit Account : ")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.filters.credit_account_name.value,
-                    expression: "filters.credit_account_name.value"
+              ],
+              staticClass: "border-black border-2",
+              domProps: { value: _vm.filters.credit_account_name.value },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
                   }
-                ],
-                staticClass: "border-black border-2",
-                domProps: { value: _vm.filters.credit_account_name.value },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.filters.credit_account_name,
-                      "value",
-                      $event.target.value
-                    )
-                  }
+                  _vm.$set(
+                    _vm.filters.credit_account_name,
+                    "value",
+                    $event.target.value
+                  )
                 }
-              })
-            ]
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.selectedFilter === "Sub Project"
-        ? _c(
-            "div",
-            { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
-            [
-              _c("label", [_vm._v("Filter by Sub Project : ")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.filters.sub_project_name.value,
-                    expression: "filters.sub_project_name.value"
-                  }
-                ],
-                staticClass: "border-black border-2",
-                domProps: { value: _vm.filters.sub_project_name.value },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.filters.sub_project_name,
-                      "value",
-                      $event.target.value
-                    )
-                  }
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
+          [
+            _c("label", [_vm._v("Filter by Sub Project : ")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filters.sub_project_name.value,
+                  expression: "filters.sub_project_name.value"
                 }
-              })
-            ]
-          )
-        : _vm._e(),
+              ],
+              staticClass: "border-black border-2",
+              domProps: { value: _vm.filters.sub_project_name.value },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.filters.sub_project_name,
+                    "value",
+                    $event.target.value
+                  )
+                }
+              }
+            })
+          ]
+        )
+      ]),
       _vm._v(" "),
       _c(
         "div",
@@ -15840,7 +15742,7 @@ var render = function() {
                             "font-semibold text-sm uppercase px-6 py-4 text-center",
                           attrs: { "sort-key": _vm.getAmount }
                         },
-                        [_vm._v("Amount")]
+                        [_vm._v("Amount\n                ")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -17641,6 +17543,68 @@ var render = function() {
           "div",
           { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
           [
+            _c("label", [_vm._v("Project Name : ")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filters.project_name.value,
+                  expression: "filters.project_name.value"
+                }
+              ],
+              staticClass: "border-black border-2",
+              domProps: { value: _vm.filters.project_name.value },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.filters.project_name,
+                    "value",
+                    $event.target.value
+                  )
+                }
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
+          [
+            _c("label", [_vm._v("Client : ")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filters.client.value,
+                  expression: "filters.client.value"
+                }
+              ],
+              staticClass: "border-black border-2",
+              domProps: { value: _vm.filters.client.value },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.filters.client, "value", $event.target.value)
+                }
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
+          [
             _c("label", [_vm._v("Offer Ref no : ")]),
             _vm._v(" "),
             _c("input", {
@@ -17784,68 +17748,6 @@ var render = function() {
                     return
                   }
                   _vm.$set(_vm.filters.po, "value", $event.target.value)
-                }
-              }
-            })
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
-          [
-            _c("label", [_vm._v("Project Name : ")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.filters.project_name.value,
-                  expression: "filters.project_name.value"
-                }
-              ],
-              staticClass: "border-black border-2",
-              domProps: { value: _vm.filters.project_name.value },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(
-                    _vm.filters.project_name,
-                    "value",
-                    $event.target.value
-                  )
-                }
-              }
-            })
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
-          [
-            _c("label", [_vm._v("Client : ")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.filters.client.value,
-                  expression: "filters.client.value"
-                }
-              ],
-              staticClass: "border-black border-2",
-              domProps: { value: _vm.filters.client.value },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.filters.client, "value", $event.target.value)
                 }
               }
             })

@@ -27,7 +27,7 @@
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 align-middle">
-                <tr v-for="(chart, id) in charts.data" :key="id">
+                <tr v-for="(chart, id) in charts" :key="id">
                     <td class="px-6 py-4 text-center">{{ chart.gl_name }}</td>
                     <td class="px-6 py-4 text-center">
                         {{ chart.balance }}
@@ -51,20 +51,6 @@
             </table>
         </div>
 
-        <pagination
-            class="flex justify-evenly text-2xl m-2 p-4 bg-gray-200 rounded-lg"
-            :data="charts"
-            @pagination-change-page="getResults"
-        >
-      <span slot="prev-nav">
-        <span class="fas fa-arrow-circle-left"></span>
-        <span>Previous</span>
-      </span>
-            <span slot="next-nav">
-        <span>Next</span>
-        <span class="fas fa-arrow-circle-right"></span>
-      </span>
-        </pagination>
     </div>
 </template>
 
@@ -100,12 +86,14 @@ export default {
             }
 
             this.axios
-                .get("http://po-management.test/api/coas?page=" + page)
+                .get("http://po-management.test/api/coas")
                 .then((response) => {
                     return response.data;
+
                 })
                 .then((data) => {
                     this.charts = data;
+                    console.log(this.charts)
                 });
         },
     },
