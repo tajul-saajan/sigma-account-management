@@ -4868,6 +4868,60 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -4884,22 +4938,47 @@ __webpack_require__.r(__webpack_exports__);
           value: '',
           keys: ['po_status']
         },
-        po: {
+        submit_type: {
           value: '',
-          keys: ['po']
+          keys: ['submit_type']
         },
-        client_name: {
+        sub_contract: {
           value: '',
-          keys: ['client']
+          keys: ['sub_contract']
         },
         sub_contracted_to: {
           value: '',
           keys: ['sub_contracted_to']
+        },
+        offer_reference_no: {
+          value: '',
+          keys: ['offer_reference_no']
+        },
+        offer_date: {
+          value: '',
+          keys: ['offer_date']
+        },
+        po_date: {
+          value: '',
+          keys: ['po_date']
+        },
+        money_received_date: {
+          value: '',
+          keys: ['money_received_date']
+        },
+        po: {
+          value: '',
+          keys: ['po']
+        },
+        project_name: {
+          value: '',
+          keys: ['project_name']
+        },
+        client: {
+          value: '',
+          keys: ['client']
         }
-      },
-      selectedFilter: null,
-      allFilters: ['Project Status', 'PO', 'Client Name', 'Sub-Contracted To'] //todo insertedby and updatedby will be added
-
+      }
     };
   },
   created: function created() {
@@ -4939,13 +5018,22 @@ __webpack_require__.r(__webpack_exports__);
     },
     clearFilter: function clearFilter() {
       this.filters.po_status.value = null;
-      this.filters.client_name.value = null;
+      this.filters.submit_type.value = null;
+      this.filters.sub_contract.value = null;
+      this.filters.offer_reference_no.value = null;
+      this.filters.offer_date.value = null;
+      this.filters.po_date.value = null;
+      this.filters.money_received_date.value = null;
       this.filters.po.value = null;
-      this.filters.sub_contracted_to.value = null;
+      this.filters.project_name.value = null;
+      this.filters.client.value = null;
     },
     //sort functions
     poAmount: function poAmount(row) {
       return row.po_amount_with_vat;
+    },
+    offerDate: function offerDate(row) {
+      return row.offer_date;
     }
   }
 });
@@ -17453,6 +17541,230 @@ var render = function() {
           "div",
           { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
           [
+            _c("label", [_vm._v("Submit Type : ")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.filters.submit_type.value,
+                    expression: "filters.submit_type.value"
+                  }
+                ],
+                staticClass: "border-black border-2",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.filters.submit_type,
+                      "value",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c("option", { domProps: { value: null } }, [
+                  _vm._v("Select a column")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "Full" } }, [_vm._v("Full")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "Partial" } }, [
+                  _vm._v("Partial")
+                ])
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
+          [
+            _c("label", [_vm._v("Sub Contract : ")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.filters.sub_contract.value,
+                    expression: "filters.sub_contract.value"
+                  }
+                ],
+                staticClass: "border-black border-2",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.filters.sub_contract,
+                      "value",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c("option", { domProps: { value: null } }, [
+                  _vm._v("Select a column")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "Yes" } }, [_vm._v("Yes")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "No" } }, [_vm._v("No")])
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
+          [
+            _c("label", [_vm._v("Offer Ref no : ")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filters.offer_reference_no.value,
+                  expression: "filters.offer_reference_no.value"
+                }
+              ],
+              staticClass: "border-black border-2",
+              domProps: { value: _vm.filters.offer_reference_no.value },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.filters.offer_reference_no,
+                    "value",
+                    $event.target.value
+                  )
+                }
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
+          [
+            _c("label", [_vm._v("Offer Date : ")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filters.offer_date.value,
+                  expression: "filters.offer_date.value"
+                }
+              ],
+              staticClass: "border-black border-2",
+              domProps: { value: _vm.filters.offer_date.value },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.filters.offer_date, "value", $event.target.value)
+                }
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
+          [
+            _c("label", [_vm._v("PO Date : ")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filters.po_date.value,
+                  expression: "filters.po_date.value"
+                }
+              ],
+              staticClass: "border-black border-2",
+              domProps: { value: _vm.filters.po_date.value },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.filters.po_date, "value", $event.target.value)
+                }
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
+          [
+            _c("label", [_vm._v("Money Rcv Date : ")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filters.money_received_date.value,
+                  expression: "filters.money_received_date.value"
+                }
+              ],
+              staticClass: "border-black border-2",
+              domProps: { value: _vm.filters.money_received_date.value },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.filters.money_received_date,
+                    "value",
+                    $event.target.value
+                  )
+                }
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
+          [
             _c("label", [_vm._v("PO : ")]),
             _vm._v(" "),
             _c("input", {
@@ -17482,26 +17794,26 @@ var render = function() {
           "div",
           { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
           [
-            _c("label", [_vm._v("Client : ")]),
+            _c("label", [_vm._v("Project Name : ")]),
             _vm._v(" "),
             _c("input", {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.filters.client_name.value,
-                  expression: "filters.client_name.value"
+                  value: _vm.filters.project_name.value,
+                  expression: "filters.project_name.value"
                 }
               ],
               staticClass: "border-black border-2",
-              domProps: { value: _vm.filters.client_name.value },
+              domProps: { value: _vm.filters.project_name.value },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
                   _vm.$set(
-                    _vm.filters.client_name,
+                    _vm.filters.project_name,
                     "value",
                     $event.target.value
                   )
@@ -17515,29 +17827,25 @@ var render = function() {
           "div",
           { staticClass: "flex justify-center my-8 px-3 py-4 bg-gray-400" },
           [
-            _c("label", [_vm._v("Sub Contracted To : ")]),
+            _c("label", [_vm._v("Client : ")]),
             _vm._v(" "),
             _c("input", {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.filters.sub_contracted_to.value,
-                  expression: "filters.sub_contracted_to.value"
+                  value: _vm.filters.client.value,
+                  expression: "filters.client.value"
                 }
               ],
               staticClass: "border-black border-2",
-              domProps: { value: _vm.filters.sub_contracted_to.value },
+              domProps: { value: _vm.filters.client.value },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(
-                    _vm.filters.sub_contracted_to,
-                    "value",
-                    $event.target.value
-                  )
+                  _vm.$set(_vm.filters.client, "value", $event.target.value)
                 }
               }
             })
@@ -17597,11 +17905,11 @@ var render = function() {
                       _vm._l(displayData, function(projectOffer) {
                         return _c("tr", { key: projectOffer.id }, [
                           _c("td", { staticClass: "px-6 py-4 text-center" }, [
-                            _vm._v(_vm._s(projectOffer.po))
+                            _vm._v(_vm._s(projectOffer.po_status))
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "px-6 py-4 text-center" }, [
-                            _vm._v(_vm._s(projectOffer.po_status))
+                            _vm._v(_vm._s(projectOffer.offer_reference_no))
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "px-6 py-4 text-center" }, [
@@ -17617,11 +17925,19 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "px-6 py-4 text-center" }, [
+                            _vm._v(_vm._s(projectOffer.poc_name))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "px-6 py-4 text-center" }, [
+                            _vm._v(_vm._s(projectOffer.po))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "px-6 py-4 text-center" }, [
                             _vm._v(_vm._s(projectOffer.po_amount_with_vat))
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "px-6 py-4 text-center" }, [
-                            _vm._v(_vm._s(projectOffer.vat))
+                            _vm._v(_vm._s(projectOffer.ait))
                           ]),
                           _vm._v(" "),
                           _c(
@@ -17710,15 +18026,6 @@ var render = function() {
                           staticClass:
                             "font-semibold text-sm uppercase px-6 py-4 text-center"
                         },
-                        [_vm._v("PO")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "th",
-                        {
-                          staticClass:
-                            "font-semibold text-sm uppercase px-6 py-4 text-center"
-                        },
                         [_vm._v("Status")]
                       ),
                       _vm._v(" "),
@@ -17727,6 +18034,16 @@ var render = function() {
                         {
                           staticClass:
                             "font-semibold text-sm uppercase px-6 py-4 text-center"
+                        },
+                        [_vm._v("Offer Ref No")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-th",
+                        {
+                          staticClass:
+                            "font-semibold text-sm uppercase px-6 py-4 text-center",
+                          attrs: { "sort-key": _vm.offerDate }
                         },
                         [_vm._v("Offer Date")]
                       ),
@@ -17746,7 +18063,25 @@ var render = function() {
                           staticClass:
                             "font-semibold text-sm uppercase px-6 py-4 text-center"
                         },
-                        [_vm._v("Client Name")]
+                        [_vm._v("Client")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "th",
+                        {
+                          staticClass:
+                            "font-semibold text-sm uppercase px-6 py-4 text-center"
+                        },
+                        [_vm._v("POC")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "th",
+                        {
+                          staticClass:
+                            "font-semibold text-sm uppercase px-6 py-4 text-center"
+                        },
+                        [_vm._v("PO")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -17769,7 +18104,7 @@ var render = function() {
                           staticClass:
                             "font-semibold text-sm uppercase px-6 py-4 text-center"
                         },
-                        [_vm._v("VAT")]
+                        [_vm._v("AIT")]
                       ),
                       _vm._v(" "),
                       _c(

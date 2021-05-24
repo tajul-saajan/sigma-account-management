@@ -7,6 +7,8 @@
 
 
         <div class="flex">
+
+            <!--po status-->
             <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
                 <label>Status : </label>
                 <select class="border-black border-2" v-model="filters.po_status.value">
@@ -17,18 +19,66 @@
                 </select>
             </div>
 
+            <!--submit type-->
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <label>Submit Type : </label>
+                <select class="border-black border-2" v-model="filters.submit_type.value">
+                    <option :value="null">Select a column</option>
+                    <option value="Full">Full</option>
+                    <option value="Partial">Partial</option>
+                </select>
+            </div>
+
+            <!--Sub contract-->
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <label>Sub Contract : </label>
+                <select class="border-black border-2" v-model="filters.sub_contract.value">
+                    <option :value="null">Select a column</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <!--Offer Ref no-->
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <label>Offer Ref no : </label>
+                <input class="border-black border-2" v-model="filters.offer_reference_no.value"/>
+            </div>
+
+            <!-- Offer Date-->
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <label>Offer Date : </label>
+                <input class="border-black border-2" v-model="filters.offer_date.value"/>
+            </div>
+
+            <!-- po date-->
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <label>PO Date : </label>
+                <input class="border-black border-2" v-model="filters.po_date.value"/>
+            </div>
+
+            <!-- Money Receive Date-->
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <label>Money Rcv Date : </label>
+                <input class="border-black border-2" v-model="filters.money_received_date.value"/>
+            </div>
+
+            <!-- PO-->
             <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
                 <label>PO : </label>
                 <input class="border-black border-2" v-model="filters.po.value"/>
             </div>
 
+             <!-- Project Name-->
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <label>Project Name : </label>
+                <input class="border-black border-2" v-model="filters.project_name.value"/>
+            </div>
+
+            <!-- Client-->
             <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
                 <label>Client : </label>
-                <input class="border-black border-2" v-model="filters.client_name.value"/>
-            </div>
-            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-                <label>Sub Contracted To : </label>
-                <input class="border-black border-2" v-model="filters.sub_contracted_to.value"/>
+                <input class="border-black border-2" v-model="filters.client.value"/>
             </div>
 
             <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
@@ -51,27 +101,31 @@
                 <caption class="text-white text-2xl bg-gray-600 p-4 font-bold text-center">All Project Offers</caption>
                 <thead class="bg-gray-200" slot="head">
                 <tr class="text-gray-600 text-left">
-                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">PO</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Status</th>
-                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Offer Date</th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Offer Ref No</th>
+                    <v-th :sort-key="offerDate" class="font-semibold text-sm uppercase px-6 py-4 text-center">Offer Date</v-th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Project Name</th>
-                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Client Name</th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Client</th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">POC</th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">PO</th>
                     <v-th :sort-key="poAmount" class="font-semibold text-sm uppercase px-6 py-4 text-center">
                         Amount+VAT
                     </v-th>
-                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">VAT</th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">AIT</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Actions</th>
                 </tr>
                 </thead>
                 <tbody slot="body" slot-scope="{displayData}" class="divide-y divide-gray-200 align-middle">
                 <tr v-for="(projectOffer) in displayData" :key="projectOffer.id">
-                    <td class="px-6 py-4 text-center">{{ projectOffer.po }}</td>
                     <td class="px-6 py-4 text-center">{{ projectOffer.po_status }}</td>
+                    <td class="px-6 py-4 text-center">{{ projectOffer.offer_reference_no }}</td>
                     <td class="px-6 py-4 text-center">{{ projectOffer.offer_date }}</td>
                     <td class="px-6 py-4 text-center">{{ projectOffer.project_name }}</td>
                     <td class="px-6 py-4 text-center">{{ projectOffer.client }}</td>
+                    <td class="px-6 py-4 text-center">{{ projectOffer.poc_name }}</td>
+                    <td class="px-6 py-4 text-center">{{ projectOffer.po }}</td>
                     <td class="px-6 py-4 text-center">{{ projectOffer.po_amount_with_vat }}</td>
-                    <td class="px-6 py-4 text-center">{{ projectOffer.vat }}</td>
+                    <td class="px-6 py-4 text-center">{{ projectOffer.ait }}</td>
                     <td class="px-6 py-4 text-center flex justify-between">
                         <div class="flex " role="group">
                             <router-link :to="{name: 'edit', params: { id: projectOffer.id }}"
@@ -115,12 +169,18 @@ export default {
             projectStatuses: {},
             filters: {
                 po_status: {value: '', keys: ['po_status']},
-                po: {value: '', keys: ['po']},
-                client_name: {value: '', keys: ['client']},
+                submit_type: {value: '', keys: ['submit_type']},
+                sub_contract: {value: '', keys: ['sub_contract']},
                 sub_contracted_to: {value: '', keys: ['sub_contracted_to']},
+                offer_reference_no: {value: '', keys: ['offer_reference_no']},
+                offer_date: {value: '', keys: ['offer_date']},
+                po_date: {value: '', keys: ['po_date']},
+                money_received_date: {value: '', keys: ['money_received_date']},
+                po: {value: '', keys: ['po']},
+                project_name: {value: '', keys: ['project_name']},
+                client: {value: '', keys: ['client']},
             },
-            selectedFilter: null,
-            allFilters: ['Project Status', 'PO', 'Client Name', 'Sub-Contracted To'], //todo insertedby and updatedby will be added
+
         }
     },
 
@@ -160,13 +220,22 @@ export default {
         },
         clearFilter() {
             this.filters.po_status.value = null;
-            this.filters.client_name.value = null;
+            this.filters.submit_type.value = null;
+            this.filters.sub_contract.value = null;
+            this.filters.offer_reference_no.value = null;
+            this.filters.offer_date.value = null;
+            this.filters.po_date.value = null;
+            this.filters.money_received_date.value = null;
             this.filters.po.value = null;
-            this.filters.sub_contracted_to.value = null;
+            this.filters.project_name.value = null;
+            this.filters.client.value = null;
         },
         //sort functions
         poAmount(row) {
             return row.po_amount_with_vat;
+        },
+        offerDate(row){
+            return row.offer_date;
         }
     }
 }
