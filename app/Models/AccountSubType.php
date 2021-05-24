@@ -24,4 +24,16 @@ class AccountSubType extends Model
         return $this->hasMany(ChartOfAccount::class);
     }
 
+    //model events
+    protected static function booted()
+    {
+        static::updating(function ($accountSubType) {
+            $coas = $accountSubType->chartOfAccounts;
+            foreach ($coas as $coa){
+                $coa->account_subtype_name = $accountSubType->name;
+                $coa->update();
+            }
+        });
+    }
+
 }

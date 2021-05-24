@@ -14,7 +14,7 @@ class ChartOfAccountController extends Controller
      */
     public function index()
     {
-        return ChartOfAccount::paginate(10);
+        return response()->json(ChartOfAccount::all());
     }
 
     /**
