@@ -23,7 +23,7 @@
                 <div class="mt-2">
                     <label>Debit Account</label>
                     <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" @change="setDebitAccountName(journal.debit_account_id)"
-                           v-model="journal.debit_account_id">
+                           v-model="journal.debit_account_id" :disabled="true">
                         <option v-for="coa in chartOfAccounts"  :value="coa.id"> {{ coa.gl_name }}  </option>
                     </select>
                 </div>
@@ -31,7 +31,7 @@
                 <div class="mt-2">
                     <label>Credit Account</label>
                     <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" @change="setCreditAccountName(journal.credit_account_id)"
-                           v-model="journal.credit_account_id">
+                           v-model="journal.credit_account_id" :disabled="true">
                         <option v-for="coa in chartOfAccounts" :value="coa.id"> {{coa.gl_name}} </option>
                     </select>
                 </div>

@@ -1,5 +1,5 @@
 <template>
-<div class="flex-col  justify-center items-center">
+    <div class="flex-col  justify-center items-center">
 
         <top-bar></top-bar>
 
@@ -22,17 +22,19 @@
 
                 <div class="mt-2">
                     <label>Debit Account</label>
-                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" @change="setDebitAccountName(journal.debit_account_id)"
-                           v-model="journal.debit_account_id">
-                        <option v-for="coa in chartOfAccounts"  :value="coa.id"> {{ coa.gl_name }}  </option>
+                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                            @change="setDebitAccountName(journal.debit_account_id)"
+                            v-model.number="journal.debit_account_id">
+                        <option v-for="coa in chartOfAccounts" :value="coa.id"> {{ coa.gl_name }}</option>
                     </select>
                 </div>
 
                 <div class="mt-2">
                     <label>Credit Account</label>
-                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" @change="setCreditAccountName(journal.credit_account_id)"
-                           v-model="journal.credit_account_id">
-                        <option v-for="coa in chartOfAccounts" :value="coa.id"> {{coa.gl_name}} </option>
+                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                            @change="setCreditAccountName(journal.credit_account_id)"
+                            v-model.number="journal.credit_account_id">
+                        <option v-for="coa in chartOfAccounts" :value="coa.id"> {{ coa.gl_name }}</option>
                     </select>
                 </div>
 
@@ -56,15 +58,16 @@
 
                 <div class="mt-2">
                     <label>Sub Project</label>
-                    <select  class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" @change="setSubProjectName(journal.sub_project_id)"
-                           v-model="journal.sub_project_id">
-                        <option v-for="subProject in subProjects" :value="subProject.id"> {{ subProject.name }} </option>
+                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                            @change="setSubProjectName(journal.sub_project_id)"
+                            v-model="journal.sub_project_id">
+                        <option v-for="subProject in subProjects" :value="subProject.id"> {{ subProject.name }}</option>
                     </select>
                 </div>
 
                 <div class="mt-2">
                     <label>Amount</label>
-                    <input type="number" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <input type="number" required class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                            v-model="journal.amount">
                 </div>
 
@@ -86,6 +89,7 @@
 <script>
 
 import TopBar from "./partials/TopBar";
+
 export default {
     name: "AddJournal",
     components: {
@@ -101,14 +105,16 @@ export default {
     created() {
         //get chart of accounts
         this.axios.get(`http://po-management.test/api/coas/`)
-            .then((response)=>{
+            .then((response) => {
                 this.chartOfAccounts = response.data.data;
                 // console.log(this.chartOfAccounts)
-            });
+            }).catch((error) => {
+            console.log(error)
+        });
 
         //get sub projects
         this.axios.get(`http://po-management.test/api/subProjects/`)
-            .then((response)=>{
+            .then((response) => {
                 this.subProjects = response.data.data;
             });
     },
@@ -118,33 +124,29 @@ export default {
             this.axios
                 .post(`http://po-management.test/api/journals/add`, this.journal)
                 .then((response) => {
+                    console.log(response.status)
                     this.$router.push({name: 'allJournals'});
-                });
+                }).catch(error => {
+                console.log(error.response.status)
+                alert('Please Select correct Debit and Credit account')
+            });
         },
         setDebitAccountName(id) {
-            let el = this.chartOfAccounts.map((item)=>item.id).indexOf(id);
+            let el = this.chartOfAccounts.map((item) => item.id).indexOf(id);
             this.journal.debit_account_name = this.chartOfAccounts[el].gl_name;
         },
         setCreditAccountName(id) {
-            let el = this.chartOfAccounts.map((item)=>item.id).indexOf(id);
+            let el = this.chartOfAccounts.map((item) => item.id).indexOf(id);
             this.journal.credit_account_name = this.chartOfAccounts[el].gl_name;
         },
         setSubProjectName(id) {
-            let el = this.subProjects.map((item)=>item.id).indexOf(id);
+            let el = this.subProjects.map((item) => item.id).indexOf(id);
             this.journal.sub_project_name = this.subProjects[el].name;
         },
-
-        //todo do after sharif vai meeting
-        updateCOA(){
-            //debit acc
-            let debitCOA = this.getChartOfAccount(this.journal.debit_account_id)
-
-        },
-        getChartOfAccount(id)
-        {
+        getChartOfAccount(id) {
             let coa = null;
-            this.axios.get(`http://po-management.test/api/coas/edit/`+id)
-                .then((response)=>{
+            this.axios.get(`http://po-management.test/api/coas/edit/` + id)
+                .then((response) => {
                     coa = response.data
                 });
             return coa;

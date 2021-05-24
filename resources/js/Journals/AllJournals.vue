@@ -129,8 +129,8 @@ export default {
             this.axios
                 .delete(`http://po-management.test/api/journals/delete/${id}`)
                 .then(response => {
-                    let i = this.journals.data.map(item => item.id).indexOf(id); // find index of your object
-                    this.journals.data.splice(i, 1)
+                    let i = this.journals.map(item => item.id).indexOf(id); // find index of your object
+                    this.journals.splice(i, 1)
                 });
         },
         getResults(page) {
