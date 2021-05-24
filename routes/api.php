@@ -89,6 +89,8 @@ Route::group(['prefix' => 'coas'], function () {
     Route::delete('/delete/{id}', [ChartOfAccountController::class, 'delete']);
 
     Route::get('/{id}/accountType/', [ChartOfAccountController::class, 'getAccountType']);
+    Route::get('/debitAccounts', [ChartOfAccountController::class, 'getDebitAccounts']);
+    Route::get('/creditAccounts', [ChartOfAccountController::class, 'getCreditAccounts']);
 });
 
 Route::group(['prefix' => 'projects'], function () {

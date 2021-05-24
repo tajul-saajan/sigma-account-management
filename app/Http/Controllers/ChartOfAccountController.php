@@ -85,4 +85,25 @@ class ChartOfAccountController extends Controller
     public function getAccountType($id) {
         return ChartOfAccount::find($id)->accountSubType->accountType;
     }
+
+
+    public function getDebitAccounts()
+    {
+        $coas = ChartOfAccount::all();
+        $coas = $coas->filter(function ($item){
+            return $item->accountSubType->accountType->type !== 'Revenue';
+        });
+
+        return response()->json($coas->flatten());
+    }
+
+    public function getCreditAccounts()
+    {
+        $coas = ChartOfAccount::all();
+        $coas = $coas->filter(function ($item){
+            return $item->accountSubType->accountType->type !== 'Expense';
+        });
+
+        return response()->json($coas->flatten());
+    }
 }

@@ -22,19 +22,19 @@
 
                 <div class="mt-2">
                     <label>Debit Account</label>
-                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" required
                             @change="setDebitAccountName(journal.debit_account_id)"
                             v-model.number="journal.debit_account_id">
-                        <option v-for="coa in chartOfAccounts" :value="coa.id"> {{ coa.gl_name }}</option>
+                        <option v-for="coa in debitAccounts" :value="coa.id"> {{ coa.gl_name }}</option>
                     </select>
                 </div>
 
                 <div class="mt-2">
                     <label>Credit Account</label>
-                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" required
                             @change="setCreditAccountName(journal.credit_account_id)"
                             v-model.number="journal.credit_account_id">
-                        <option v-for="coa in chartOfAccounts" :value="coa.id"> {{ coa.gl_name }}</option>
+                        <option v-for="coa in creditAccounts" :value="coa.id"> {{ coa.gl_name }}</option>
                     </select>
                 </div>
 
@@ -98,16 +98,25 @@ export default {
     data() {
         return {
             journal: {},
-            chartOfAccounts: null,
+            debitAccounts: [],
+            creditAccounts: [],
             subProjects: null,
         }
     },
     created() {
-        //get chart of accounts
-        this.axios.get(`http://po-management.test/api/coas/`)
+        //get debit accounts
+        this.axios.get(`http://po-management.test/api/coas/debitAccounts`)
             .then((response) => {
-                this.chartOfAccounts = response.data.data;
-                // console.log(this.chartOfAccounts)
+                this.debitAccounts = response.data;
+            }).catch((error) => {
+            console.log(error)
+        });
+
+         //get credit accounts
+        this.axios.get(`http://po-management.test/api/coas/creditAccounts`)
+            .then((response) => {
+                this.creditAccounts = response.data;
+
             }).catch((error) => {
             console.log(error)
         });
@@ -132,24 +141,19 @@ export default {
             });
         },
         setDebitAccountName(id) {
-            let el = this.chartOfAccounts.map((item) => item.id).indexOf(id);
-            this.journal.debit_account_name = this.chartOfAccounts[el].gl_name;
+            console.log((this.debitAccounts))
+            console.log(this.subProjects)
+            let el = this.debitAccounts.map((item) => item.id).indexOf(id);
+            this.journal.debit_account_name = this.debitAccounts[el].gl_name;
         },
         setCreditAccountName(id) {
-            let el = this.chartOfAccounts.map((item) => item.id).indexOf(id);
-            this.journal.credit_account_name = this.chartOfAccounts[el].gl_name;
+            console.log(typeof(this.creditAccounts))
+            let el = this.creditAccounts.map((item) => item.id).indexOf(id);
+            this.journal.credit_account_name = this.creditAccounts[el].gl_name;
         },
         setSubProjectName(id) {
             let el = this.subProjects.map((item) => item.id).indexOf(id);
             this.journal.sub_project_name = this.subProjects[el].name;
-        },
-        getChartOfAccount(id) {
-            let coa = null;
-            this.axios.get(`http://po-management.test/api/coas/edit/` + id)
-                .then((response) => {
-                    coa = response.data
-                });
-            return coa;
         }
 
     }

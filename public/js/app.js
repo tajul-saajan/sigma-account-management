@@ -3860,6 +3860,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _partials_TopBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partials/TopBar */ "./resources/js/Journals/partials/TopBar.vue");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 //
 //
 //
@@ -3957,16 +3959,23 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       journal: {},
-      chartOfAccounts: null,
+      debitAccounts: [],
+      creditAccounts: [],
       subProjects: null
     };
   },
   created: function created() {
     var _this = this;
 
-    //get chart of accounts
-    this.axios.get("http://po-management.test/api/coas/").then(function (response) {
-      _this.chartOfAccounts = response.data.data; // console.log(this.chartOfAccounts)
+    //get debit accounts
+    this.axios.get("http://po-management.test/api/coas/debitAccounts").then(function (response) {
+      _this.debitAccounts = response.data;
+    })["catch"](function (error) {
+      console.log(error);
+    }); //get credit accounts
+
+    this.axios.get("http://po-management.test/api/coas/creditAccounts").then(function (response) {
+      _this.creditAccounts = response.data;
     })["catch"](function (error) {
       console.log(error);
     }); //get sub projects
@@ -3991,29 +4000,25 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     setDebitAccountName: function setDebitAccountName(id) {
-      var el = this.chartOfAccounts.map(function (item) {
+      console.log(this.debitAccounts);
+      console.log(this.subProjects);
+      var el = this.debitAccounts.map(function (item) {
         return item.id;
       }).indexOf(id);
-      this.journal.debit_account_name = this.chartOfAccounts[el].gl_name;
+      this.journal.debit_account_name = this.debitAccounts[el].gl_name;
     },
     setCreditAccountName: function setCreditAccountName(id) {
-      var el = this.chartOfAccounts.map(function (item) {
+      console.log(_typeof(this.creditAccounts));
+      var el = this.creditAccounts.map(function (item) {
         return item.id;
       }).indexOf(id);
-      this.journal.credit_account_name = this.chartOfAccounts[el].gl_name;
+      this.journal.credit_account_name = this.creditAccounts[el].gl_name;
     },
     setSubProjectName: function setSubProjectName(id) {
       var el = this.subProjects.map(function (item) {
         return item.id;
       }).indexOf(id);
       this.journal.sub_project_name = this.subProjects[el].name;
-    },
-    getChartOfAccount: function getChartOfAccount(id) {
-      var coa = null;
-      this.axios.get("http://po-management.test/api/coas/edit/" + id).then(function (response) {
-        coa = response.data;
-      });
-      return coa;
     }
   }
 });
@@ -15069,6 +15074,7 @@ var render = function() {
                   ],
                   staticClass:
                     "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                  attrs: { required: "" },
                   on: {
                     change: [
                       function($event) {
@@ -15096,7 +15102,7 @@ var render = function() {
                     ]
                   }
                 },
-                _vm._l(_vm.chartOfAccounts, function(coa) {
+                _vm._l(_vm.debitAccounts, function(coa) {
                   return _c("option", { domProps: { value: coa.id } }, [
                     _vm._v(" " + _vm._s(coa.gl_name))
                   ])
@@ -15122,6 +15128,7 @@ var render = function() {
                   ],
                   staticClass:
                     "w-full px-5 py-1 text-gray-700 bg-gray-200 rounded",
+                  attrs: { required: "" },
                   on: {
                     change: [
                       function($event) {
@@ -15149,7 +15156,7 @@ var render = function() {
                     ]
                   }
                 },
-                _vm._l(_vm.chartOfAccounts, function(coa) {
+                _vm._l(_vm.creditAccounts, function(coa) {
                   return _c("option", { domProps: { value: coa.id } }, [
                     _vm._v(" " + _vm._s(coa.gl_name))
                   ])
