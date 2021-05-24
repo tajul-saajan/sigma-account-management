@@ -25,30 +25,53 @@ class JournalController extends Controller
      */
     public function create(Request $request)
     {
-        $journal = Journal::create($request->all());
-        $this->updateChartOfAccount($journal);
+        $journal = Journal::make($request->all());
+        $statusCode = $this->updateChartOfAccount($journal);
+        if ($statusCode===201) {
+            $journal->save();
+            return response()->json($journal,201);
+        }
 
-        return response()->json($journal, 201);
+        return response()->json($journal,405);
     }
 
     /**
      * update COA for debit and credit accounts
      *
      * @param \App\Models\Journal $journal
-     * @return \Illuminate\Http\JsonResponse
+     * @return int
      */
-    private function updateChartOfAccount($journal) // todo discuss logic again
+    private function updateChartOfAccount($journal)
     {
         $debitAccount = $journal->debitAccount;
         $creditAccount = $journal->creditAccount;
 
-        $debitAccount->balance -= $journal->amount;
-        $creditAccount->balance += $journal->amount;
+        $debitType = $debitAccount->accountSubType->accountType->type;
+        $creditType = $creditAccount->accountSubType->accountType->type;
+
+        $debitSign = null;
+        $creditSign = null;
+
+        if ($debitType === 'Expense' || $debitType === 'Asset') $debitSign = '+';
+        else $debitSign = '-';
+
+        if ($creditType === 'Equity' || $creditType === 'Liablity' || $creditType === 'Revenue') $creditSign = '+';
+        else $creditSign = '-';
+
+        if ($debitSign === $creditSign) return 405;
+
+        if ($debitSign === '+') {
+            $debitAccount->balance += $journal->amount;
+            $creditAccount->balance -= $journal->amount;
+        } else {
+            $creditAccount->balance += $journal->amount;
+            $debitAccount->balance -= $journal->amount;
+        }
 
         $debitAccount->update();
         $creditAccount->update();
 
-        return response()->json("COA updated", 200);
+        return 201;
     }
 
     /**
