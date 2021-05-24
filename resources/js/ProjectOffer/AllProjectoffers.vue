@@ -4,36 +4,38 @@
         <top-bar></top-bar>
 
         <!-- filter start -->
-        <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-            <label class="mr-4">Select a filter : </label>
-            <select class="border-black border-2" v-model="selectedFilter">
-                <option :value="null">Select a column</option>
-                <option v-for="(filter,index) in allFilters" :key="index" :value="filter">{{filter}}</option>
-            </select>
-        </div>
 
-        <div v-if="selectedFilter==='Project Status'" class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-            <label>Filter by Status : </label>
-            <select class="border-black border-2" v-model="filters.po_status.value">
-                <option :value="null">Select a column</option>
-                <option v-for="status in projectStatuses" :key="status.id" :value="status.project_status">
-                    {{ status.project_status }}
-                </option>
-            </select>
-        </div>
 
-        <div v-if="selectedFilter==='PO'" class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-            <label>Filter by PO : </label>
-            <input class="border-black border-2" v-model="filters.po.value"/>
-        </div>
+        <div class="flex">
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <label>Status : </label>
+                <select class="border-black border-2" v-model="filters.po_status.value">
+                    <option :value="null">Select a column</option>
+                    <option v-for="status in projectStatuses" :key="status.id" :value="status.project_status">
+                        {{ status.project_status }}
+                    </option>
+                </select>
+            </div>
 
-        <div v-if="selectedFilter==='Client Name'" class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-            <label>Filter by Client : </label>
-            <input class="border-black border-2" v-model="filters.client_name.value"/>
-        </div>
-        <div v-if="selectedFilter==='Sub-Contracted To'" class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-            <label>Filter by Sub Contracted To : </label>
-            <input class="border-black border-2" v-model="filters.sub_contracted_to.value"/>
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <label>PO : </label>
+                <input class="border-black border-2" v-model="filters.po.value"/>
+            </div>
+
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <label>Client : </label>
+                <input class="border-black border-2" v-model="filters.client_name.value"/>
+            </div>
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <label>Sub Contracted To : </label>
+                <input class="border-black border-2" v-model="filters.sub_contracted_to.value"/>
+            </div>
+
+            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
+                <button class="border-black border-2" @click="clearFilter">
+                    Clear
+                </button>
+            </div>
         </div>
 
         <!-- filter end -->
@@ -54,7 +56,9 @@
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Offer Date</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Project Name</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Client Name</th>
-                    <v-th :sort-key="poAmount" class="font-semibold text-sm uppercase px-6 py-4 text-center">Amount+VAT</v-th>
+                    <v-th :sort-key="poAmount" class="font-semibold text-sm uppercase px-6 py-4 text-center">
+                        Amount+VAT
+                    </v-th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">VAT</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Actions</th>
                 </tr>
@@ -85,11 +89,11 @@
                 </tr>
                 </tbody>
             </v-table>
-            <smart-pagination class="flex justify-evenly text-2xl m-2 p-4 bg-gray-200 rounded-lg"
-                :currentPage.sync="currentPage"
-                :totalPages="totalPages"
-            />
         </div>
+            <smart-pagination class="flex justify-center  items-center text-2xl m-2 p-4 bg-gray-200 rounded-lg"
+                              :currentPage.sync="currentPage"
+                              :totalPages="totalPages"
+            />
 
     </div>
 </template>
@@ -98,9 +102,10 @@
 
 import TopBar from "./partials/TopBar";
 
+
 export default {
     components: {
-        'top-bar': TopBar
+        'top-bar': TopBar,
     },
     data() {
         return {
@@ -115,7 +120,7 @@ export default {
                 sub_contracted_to: {value: '', keys: ['sub_contracted_to']},
             },
             selectedFilter: null,
-            allFilters: ['Project Status', 'PO' ,'Client Name', 'Sub-Contracted To'], //todo insertedby and updatedby will be added
+            allFilters: ['Project Status', 'PO', 'Client Name', 'Sub-Contracted To'], //todo insertedby and updatedby will be added
         }
     },
 
@@ -125,7 +130,7 @@ export default {
     methods: {
         deleteBook(id) {
             this.axios
-                .delete(`http://127.0.0.1:8000/api/projectOffers/delete/${id}`)
+                .delete(`http://po-management.test/api/projectOffers/delete/${id}`)
                 .then(response => {
                     let i = this.projectOffers.data.map(item => item.id).indexOf(id); // find index of your object
                     this.projectOffers.data.splice(i, 1)
@@ -139,7 +144,7 @@ export default {
                 page = 1;
             }
 
-            this.axios.get('http://127.0.0.1:8000/api/projectOffers?page=' + page)
+            this.axios.get('http://po-management.test/api/projectOffers?page=' + page)
                 .then(response => {
                     return response.data;
                 }).then(data => {
@@ -153,8 +158,14 @@ export default {
                 this.projectStatuses = data;
             });
         },
+        clearFilter() {
+            this.filters.po_status.value = null;
+            this.filters.client_name.value = null;
+            this.filters.po.value = null;
+            this.filters.sub_contracted_to.value = null;
+        },
         //sort functions
-        poAmount(row){
+        poAmount(row) {
             return row.po_amount_with_vat;
         }
     }
