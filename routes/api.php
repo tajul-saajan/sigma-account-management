@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChartOfAccountController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\InventoryItemsController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\InventoryController;
@@ -125,4 +126,13 @@ Route::group(['prefix' => 'inventoryItems'], function () {
     Route::post('/update/{id}', [InventoryItemsController::class, 'update']);
     Route::delete('/delete/{id}', [InventoryItemsController::class, 'delete']);
     Route::get('/{id}/inventory', [InventoryItemsController::class, 'inventory']);
+});
+
+Route::group(['prefix' => 'employees'], function () {
+    Route::get('/', [EmployeeController::class, 'index']);
+    Route::post('/add', [EmployeeController::class, 'create']);
+    Route::get('/edit/{id}', [EmployeeController::class, 'edit']);
+    Route::post('/update/{id}', [EmployeeController::class, 'update']);
+    Route::delete('/delete/{id}', [EmployeeController::class, 'delete']);
+    Route::get('/{id}/inventory', [EmployeeController::class, 'inventory']);
 });
