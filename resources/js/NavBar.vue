@@ -55,26 +55,6 @@
                     </div>
                 </div>
 
-                <!-- <router-link
-                    class="block mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name:'allAccountTypes'}">
-                    Account Types
-                </router-link>
-
-                <router-link
-                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allAccountSubTypes'}">
-                    Account SubTypes
-                </router-link>
-
-                <router-link
-                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allProjects'}">
-                    Projects
-                </router-link>
-
-                <router-link
-                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allSubProjects'}">
-                    SubProjects
-                </router-link> -->
-
                 <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allCharts'}">
                     COAs
                 </router-link>
@@ -98,16 +78,16 @@
                     </div>
                 </div>
 
-                <!-- <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allInventories'}">
-                    Inventories
-                </router-link>
-
-                <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allInventoryItems'}">
-                    Inventory Items
-                </router-link> -->
-
                 <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allItems'}">
                     Items
+                </router-link>
+
+                <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allTransactions'}">
+                    Transactions
+                </router-link>
+
+                <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allRequisitions'}">
+                    Requisitions
                 </router-link>
             </div>
             <div>
@@ -132,7 +112,7 @@ export default {
 	created(){
 		const handleEscape = (e) => {
 			if(e.key === 'Esc' || e.key === 'Escape'){
-				this.isOpen = false,
+				this.isOpen = false
                 console.log('Click')
 			}
 		}

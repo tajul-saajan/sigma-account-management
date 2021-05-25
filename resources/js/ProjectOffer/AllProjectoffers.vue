@@ -243,5 +243,11 @@ export default {
 </script>
 
 <style>
+ .disabled svg {
+    color: grey;
+  }
 
+  .disabled a {
+    cursor: not-allowed
+  }
 </style>

@@ -4,7 +4,7 @@ import VueRouter from 'vue-router';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 import {routes} from './routes';
-import SmartTable from 'vuejs-smart-table'
+import SmartTable from './vuejs-smart-table'
 
 
 

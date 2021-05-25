@@ -31,6 +31,13 @@ import EditInventoryItem from "./InventoryItems/EditInventoryItem";
 import AllItems from "./Items/AllItems";
 import AddItem from "./Items/AddItem";
 import EditItem from "./Items/EditItem";
+import AllTransactions from "./Transactions/AllTransactions";
+import AddTransaction from "./Transactions/AddTransaction";
+import EditTransaction from "./Transactions/EditTransaction";
+import AllRequisitions from "./Requisitions/AllRequisitions";
+import AddRequisition from "./Requisitions/AddRequisition";
+import EditRequisitions from "./Requisitions/EditRequisition";
+import EditRequisition from "./Requisitions/EditRequisition";
 
 export const routes = [
     // Projectoffers
@@ -213,6 +220,41 @@ export const routes = [
         name: 'editItem',
         path: '/editItem',
         component: EditItem
+    },
+    //Transactions
+    {
+        name: 'allTransactions',
+        path: '/allTransactions',
+        component: AllTransactions
+    },
+
+    {
+        name: 'addTransaction',
+        path: '/addTransaction',
+        component: AddTransaction
+    },
+    {
+        name: 'editTransaction',
+        path: '/editTransaction',
+        component: EditTransaction
+    },
+
+    //Requisitions
+    {
+        name: 'allRequisitions',
+        path: '/allRequisitions',
+        component: AllRequisitions
+    },
+
+    {
+        name: 'addRequisition',
+        path: '/addRequisition',
+        component: AddRequisition
+    },
+    {
+        name: 'editRequisition',
+        path: '/editRequisition',
+        component: EditRequisition
     },
 
 ];
