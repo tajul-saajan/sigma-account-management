@@ -72,7 +72,7 @@ export default {
     methods: {
         deleteSubProject(id) {
             this.axios
-                .delete(`http://po-management.test/api/subProjects/delete/${id}`)
+                .delete(process.env.MIX_PUBLISH_APP_URL+`subProjects/delete/${id}`)
                 .then(response => {
                     let i = this.subProjects.map(item => item.id).indexOf(id); // find index of your object
                     this.subProjects.splice(i, 1)
@@ -83,7 +83,7 @@ export default {
                 page = 1;
             }
 
-            this.axios.get('http://po-management.test/api/subProjects?page=' + page)
+            this.axios.get(process.env.MIX_PUBLISH_APP_URL+'subProjects?page=' + page)
                 .then(response => {
                     return response.data;
                 }).then(data => {

@@ -53,7 +53,7 @@ export default {
     created() {
         //get account types
         this.axios
-            .get("http://po-management.test/api/inventories")
+            .get(process.env.MIX_PUBLISH_APP_URL+"inventories")
             .then((response) => {
                 return response.data.data;
             })
@@ -65,7 +65,7 @@ export default {
     methods: {
         addInventoryItem() {
             this.axios
-                .post(`http://po-management.test/api/inventoryItems/add`, this.inventoryItem)
+                .post(process.env.MIX_PUBLISH_APP_URL+`inventoryItems/add`, this.inventoryItem)
                 .then((response) => {
                     this.$router.push({name: 'allInventoryItems'});
                 });

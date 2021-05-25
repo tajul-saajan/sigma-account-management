@@ -120,7 +120,7 @@ export default {
     methods: {
         deleteJournal(id) {
             this.axios
-                .delete(`http://po-management.test/api/journals/delete/${id}`)
+                .delete(process.env.MIX_PUBLISH_APP_URL+`journals/delete/${id}`)
                 .then(response => {
                     let i = this.journals.map(item => item.id).indexOf(id); // find index of your object
                     this.journals.splice(i, 1)
@@ -131,7 +131,7 @@ export default {
                 page = 1;
             }
 
-            this.axios.get('http://po-management.test/api/journals?page=' + page)
+            this.axios.get(process.env.MIX_PUBLISH_APP_URL+'journals?page=' + page)
                 .then(response => {
                     return response.data;
                 }).then(data => {

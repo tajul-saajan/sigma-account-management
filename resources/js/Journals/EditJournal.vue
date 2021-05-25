@@ -100,21 +100,21 @@ export default {
     },
     created() {
         this.axios
-            .get(`http://po-management.test/api/journals/edit/${this.$route.params.id}`)
+            .get(process.env.MIX_PUBLISH_APP_URL+`journals/edit/${this.$route.params.id}`)
             .then((response) => {
                 this.journal = response.data;
                 // console.log(response.data);
             });
 
         //get chart of accounts
-        this.axios.get(`http://po-management.test/api/coas/`)
+        this.axios.get(process.env.MIX_PUBLISH_APP_URL+`coas/`)
             .then((response)=>{
                 this.chartOfAccounts = response.data.data;
                 // console.log(this.chartOfAccounts)
             });
 
         //get sub projects
-        this.axios.get(`http://po-management.test/api/subProjects/`)
+        this.axios.get(process.env.MIX_PUBLISH_APP_URL+`subProjects/`)
             .then((response)=>{
                 this.subProjects = response.data.data;
                 // console.log(this.chartOfAccounts)
@@ -123,7 +123,7 @@ export default {
     methods: {
         updateJournal() {
             this.axios
-                .post(`http://po-management.test/api/journals/update/${this.$route.params.id}`, this.journal)
+                .post(process.env.MIX_PUBLISH_APP_URL+`journals/update/${this.$route.params.id}`, this.journal)
                 .then((response) => {
                     this.$router.push({name: 'allJournals'});
                 });

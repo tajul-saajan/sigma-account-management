@@ -88,7 +88,7 @@ export default {
     methods: {
         deleteAccountSubType(id) {
             this.axios
-                .delete(`http://po-management.test/api/accountSubTypes/delete/${id}`)
+                .delete(process.env.MIX_PUBLISH_APP_URL+`accountSubTypes/delete/${id}`)
                 .then((response) => {
                     let i = this.accountSubTypes.data.map((item) => item.id).indexOf(id); // find index of your object
                     this.accountSubTypes.data.splice(i, 1);
@@ -100,7 +100,7 @@ export default {
             }
 
             this.axios
-                .get("http://po-management.test/api/accountSubTypes?page=" + page)
+                .get(process.env.MIX_PUBLISH_APP_URL+"accountSubTypes?page=" + page)
                 .then((response) => {
                     return response.data;
                 })

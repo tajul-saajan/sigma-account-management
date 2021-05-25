@@ -15,3 +15,13 @@ mix.js('resources/js/app.js', 'public/js').vue()
     .postCss('resources/css/app.css', 'public/css', [
         require("tailwindcss"),
     ]);
+
+mix.webpackConfig(webpack => {
+    return {
+        plugins: [
+            new webpack.EnvironmentPlugin (
+                ['MIX_PUBLISH_APP_URL']
+            )
+        ]
+    };
+});

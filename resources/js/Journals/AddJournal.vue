@@ -105,7 +105,7 @@ export default {
     },
     created() {
         //get debit accounts
-        this.axios.get(`http://po-management.test/api/coas/debitAccounts`)
+        this.axios.get(process.env.MIX_PUBLISH_APP_URL+`coas/debitAccounts`)
             .then((response) => {
                 this.debitAccounts = response.data;
             }).catch((error) => {
@@ -113,7 +113,7 @@ export default {
         });
 
          //get credit accounts
-        this.axios.get(`http://po-management.test/api/coas/creditAccounts`)
+        this.axios.get(process.env.MIX_PUBLISH_APP_URL+`coas/creditAccounts`)
             .then((response) => {
                 this.creditAccounts = response.data;
 
@@ -122,7 +122,7 @@ export default {
         });
 
         //get sub projects
-        this.axios.get(`http://po-management.test/api/subProjects/`)
+        this.axios.get(process.env.MIX_PUBLISH_APP_URL+`subProjects/`)
             .then((response) => {
                 this.subProjects = response.data.data;
             });
@@ -131,7 +131,7 @@ export default {
     methods: {
         addJournal() {
             this.axios
-                .post(`http://po-management.test/api/journals/add`, this.journal)
+                .post(process.env.MIX_PUBLISH_APP_URL+`journals/add`, this.journal)
                 .then((response) => {
                     console.log(response.status)
                     this.$router.push({name: 'allJournals'});

@@ -43,7 +43,7 @@ export default {
     },
     created() {
         this.axios
-            .get(`http://po-management.test/api/projects/edit/${this.$route.params.id}`)
+            .get(process.env.MIX_PUBLISH_APP_URL+`projects/edit/${this.$route.params.id}`)
             .then((response) => {
                 this.project = response.data;
                 // console.log(response.data);
@@ -52,7 +52,7 @@ export default {
     methods: {
         updateProject() {
             this.axios
-                .post(`http://po-management.test/api/projects/update/${this.$route.params.id}`, this.project)
+                .post(process.env.MIX_PUBLISH_APP_URL+`projects/update/${this.$route.params.id}`, this.project)
                 .then((response) => {
                     this.$router.push({name: 'allProjects'});
                 });

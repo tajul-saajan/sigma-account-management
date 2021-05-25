@@ -53,7 +53,7 @@ export default {
     },
     created() {
         this.axios
-            .get(`http://po-management.test/api/accountSubTypes/edit/${this.$route.params.id}`)
+            .get(process.env.MIX_PUBLISH_APP_URL+`accountSubTypes/edit/${this.$route.params.id}`)
             .then((response) => {
                 this.accountSubType = response.data;
                 console.log(this.$route.params.type);
@@ -61,7 +61,7 @@ export default {
 
         //account types
         this.axios
-            .get("http://po-management.test/api/accountTypes")
+            .get(process.env.MIX_PUBLISH_APP_URL+"accountTypes")
             .then((response) => {
                 return response.data.data;
             })
@@ -72,7 +72,7 @@ export default {
     methods: {
         updateAccountSubType() {
             this.axios
-                .post(`http://po-management.test/api/accountSubTypes/update/${this.$route.params.id}`, this.accountSubType)
+                .post(process.env.MIX_PUBLISH_APP_URL+`accountSubTypes/update/${this.$route.params.id}`, this.accountSubType)
                 .then((response) => {
                     this.$router.push({name: 'allAccountSubTypes'});
                 });

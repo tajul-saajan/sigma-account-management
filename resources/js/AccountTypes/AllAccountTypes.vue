@@ -70,7 +70,7 @@ export default {
     methods: {
         deleteBook(id) {
             this.axios
-                .delete(`http://po-management.test/api/accountTypes/delete/${id}`)
+                .delete(process.env.MIX_PUBLISH_APP_URL+`accountTypes/delete/${id}`)
                 .then(response => {
                     let i = this.accountTypes.data.map(item => item.id).indexOf(id); // find index of your object
                     this.accountTypes.data.splice(i, 1)
@@ -84,7 +84,7 @@ export default {
                 page = 1;
             }
 
-            this.axios.get('http://po-management.test/api/accountTypes?page=' + page)
+            this.axios.get(process.env.MIX_PUBLISH_APP_URL+'accountTypes?page=' + page)
                 .then(response => {
                     return response.data;
                 }).then(data => {

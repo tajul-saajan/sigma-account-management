@@ -53,7 +53,7 @@ export default {
     },
     created() {
         this.axios
-            .get(`http://po-management.test/api/coas/edit/${this.$route.params.id}`)
+            .get(process.env.MIX_PUBLISH_APP_URL+`coas/edit/${this.$route.params.id}`)
             .then((response) => {
                 this.chart = response.data;
                 this.selectedSubAccount = this.chart.account_subtype_name
@@ -61,7 +61,7 @@ export default {
             });
 
         // get sub projects
-        this.axios.get(`http://po-management.test/api/accountSubTypes/all`)
+        this.axios.get(process.env.MIX_PUBLISH_APP_URL+`accountSubTypes/all`)
             .then((response)=>{
                 return response.data;
             })
@@ -72,7 +72,7 @@ export default {
     methods: {
         updateChart() {
             this.axios
-                .post(`http://po-management.test/api/coas/update/${this.$route.params.id}`, this.chart)
+                .post(process.env.MIX_PUBLISH_APP_URL+`coas/update/${this.$route.params.id}`, this.chart)
                 .then((response) => {
                     this.$router.push({name: 'allCharts'});
                 });

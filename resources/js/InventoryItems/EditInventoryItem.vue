@@ -52,7 +52,7 @@ export default {
     },
     created() {
         this.axios
-            .get(`http://po-management.test/api/inventoryItems/edit/${this.$route.params.id}`)
+            .get(process.env.MIX_PUBLISH_APP_URL+`inventoryItems/edit/${this.$route.params.id}`)
             .then((response) => {
                 this.inventoryItem = response.data;
                 console.log(this.$route.params.type);
@@ -60,7 +60,7 @@ export default {
 
         //account types
         this.axios
-            .get("http://po-management.test/api/inventories")
+            .get(process.env.MIX_PUBLISH_APP_URL+"inventories")
             .then((response) => {
                 return response.data.data;
             })
@@ -71,7 +71,7 @@ export default {
     methods: {
         updateInventoryItem() {
             this.axios
-                .post(`http://po-management.test/api/inventoryItems/update/${this.$route.params.id}`, this.inventoryItem)
+                .post(process.env.MIX_PUBLISH_APP_URL+`inventoryItems/update/${this.$route.params.id}`, this.inventoryItem)
                 .then((response) => {
                     this.$router.push({name: 'allInventoryItems'});
                 });

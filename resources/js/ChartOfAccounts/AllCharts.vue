@@ -42,7 +42,7 @@
                             </router-link>
                             <span
                                 class="m-2 p-2 rounded-md fas fa-trash-restore text-red-500 hover:bg-red-600 hover:text-white"
-                                @click="deleteAccountSubType(chart.id)">
+                                @click="deleteCOA(chart.id)">
                             </span>
                         </div>
                     </td>
@@ -65,19 +65,20 @@ export default {
     },
     data() {
         return {
-            charts: {},
+            charts: null,
         };
     },
     created() {
         this.getResults();
+        console.log(typeof(this.charts))
     },
     methods: {
-        deleteAccountSubType(id) {
+        deleteCOA(id) { //todo doesn't work, need to look
             this.axios
-                .delete(`http://po-management.test/api/coas/delete/${id}`)
+                .delete(process.env.MIX_PUBLISH_APP_URL+`coas/delete/${id}`)
                 .then((response) => {
-                    let i = this.charts.data.map((item) => item.id).indexOf(id); // find index of your object
-                    this.charts.data.splice(i, 1);
+                    let i = this.charts.map((item) => item.id).indexOf(id); // find index of your object
+                    this.charts.splice(i, 1);
                 });
         },
         getResults(page) {
@@ -86,14 +87,13 @@ export default {
             }
 
             this.axios
-                .get("http://po-management.test/api/coas")
+                .get(process.env.MIX_PUBLISH_APP_URL+"coas")
                 .then((response) => {
                     return response.data;
 
                 })
                 .then((data) => {
                     this.charts = data;
-                    console.log(this.charts)
                 });
         },
     },

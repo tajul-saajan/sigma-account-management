@@ -50,7 +50,7 @@ export default {
     methods: {
         addAccountType() {
             this.axios
-                .post(`http://po-management.test/api/accountTypes/add`, this.accountType)
+                .post(process.env.MIX_PUBLISH_APP_URL+`accountTypes/add`, this.accountType)
                 .then((response) => {
                     this.$router.push({name: 'allAccountTypes'});
                 });

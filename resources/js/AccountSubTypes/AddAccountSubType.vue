@@ -55,7 +55,7 @@ export default {
     created() {
         //get account types
         this.axios
-            .get("http://po-management.test/api/accountTypes")
+            .get(process.env.MIX_PUBLISH_APP_URL+"accountTypes")
             .then((response) => {
                 return response.data.data;
             })
@@ -68,7 +68,7 @@ export default {
     methods: {
         addAccountSubType() {
             this.axios
-                .post(`http://po-management.test/api/accountSubTypes/add`, this.accountSubType)
+                .post(process.env.MIX_PUBLISH_APP_URL+`accountSubTypes/add`, this.accountSubType)
                 .then((response) => {
                     this.$router.push({name: 'allAccountSubTypes'});
                 });

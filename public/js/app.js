@@ -2669,6 +2669,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.getResults();
+    console.log("http://po-management.test/api/");
   },
   methods: {
     deleteAccountSubType: function deleteAccountSubType(id) {

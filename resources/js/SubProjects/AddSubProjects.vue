@@ -54,7 +54,7 @@ export default {
     created() {
         //get projects
         this.axios
-            .get("http://po-management.test/api/projects")
+            .get(process.env.MIX_PUBLISH_APP_URL +"projects")
             .then((response) => {
                 return response.data.data;
             })
@@ -67,7 +67,7 @@ export default {
     methods: {
         updateProject() {
             this.axios
-                .post(`http://po-management.test/api/subProjects/add`, this.subProject)
+                .post(process.env.MIX_PUBLISH_APP_URL+`subProjects/add`, this.subProject)
                 .then((response) => {
                     this.$router.push({name: 'allSubProjects'});
                 });

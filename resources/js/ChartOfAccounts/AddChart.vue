@@ -50,7 +50,7 @@ export default {
         }
     },
     created() {
-        this.axios.get(`http://po-management.test/api/accountSubTypes/all`)
+        this.axios.get(process.env.MIX_PUBLISH_APP_URL+`accountSubTypes/all`)
             .then((response)=>{
                 return response.data;
             })
@@ -62,7 +62,7 @@ export default {
     methods: {
         addChart() {
             this.axios
-                .post(`http://po-management.test/api/coas/add`, this.chart)
+                .post(process.env.MIX_PUBLISH_APP_URL+`coas/add`, this.chart)
                 .then((response) => {
                     this.$router.push({name: 'allCharts'});
                 });

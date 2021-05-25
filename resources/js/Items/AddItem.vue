@@ -69,7 +69,7 @@ export default {
     methods: {
         addAccountSubType() {
             this.axios
-                .post(`http://po-management.test/api/items/add`, this.item)
+                .post(process.env.MIX_PUBLISH_APP_URL+`items/add`, this.item)
                 .then((response) => {
                     this.$router.push({name: 'allItems'});
                 });

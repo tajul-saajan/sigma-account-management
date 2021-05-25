@@ -66,7 +66,7 @@ export default {
     },
     created() {
         this.axios
-            .get(`http://po-management.test/api/items/edit/${this.$route.params.id}`)
+            .get(process.env.MIX_PUBLISH_APP_URL+`items/edit/${this.$route.params.id}`)
             .then((response) => {
                 this.item = response.data;
                 // console.log(response.data);
@@ -75,7 +75,7 @@ export default {
     methods: {
         updateItem() {
             this.axios
-                .post(`http://po-management.test/api/items/update/${this.$route.params.id}`, this.item)
+                .post(process.env.MIX_PUBLISH_APP_URL+`items/update/${this.$route.params.id}`, this.item)
                 .then((response) => {
                     this.$router.push({name: 'allItems'});
                 });

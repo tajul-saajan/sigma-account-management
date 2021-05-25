@@ -43,7 +43,7 @@ export default {
     methods: {
         addProject() {
             this.axios
-                .post(`http://po-management.test/api/projects/add`, this.project)
+                .post(process.env.MIX_PUBLISH_APP_URL+`projects/add`, this.project)
                 .then((response) => {
                     this.$router.push({name: 'allProjects'});
                     console.log(response)

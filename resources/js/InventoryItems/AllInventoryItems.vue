@@ -83,7 +83,7 @@ export default {
     methods: {
         deleteInventoryItem(id) {
             this.axios
-                .delete(`http://po-management.test/api/inventoryItems/delete/${id}`)
+                .delete(process.env.MIX_PUBLISH_APP_URL+`inventoryItems/delete/${id}`)
                 .then((response) => {
                     let i = this.inventoryItems.data.map((item) => item.id).indexOf(id); // find index of your object
                     this.inventoryItems.data.splice(i, 1);
@@ -95,7 +95,7 @@ export default {
             }
 
             this.axios
-                .get("http://po-management.test/api/inventoryItems?page=" + page)
+                .get(process.env.MIX_PUBLISH_APP_URL+"inventoryItems?page=" + page)
                 .then((response) => {
                     return response.data;
                 })
