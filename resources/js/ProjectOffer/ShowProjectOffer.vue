@@ -1,7 +1,7 @@
 <template>
     <div class="flex-col  justify-center items-center">
 
-        <top-bar></top-bar>
+       <top-bar home='home' add='add' ></top-bar>
 
         <div class="grid grid-cols-2 gap-4">
             <div class="p-4 bg-gray-200 border-black rounded-md shadow-lg">
@@ -129,7 +129,7 @@
 </template>
 
 <script>
-import TopBar from "./partials/TopBar";
+import TopBar from "../TopBar";
 export default {
     name: "ShowProjectOffer",
     components: {

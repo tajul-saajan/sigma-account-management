@@ -1,6 +1,6 @@
 <template>
 <div class="flex-col justify-center items-center">
-        <top-bar></top-bar>
+        <top-bar home='allInventories' add='addInventory' ></top-bar>
 
         <div class="flex justify-center mt-4">
             <v-table class="border-2 rounded-lg bg-white flex-col items-center justify-center"
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import TopBar from "./partials/TopBar";
+import TopBar from "../TopBar";
 export default {
     name: "AllInventories",
     components: {

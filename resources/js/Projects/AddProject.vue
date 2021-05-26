@@ -1,7 +1,7 @@
 <template>
 <div class="flex-col  justify-center items-center">
 
-        <top-bar></top-bar>
+        <top-bar home='allProjects' add='addProject' ></top-bar>
         <div class="flex justify-center mt-4">
 
             <form @submit.prevent="addProject" class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import TopBar from "./partials/TopBar";
+import TopBar from "../TopBar";
 export default {
     name: "AddProject",
     components: {

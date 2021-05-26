@@ -1,7 +1,7 @@
 <template>
     <div class="flex-col  justify-center items-center">
 
-        <top-bar></top-bar>
+        <top-bar home='home' add='add' ></top-bar>
 
         <!-- filter start -->
 
@@ -155,12 +155,16 @@
 
 <script>
 
-import TopBar from "./partials/TopBar";
+import TopBar from "../TopBar";
 
 
 export default {
     components: {
         'top-bar': TopBar,
+    },
+    props:{
+        home:Object,
+        add: Object
     },
     data() {
         return {

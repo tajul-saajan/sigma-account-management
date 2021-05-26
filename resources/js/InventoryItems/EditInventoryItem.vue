@@ -1,7 +1,7 @@
 <template>
 <div class="flex-col  justify-center items-center">
 
-        <top-bar></top-bar>
+        <top-bar home='allInventoryItems' add='addInventoryItem' ></top-bar>
 
         <div class="flex justify-center mt-4">
 
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import TopBar from "./partials/TopBar";
+import TopBar from "../TopBar";
 export default {
     name: "EditInventoryItem",
     components: {

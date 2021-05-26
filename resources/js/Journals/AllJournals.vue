@@ -1,7 +1,7 @@
 <template>
     <div class="flex-col  justify-center items-center">
 
-        <top-bar></top-bar>
+        <top-bar home='allJournals' add='addJournal' ></top-bar>
 
         <div class="flex">
             <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
@@ -93,7 +93,7 @@
 
 <script>
 
-import TopBar from "./partials/TopBar";
+import TopBar from "../TopBar";
 
 export default {
     name: "AllJournals",

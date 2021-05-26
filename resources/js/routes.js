@@ -16,7 +16,6 @@ import AddJournal from "./Journals/AddJournal";
 import EditJournal from "./Journals/EditJournal";
 import FileUploader from "./ProjectOffer/FileUploader";
 import AllCharts from "./ChartOfAccounts/AllCharts";
-import AddCharts from "./ChartOfAccounts/AddChart";
 import AddChart from "./ChartOfAccounts/AddChart";
 import EditChart from "./ChartOfAccounts/EditChart";
 import AllProjects from "./Projects/AllProjects";
@@ -36,7 +35,6 @@ import AddTransaction from "./Transactions/AddTransaction";
 import EditTransaction from "./Transactions/EditTransaction";
 import AllRequisitions from "./Requisitions/AllRequisitions";
 import AddRequisition from "./Requisitions/AddRequisition";
-import EditRequisitions from "./Requisitions/EditRequisition";
 import EditRequisition from "./Requisitions/EditRequisition";
 import AllEmployees from "./Employees/AllEmployees";
 import AddEmployee from "./Employees/AddEmployee";
@@ -242,23 +240,6 @@ export const routes = [
         component: EditTransaction
     },
 
-    //Requisitions
-    {
-        name: 'allRequisitions',
-        path: '/allRequisitions',
-        component: AllRequisitions
-    },
-
-    {
-        name: 'addRequisition',
-        path: '/addRequisition',
-        component: AddRequisition
-    },
-    {
-        name: 'editRequisition',
-        path: '/editRequisition',
-        component: EditRequisition
-    },
     //Requisitions
     {
         name: 'allRequisitions',

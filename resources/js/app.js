@@ -20,7 +20,6 @@ const router = new VueRouter({
     routes: routes
 });
 
-const BASE_URL =   process.env.VUE_APP_API_URL;
 
 const app = new Vue({
     el: '#app',
