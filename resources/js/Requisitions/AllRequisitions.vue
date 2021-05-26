@@ -1,16 +1,14 @@
 <template>
 <div class="flex-col  justify-center items-center">
-    <top-bar></top-bar>
+    <top-bar home='allRequisitions' add='addRequisition' ></top-bar>
 </div>
 </template>
 
 <script>
-import TopBar from "./partials/TopBar";
+
 export default {
     name: "AllRequisitions",
-    components: {
-        'top-bar': TopBar
-    }
+
 }
 </script>
 

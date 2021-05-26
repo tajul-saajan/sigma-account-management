@@ -1,6 +1,6 @@
 <template>
     <div class="flex-col  justify-center items-center">
-        <top-bar></top-bar>
+        <top-bar home='allRequisitions' add='addRequisition' ></top-bar>
         <div class="flex justify-center mt-4">
 
             <form @submit.prevent="" class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
@@ -46,12 +46,9 @@
 </template>
 
 <script>
-import TopBar from "./partials/TopBar";
 export default {
     name: "AddRequisition",
-    components: {
-        'top-bar': TopBar
-    }
+
 }
 </script>
 

@@ -5,6 +5,7 @@ import VueAxios from 'vue-axios';
 import axios from 'axios';
 import {routes} from './routes';
 import SmartTable from './vuejs-smart-table'
+import TopBar from "./TopBar";
 
 
 
@@ -20,6 +21,7 @@ const router = new VueRouter({
     routes: routes
 });
 
+Vue.component('top-bar',TopBar)
 
 const app = new Vue({
     el: '#app',
