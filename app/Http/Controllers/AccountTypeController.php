@@ -14,8 +14,8 @@ class AccountTypeController extends Controller
      */
     public function index()
     {
-        $accounts = AccountType::paginate(10);
-        return response()->json($accounts);
+        $accounts = AccountType::all();
+        return response()->json($accounts->toArray());
     }
 
     /**

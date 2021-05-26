@@ -56,7 +56,7 @@ export default {
         this.axios
             .get(process.env.MIX_PUBLISH_APP_URL +"projects")
             .then((response) => {
-                return response.data.data;
+                return response.data;
             })
             .then((data) => {
                 this.projects = data;

@@ -21,9 +21,9 @@
 
                 <div class="mt-2">
                     <label>Sub Account</label>
-                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" @change="setSubAccount"
-                           v-model="selectedSubAccount">Select Sub Account
-                        <option v-for="subAccount in subAccounts"  :value="subAccount"> {{subAccount.name}} </option>
+                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" @change="setSubAccount(chart.account_sub_type_id)"
+                           v-model="chart.account_sub_type_id">Select Sub Account
+                        <option v-for="subAccount in subAccounts"  :value="subAccount.id"> {{subAccount.name}} </option>
                     </select>
                 </div>
 
@@ -77,9 +77,9 @@ export default {
                     this.$router.push({name: 'allCharts'});
                 });
         },
-        setSubAccount(){
-            this.chart.account_subtype_id = this.selectedSubAccount.id;
-            this.chart.account_subtype_name = this.selectedSubAccount.name;
+        setSubAccount(id){
+            let el  = this.subAccounts.map((item)=>item.id).indexOf(id);
+            this.chart.account_subtype_name = this.subAccounts[el].type;
         }
     }
 }

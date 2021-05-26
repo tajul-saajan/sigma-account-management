@@ -62,7 +62,7 @@ export default {
         this.axios
             .get(process.env.MIX_PUBLISH_APP_URL+"inventories")
             .then((response) => {
-                return response.data.data;
+                return response.data;
             })
             .then((data) => {
                 this.inventories = data;

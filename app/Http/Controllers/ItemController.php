@@ -14,7 +14,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $item = Item::paginate(10);
+        $item = Item::all();
         return response()->json($item);
     }
 

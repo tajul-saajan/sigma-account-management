@@ -3,15 +3,16 @@
         <top-bar></top-bar>
 
         <div class="flex justify-center mt-4">
-            <table
-                class="border-2 rounded-lg bg-white flex-col items-center justify-center"
+            <v-table class="border-2 rounded-lg bg-white flex-col items-center justify-center"
+                     :data="charts"
+                     :currentPage.sync="currentPage"
+                     :pageSize="5"
+                     @totalPagesChanged="totalPages = $event"
             >
-                <caption
-                    class="text-white text-2xl bg-gray-600 p-4 font-bold text-center"
-                >
+                <caption class="text-white text-2xl bg-gray-600 p-4 font-bold text-center">
                     All COAs
                 </caption>
-                <thead class="bg-gray-200">
+                <thead slot="head" class="bg-gray-200">
                 <tr class="text-gray-600 text-left">
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">
                         GL Name
@@ -26,8 +27,8 @@
                     </th>
                 </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200 align-middle">
-                <tr v-for="(chart, id) in charts" :key="id">
+                <tbody slot="body" slot-scope="{displayData}" class="divide-y divide-gray-200 align-middle">
+                <tr v-for="(chart) in displayData" :key="chart.id">
                     <td class="px-6 py-4 text-center">{{ chart.gl_name }}</td>
                     <td class="px-6 py-4 text-center">
                         {{ chart.balance }}
@@ -48,8 +49,12 @@
                     </td>
                 </tr>
                 </tbody>
-            </table>
+            </v-table>
         </div>
+        <smart-pagination class="flex justify-center  items-center text-2xl m-2 p-4 bg-gray-200 rounded-lg"
+                          :currentPage.sync="currentPage"
+                          :totalPages="totalPages"
+        />
 
     </div>
 </template>
@@ -65,7 +70,9 @@ export default {
     },
     data() {
         return {
-            charts: null,
+            charts: [],
+            currentPage: 1,
+            totalPages: 0,
         };
     },
     created() {
@@ -73,7 +80,7 @@ export default {
         console.log(typeof(this.charts))
     },
     methods: {
-        deleteCOA(id) { //todo doesn't work, need to look
+        deleteCOA(id) {
             this.axios
                 .delete(process.env.MIX_PUBLISH_APP_URL+`coas/delete/${id}`)
                 .then((response) => {

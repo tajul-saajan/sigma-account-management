@@ -14,7 +14,7 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        return Inventory::paginate(10);
+        return response()->json(Inventory::all()->toArray());
     }
 
     /**

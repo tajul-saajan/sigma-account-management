@@ -3,15 +3,20 @@
         <top-bar></top-bar>
 
         <div class="flex justify-center mt-4">
-            <table
-                class="border-2 rounded-lg bg-white flex-col items-center justify-center"
+            <v-table class="border-2 rounded-lg bg-white flex-col items-center justify-center"
+                     :data="items"
+                     :currentPage.sync="currentPage"
+                     :pageSize="5"
+                     @totalPagesChanged="totalPages = $event"
             >
                 <caption
                     class="text-white text-2xl bg-gray-600 p-4 font-bold text-center"
                 >
                     All Items
                 </caption>
-                <thead class="bg-gray-200">
+
+                <thead slot="head" class="bg-gray-200">
+
                 <tr class="text-gray-600 text-left">
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">
                         Name
@@ -36,8 +41,10 @@
                     </th>
                 </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200 align-middle">
-                <tr v-for="(item, id) in items.data" :key="id">
+
+                <tbody slot="body" slot-scope="{displayData}" class="divide-y divide-gray-200 align-middle">
+
+                <tr v-for="(item) in displayData" :key="item.id">
                     <td class="px-6 py-4 text-center">{{ item.name }}</td>
                     <td class="px-6 py-4 text-center">
                         {{ item.description }}
@@ -67,23 +74,13 @@
                     </td>
                 </tr>
                 </tbody>
-            </table>
+            </v-table>
         </div>
 
-        <pagination
-            class="flex justify-evenly text-2xl m-2 p-4 bg-gray-200 rounded-lg"
-            :data="items"
-            @pagination-change-page="getResults"
-        >
-      <span slot="prev-nav">
-        <span class="fas fa-arrow-circle-left"></span>
-        <span>Previous</span>
-      </span>
-            <span slot="next-nav">
-        <span>Next</span>
-        <span class="fas fa-arrow-circle-right"></span>
-      </span>
-        </pagination>
+        <smart-pagination class="flex justify-center  items-center text-2xl m-2 p-4 bg-gray-200 rounded-lg"
+                          :currentPage.sync="currentPage"
+                          :totalPages="totalPages"
+        />
     </div>
 </template>
 
@@ -96,7 +93,9 @@ export default {
     },
     data() {
         return {
-            items: {},
+            items: [],
+            currentPage: 1,
+            totalPages: 0,
         };
     },
     created() {
@@ -107,8 +106,8 @@ export default {
             this.axios
                 .delete(process.env.MIX_PUBLISH_APP_URL+`items/delete/${id}`)
                 .then((response) => {
-                    let i = this.items.data.map((item) => item.id).indexOf(id); // find index of your object
-                    this.items.data.splice(i, 1);
+                    let i = this.items.map((item) => item.id).indexOf(id); // find index of your object
+                    this.items.splice(i, 1);
                 });
         },
         getResults(page) {

@@ -14,8 +14,8 @@ class AccountSubTypeController extends Controller
      */
     public function index()
     {
-        $accountSubTypes = AccountSubType::paginate(10);
-        return response()->json($accountSubTypes);
+        $accountSubTypes = AccountSubType::all();
+        return response()->json($accountSubTypes->toArray());
     }
 
     public function getAll() {
