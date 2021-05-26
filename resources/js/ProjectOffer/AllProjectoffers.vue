@@ -9,9 +9,9 @@
         <div class="flex">
 
             <!--po status-->
-            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-                <label>Status : </label>
-                <select class="border-black border-2" v-model="filters.po_status.value">
+            <div class="my-8 px-3 py-4 bg-gray-400">
+                <label>Status </label>
+                <select class="border-black border-2 rounded-xl" v-model="filters.po_status.value">
                     <option :value="null">Select a column</option>
                     <option v-for="status in projectStatuses" :key="status.id" :value="status.project_status">
                         {{ status.project_status }}
@@ -20,9 +20,9 @@
             </div>
 
             <!--submit type-->
-            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-                <label>Submit Type : </label>
-                <select class="border-black border-2" v-model="filters.submit_type.value">
+            <div class="my-8 px-3 py-4 bg-gray-400">
+                <label>Submit Type</label>
+                <select class="border-black border-2 rounded-xl" v-model="filters.submit_type.value">
                     <option :value="null">Select a column</option>
                     <option value="Full">Full</option>
                     <option value="Partial">Partial</option>
@@ -30,9 +30,9 @@
             </div>
 
             <!--Sub contract-->
-            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-                <label>Sub Contract : </label>
-                <select class="border-black border-2" v-model="filters.sub_contract.value">
+            <div class=" my-8 px-3 py-4 bg-gray-400">
+                <label>Sub Contract</label>
+                <select class="border-black border-2 rounded-xl" v-model="filters.sub_contract.value">
                     <option :value="null">Select a column</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
@@ -40,50 +40,50 @@
             </div>
 
             <!-- Project Name-->
-            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-                <label>Project Name : </label>
-                <input class="border-black border-2" v-model="filters.project_name.value"/>
+            <div class="my-8 px-3 py-4 bg-gray-400">
+                <label>Project Name</label>
+                <input class="border-black border-2 rounded-xl" v-model="filters.project_name.value"/>
             </div>
 
             <!-- Client-->
-            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-                <label>Client : </label>
-                <input class="border-black border-2" v-model="filters.client.value"/>
+            <div class=" my-8 px-3 py-4 bg-gray-400">
+                <label>Client</label>
+                <input class="border-black border-2 rounded-xl" v-model="filters.client.value"/>
             </div>
 
             <!--Offer Ref no-->
-            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-                <label>Offer Ref no : </label>
-                <input class="border-black border-2" v-model="filters.offer_reference_no.value"/>
+            <div class=" my-8 px-3 py-4 bg-gray-400">
+                <label>Offer Ref no</label>
+                <input class="border-black border-2 rounded-xl" v-model="filters.offer_reference_no.value"/>
             </div>
 
 
             <!-- Offer Date-->
-            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-                <label>Offer Date : </label>
-                <input class="border-black border-2" v-model="filters.offer_date.value"/>
+            <div class="my-8 px-3 py-4 bg-gray-400">
+                <label>Offer Date</label>
+                <input class="border-black border-2 rounded-xl" v-model="filters.offer_date.value"/>
             </div>
 
             <!-- po date-->
-            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-                <label>PO Date : </label>
-                <input class="border-black border-2" v-model="filters.po_date.value"/>
+            <div class=" my-8 px-3 py-4 bg-gray-400">
+                <label>PO Date </label>
+                <input class="border-black border-2 rounded-xl" v-model="filters.po_date.value"/>
             </div>
 
             <!-- Money Receive Date-->
-            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-                <label>Money Rcv Date : </label>
-                <input class="border-black border-2" v-model="filters.money_received_date.value"/>
+            <div class=" my-8 px-3 py-4 bg-gray-400">
+                <label>Money Rcv Date </label>
+                <input class="border-black border-2 rounded-xl" v-model="filters.money_received_date.value"/>
             </div>
 
             <!-- PO-->
-            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-                <label>PO : </label>
-                <input class="border-black border-2" v-model="filters.po.value"/>
+            <div class=" my-8 px-3 py-4 bg-gray-400 ">
+                <label>PO</label>
+                <input class="border-black border-2 rounded-xl" v-model="filters.po.value"/>
             </div>
 
-            <div class="flex justify-center my-8 px-3 py-4 bg-gray-400">
-                <button class="border-black border-2" @click="clearFilter">
+            <div class="flex justify-center items-end my-8 px-3 py-4 bg-gray-400">
+                <button class="border-black border-2 rounded-xl px-2" @click="clearFilter">
                     Clear
                 </button>
             </div>
