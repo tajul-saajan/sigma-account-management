@@ -29,7 +29,7 @@
                      :pageSize="5"
                      @totalPagesChanged="totalPages = $event"
             >
-                <caption class="text-white text-2xl bg-gray-600 p-4 font-bold text-center">All Journals
+                <caption slot="head" class="text-white text-2xl bg-gray-600 p-4 font-bold text-center">All Journals
                 </caption>
                 <thead class="bg-gray-200" slot="head">
                 <tr class="text-gray-600 text-left">

@@ -99,7 +99,7 @@
                      :pageSize="5"
                      @totalPagesChanged="totalPages = $event"
             >
-                <caption class="text-white text-2xl bg-gray-600 p-4 font-bold text-center">All Project Offers</caption>
+                <caption slot="head" class="text-white text-2xl bg-gray-600 p-4 font-bold text-center">All Project Offers</caption>
                 <thead class="bg-gray-200" slot="head">
                 <tr class="text-gray-600 text-left">
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Status</th>
