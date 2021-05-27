@@ -49,13 +49,9 @@
 </template>
 
 <script>
-import TopBar from "../TopBar";
 
 export default {
     name: "AllAccountTypes",
-    components: {
-        'top-bar': TopBar
-    },
     data() {
         return {
             accountTypes: [],

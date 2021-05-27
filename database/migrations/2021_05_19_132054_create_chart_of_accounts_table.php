@@ -22,6 +22,15 @@ class CreateChartOfAccountsTable extends Migration
             $table->text(ChartOfAccount::FIELD_BALANCE);
             $table->unsignedBigInteger(ChartOfAccount::FIELD_ACC_SUB_TYPE_ID);
             $table->text(ChartOfAccount::FIELD_ACC_SUB_TYPE_NAME);
+
+            $table->boolean(ChartOfAccount::FIELD_CASH_IN_CASH_CREDIT)->nullable();
+            $table->boolean(ChartOfAccount::FIELD_CASH_OUT_CASH_DEBIT)->nullable();
+
+            $table->boolean(ChartOfAccount::FIELD_CASH_IN_CHEQUE_CREDIT)->nullable();
+            $table->boolean(ChartOfAccount::FIELD_CASH_IN_CHEQUE_DEBIT)->nullable();
+
+            $table->boolean(ChartOfAccount::FIELD_CASH_OUT_CHEQUE_DEBIT)->nullable();
+            $table->boolean(ChartOfAccount::FIELD_CASH_OUT_CHEQUE_CREDIT)->nullable();
         });
     }
 

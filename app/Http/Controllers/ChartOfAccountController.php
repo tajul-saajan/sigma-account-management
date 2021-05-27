@@ -82,7 +82,8 @@ class ChartOfAccountController extends Controller
         return response()->json(null, 204);
     }
 
-    public function getAccountType($id) {
+    public function getAccountType($id)
+    {
         return ChartOfAccount::find($id)->accountSubType->accountType;
     }
 
@@ -90,7 +91,7 @@ class ChartOfAccountController extends Controller
     public function getDebitAccounts()
     {
         $coas = ChartOfAccount::all();
-        $coas = $coas->filter(function ($item){
+        $coas = $coas->filter(function ($item) {
             return $item->accountSubType->accountType->type !== 'Revenue';
         });
 
@@ -100,10 +101,43 @@ class ChartOfAccountController extends Controller
     public function getCreditAccounts()
     {
         $coas = ChartOfAccount::all();
-        $coas = $coas->filter(function ($item){
+        $coas = $coas->filter(function ($item) {
             return $item->accountSubType->accountType->type !== 'Expense';
         });
 
         return response()->json($coas->flatten());
     }
+
+    public function allCashInCashCR()
+    {
+        $coas = ChartOfAccount::where(ChartOfAccount::FIELD_CASH_IN_CASH_CREDIT, 1)->get();
+        return response()->json($coas);
+    }
+
+    public function allCashOutCashDB()
+    {
+        $coas = ChartOfAccount::where(ChartOfAccount::FIELD_CASH_OUT_CASH_DEBIT, 1)->get();
+        return response()->json($coas);
+    }
+
+    public function allCashInChequeCR()
+    {
+        $coas = ChartOfAccount::where(ChartOfAccount::FIELD_CASH_IN_CHEQUE_CREDIT, 1)->get();
+        return response()->json($coas);
+    }
+
+    public function allCashOutChequeDB()
+    {
+        $coas = ChartOfAccount::where(ChartOfAccount::FIELD_CASH_OUT_CHEQUE_DEBIT, 1)->get();
+        return response()->json($coas);
+    }
+
+    public function allBanks()
+    {
+        $coas = ChartOfAccount::where(ChartOfAccount::FIELD_GL_NAME, 'like', '%Bank%')
+            ->orWhere(ChartOfAccount::FIELD_GL_NAME, 'like', '%bank%')
+            ->orWhere(ChartOfAccount::FIELD_GL_NAME, 'like', '%BANK%')->get();
+        return response()->json($coas);
+    }
+
 }

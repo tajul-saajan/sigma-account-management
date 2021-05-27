@@ -15,6 +15,16 @@ class ChartOfAccount extends Model
     const FIELD_ACC_SUB_TYPE_ID = 'account_sub_type_id';
     const FIELD_ACC_SUB_TYPE_NAME = 'account_subtype_name';
 
+    const FIELD_CASH_IN_CASH_CREDIT = 'cash_in_cash_credit';
+    const FIELD_CASH_OUT_CASH_DEBIT = 'cash_out_cash_debit';
+
+    const FIELD_CASH_IN_CHEQUE_CREDIT = 'cash_in_cheque_credit';
+    const FIELD_CASH_IN_CHEQUE_DEBIT = 'cash_in_cheque_debit';
+
+    const FIELD_CASH_OUT_CHEQUE_DEBIT = 'cash_out_cheque_debit';
+    const FIELD_CASH_OUT_CHEQUE_CREDIT = 'cash_out_cheque_credit';
+
+
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     public function accountSubType()

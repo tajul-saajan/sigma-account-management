@@ -27,6 +27,40 @@
                     </select>
                 </div>
 
+                <div class="mt-2 bg-gray-200 p-2 rounded-md">
+                    <label class=" mb-4 bg-gray-800 rounded-md text-white ">For Transaction</label>
+                    <div class="flex-col justify-center items-center">
+                        <div>
+                            <input type="checkbox" name="cashInCashCredit" class="" id="cashInCashCredit" v-model="chart.cash_in_cash_credit">
+                            <label for="cashInCashCredit">Cash-In Cash Credit</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="cashOutCashDebit" class="" id="cashOutCashDebit" v-model="chart.cash_out_cash_debit">
+                            <label for="cashOutCashDebit">Cash Out Cash Debit</label>
+                        </div>
+
+
+                        <div>
+                            <input type="checkbox" name="cashInChequeDebit" class="" id="cashInChequeDebit" v-model="chart.cash_in_cheque_credit">
+                            <label for="cashInChequeDebit">Cash-In Cheque Credit</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="cashOutChequeDebit" class="" id="cashOutChequeDebit" v-model="chart.cash_in_cheque_debit">
+                            <label for="cashOutChequeDebit">Cash-In Cheque Debit</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="cashOutCashCredit" class="" id="cashOutCashCredit" v-model="chart.cash_out_cheque_debit">
+                            <label for="cashOutCashCredit">Cash Out Cheque Debit</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="cashOutChequeCredit" class="" id="cashOutChequeCredit" v-model="chart.cash_out_cheque_credit">
+                            <label for="cashOutChequeCredit">Cash Out Cheque Credit</label>
+                        </div>
+
+                    </div>
+                </div>
+
                 <button type="submit" class="mt-2 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded">
                     Update
                 </button>

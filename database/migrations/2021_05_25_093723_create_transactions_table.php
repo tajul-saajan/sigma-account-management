@@ -20,18 +20,20 @@ class CreateTransactionsTable extends Migration
             $table->timestamps();
             $table->text(Transaction::FIELD_TRANSACTION_TYPE)->nullable();
             $table->text(Transaction::FIELD_CASH_OR_CHECK)->nullable();
-            $table->text(Transaction::FIELD_TRANSACTION_TYPE)->nullable();
             $table->text(Transaction::FIELD_DESCRIPTION)->nullable();
-            $table->text(Transaction::FIELD_SOURCE)->nullable();
+            $table->text(Transaction::FIELD_SOURCE_ID)->nullable();
+            $table->text(Transaction::FIELD_SOURCE_NAME)->nullable();
+            $table->text(Transaction::FIELD_DESTINATION_ID)->nullable();
+            $table->text(Transaction::FIELD_DESTINATION_NAME)->nullable();
             $table->text(Transaction::FIELD_REASON)->nullable();
-            $table->text(Transaction::FIELD_REFERENCE1)->nullable();
-            $table->text(Transaction::FIELD_REFERENCE2)->nullable();
+            $table->text(Transaction::FIELD_REFERENCE)->nullable();
             $table->text(Transaction::FIELD_INVOICE_PATH)->nullable();
             $table->text(Transaction::FIELD_SUB_PROJECT_ID)->nullable();
             $table->text(Transaction::FIELD_SUB_PROJECT_NAME)->nullable();
             $table->text(Transaction::FIELD_AMOUNT)->nullable();
             $table->text(Transaction::FIELD_CHEQUE_NO)->nullable();
-            $table->text(Transaction::FIELD_BANK)->nullable();
+            $table->text(Transaction::FIELD_BANK_ID)->nullable();
+            $table->text(Transaction::FIELD_BANK_NAME)->nullable();
             $table->text(Transaction::FIELD_CHEQUE_IMAGE_PATH)->nullable();
 
             $table->unsignedBigInteger(Transaction::FIELD_JOURNAL_ID)->nullable();

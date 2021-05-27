@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\JsonResponse
@@ -25,8 +25,23 @@ class TransactionController extends Controller
      */
     public function create(Request $request)
     {
-        $transaction = Transaction::make($request->all());
-        return response()->json($transaction,405);
+        $transactionJson = json_decode($request->transaction, true);
+        $transaction = (collect($transactionJson))->get('transaction');
+        if ($request->file('check_image')) {
+            $fileName = time() . '.' . $request->file('check_image')->getClientOriginalExtension();
+            $request->file('check_image')->storeAs('cheque_images/', $fileName);
+            $transaction['cheque_image_path'] = $fileName;
+        }
+        if ($request->file('invoice_file')) {
+            $fileName = time() . '.' . $request->file('invoice_file')->getClientOriginalExtension();
+            $request->file('invoice_file')->storeAs('invoice_files/', $fileName);
+            $transaction['invoice_path'] = $fileName;
+        }
+
+
+        $t = new Transaction($transaction);
+        $t->save();
+        return response()->json($t, 201);
     }
 
     /**

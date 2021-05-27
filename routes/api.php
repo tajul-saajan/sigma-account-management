@@ -1,16 +1,17 @@
 <?php
 
+use App\Http\Controllers\AccountSubTypeController;
+use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\InventoryItemsController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectOfferController;
-use App\Http\Controllers\AccountTypeController;
-use App\Http\Controllers\AccountSubTypeController;
 use App\Http\Controllers\SubProjectController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -92,6 +93,18 @@ Route::group(['prefix' => 'coas'], function () {
     Route::get('/{id}/accountType/', [ChartOfAccountController::class, 'getAccountType']);
     Route::get('/debitAccounts', [ChartOfAccountController::class, 'getDebitAccounts']);
     Route::get('/creditAccounts', [ChartOfAccountController::class, 'getCreditAccounts']);
+
+    //transactions
+    Route::get('/allCashInCashCR', [ChartOfAccountController::class, 'allCashInCashCR']);
+    Route::get('/allCashOutCashDB', [ChartOfAccountController::class, 'allCashOutCashDB']);
+
+    Route::get('/allCashInChequeCR', [ChartOfAccountController::class, 'allCashInChequeCR']);
+    Route::get('/allCashOutChequeDB', [ChartOfAccountController::class, 'allCashOutChequeDB']);
+
+    Route::get('/allBanks', [ChartOfAccountController::class, 'allBanks']);
+
+
+
 });
 
 Route::group(['prefix' => 'projects'], function () {
@@ -135,4 +148,12 @@ Route::group(['prefix' => 'employees'], function () {
     Route::post('/update/{id}', [EmployeeController::class, 'update']);
     Route::delete('/delete/{id}', [EmployeeController::class, 'delete']);
     Route::get('/{id}/inventory', [EmployeeController::class, 'inventory']);
+});
+
+Route::group(['prefix' => 'transactions'], function () {
+    Route::get('/', [TransactionController::class, 'index']);
+    Route::post('/add', [TransactionController::class, 'create']);
+    Route::get('/edit/{id}', [TransactionController::class, 'edit']);
+    Route::post('/update/{id}', [TransactionController::class, 'update']);
+    Route::delete('/delete/{id}', [TransactionController::class, 'delete']);
 });
