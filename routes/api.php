@@ -10,6 +10,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectOfferController;
+use App\Http\Controllers\RequisitionController;
 use App\Http\Controllers\SubProjectController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
@@ -156,4 +157,12 @@ Route::group(['prefix' => 'transactions'], function () {
     Route::get('/edit/{id}', [TransactionController::class, 'edit']);
     Route::post('/update/{id}', [TransactionController::class, 'update']);
     Route::delete('/delete/{id}', [TransactionController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'requisitions'], function () {
+    Route::get('/', [RequisitionController::class, 'index']);
+    Route::post('/add', [RequisitionController::class, 'create']);
+    Route::get('/edit/{id}', [RequisitionController::class, 'edit']);
+    Route::post('/update/{id}', [RequisitionController::class, 'update']);
+    Route::delete('/delete/{id}', [RequisitionController::class, 'delete']);
 });
