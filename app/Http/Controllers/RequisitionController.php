@@ -24,17 +24,21 @@ class RequisitionController extends Controller
      */
     public function create(Request $request)
     {
+        $requisitionJson = $this->preProcessRequest($request);
+        $requisition = new Requisition($requisitionJson);
+        $requisition->save();
+
+        return response()->json($requisition, 201);
+    }
+
+    private function preProcessRequest($request){
         $requisitionJson = json_decode($request->requisition,true);
         if ($request->file('attachment')){
             $fileName = time() . '.' . $request->file('attachment')->getClientOriginalExtension();
             $request->file('attachment')->storeAs('requisition_attachments/', $fileName);
             $requisitionJson['attachment_path'] = $fileName;
         }
-
-        $requisition = new Requisition($requisitionJson);
-        $requisition->save();
-
-        return response()->json($requisition, 201);
+        return $requisitionJson;
     }
 
 
@@ -72,21 +76,10 @@ class RequisitionController extends Controller
     public function update(Request $request, $id)
     {
         $requisition = Requisition::find($id);
-        $requisitionJson = json_decode($request->requisition,true);
-
-//        dd($requisitionJson);
-
-        if ($request->file('attachment')){
-            $fileName = time() . '.' . $request->file('attachment')->getClientOriginalExtension();
-            if ($requisition->attachment_path){
-                unlink(storage_path('app/requisition_attachments/'.$requisition->attachment_path));
-            }
-
-            $request->file('attachment')->storeAs('requisition_attachments/', $fileName);
-            $requisitionJson['attachment_path'] = $fileName;
+        if ($requisition->attachment_path && $request->file('attachment')){
+            unlink(storage_path('app/requisition_attachments/'.$requisition->attachment_path));
         }
-
-
+        $requisitionJson = $this->preProcessRequest($request);
         $requisition->update($requisitionJson);
         return response()->json($requisition, 200);
     }
