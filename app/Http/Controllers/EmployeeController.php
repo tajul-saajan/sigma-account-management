@@ -24,9 +24,29 @@ class EmployeeController extends Controller
      */
     public function create(Request $request)
     {
-        $employee = Employee::create($request->all());
+        $employeeJson = $this->preProcessRequest($request);
+        $employee = Employee::create($employeeJson);
 
         return response()->json($employee, 201);
+    }
+
+    private function preProcessRequest($request){
+        $employeeJson = json_decode($request->employee,true);
+        $nid = $request->file('nid');
+        $image = $request->file('image');
+
+        if ($nid){
+            $filename = time().'.'.$nid->getClientOriginalExtension();
+            $nid->storeAs('employees/NIDs/',$filename);
+            $employeeJson[Employee::FIELD_NID_PATH] = $filename;
+        }
+
+        if ($image){
+            $filename = time().'.'.$image->getClientOriginalExtension();
+            $image->storeAs('employees/images/',$filename);
+            $employeeJson[Employee::FIELD_IMAGE_PATH] = $filename;
+        }
+        return $employeeJson;
     }
 
 
@@ -64,7 +84,15 @@ class EmployeeController extends Controller
     public function update(Request $request, $id)
     {
         $employee = Employee::find($id);
-        $employee->update($request->all());
+        if ($employee->nid_path && $request->file('nid')){
+            unlink(storage_path('app/employees/NIDs/'.$employee->nid_path));
+        }
+        if ($employee->image_path && $request->file('image')){
+            unlink(storage_path('app/employees/images/'.$employee->image_path));
+        }
+
+        $employeeJson = $this->preProcessRequest($request);
+        $employee->update($employeeJson);
         return response()->json($employee, 200);
     }
 
@@ -77,6 +105,10 @@ class EmployeeController extends Controller
     public function delete($id)
     {
         $employee = Employee::find($id);
+        if ($employee->nid_path)
+            unlink(storage_path('app/employees/NIDs/'.$employee->nid_path));
+        if ($employee->image_path)
+            unlink(storage_path('app/employees/images/'.$employee->image_path));
         $employee->delete();
 
         return response()->json(null, 204);

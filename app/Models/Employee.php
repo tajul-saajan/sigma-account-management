@@ -21,6 +21,10 @@ class Employee extends Model
     CONST FIELD_IMAGE_PATH = "image_path";
     CONST FIELD_EMAIL = "email";
     CONST FIELD_TYPE = "type";
+    CONST FIELD_ACCOUNT_NO = "account_no";
+    CONST FIELD_BANK = "bank";
+    CONST FIELD_ADDRESS = "address";
+    CONST FIELD_LEAVE_BALANCE = "leave_balance";
 
     protected $guarded = [
         'id', 'created_at', 'updated_at'
