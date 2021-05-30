@@ -75,8 +75,10 @@
 
                 <div class="mt-2">
                     <label>Type</label>
-                    <input type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <select type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                            v-model="employee.type">
+                        <option v-for="type in employee_types" :key="type.id" :value="type.name" > {{type.name}}</option>
+                    </select>
                 </div>
 
                 <div class="mt-2">
@@ -113,9 +115,16 @@ export default {
     data() {
         return {
             employee: {},
+            employee_types: null,
             nid_file: null,
             image_file: null,
         }
+    },
+    created() {
+        this.axios.get(process.env.MIX_PUBLISH_APP_URL+'employees/types')
+            .then((response)=>{
+                this.employee_types = response.data
+            })
     },
     methods: {
         setNid(event) {
