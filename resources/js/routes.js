@@ -39,6 +39,9 @@ import EditRequisition from "./Requisitions/EditRequisition";
 import AllEmployees from "./Employees/AllEmployees";
 import AddEmployee from "./Employees/AddEmployee";
 import EditEmployee from "./Employees/EditEmployee";
+import AllApplications from "./Applications/AllApplications";
+import AddApplication from "./Applications/AddApplication";
+import EditApplication from "./Applications/EditApplication";
 
 export const routes = [
     // Projectoffers
@@ -273,6 +276,21 @@ export const routes = [
         path: '/editEmployee',
         component: EditEmployee
     },
-
+    //Leave Applications
+    {
+        name: 'allApplications',
+        path: '/allApplications',
+        component: AllApplications
+    },
+    {
+        name: 'addApplication',
+        path: '/addApplication',
+        component: AddApplication
+    },
+    {
+        name: 'editApplication',
+        path: '/editApplication',
+        component: EditApplication
+    },
 ];
 

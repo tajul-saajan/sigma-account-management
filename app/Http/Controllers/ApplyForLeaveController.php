@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ApplyForLeave;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ApplyForLeaveController extends Controller
 {
@@ -81,5 +82,10 @@ class ApplyForLeaveController extends Controller
         $application->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function leaveTypes()
+    {
+        return DB::table('leave_types')->get();
     }
 }

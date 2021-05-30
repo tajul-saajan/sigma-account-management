@@ -37,13 +37,10 @@
 
 <script>
 
-import TopBar from "../TopBar";
 
 export default {
     name: "AddSubProjects",
-    components: {
-        'top-bar': TopBar
-    },
+
     data() {
         return {
             subProject: {},

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountSubTypeController;
 use App\Http\Controllers\AccountTypeController;
+use App\Http\Controllers\ApplyForLeaveController;
 use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\InventoryController;
@@ -148,7 +149,8 @@ Route::group(['prefix' => 'employees'], function () {
     Route::get('/edit/{id}', [EmployeeController::class, 'edit']);
     Route::post('/update/{id}', [EmployeeController::class, 'update']);
     Route::delete('/delete/{id}', [EmployeeController::class, 'delete']);
-    Route::get('/{id}/inventory', [EmployeeController::class, 'inventory']);
+
+    Route::get('/types', [EmployeeController::class, 'getTypes']);
 });
 
 Route::group(['prefix' => 'transactions'], function () {
@@ -165,4 +167,15 @@ Route::group(['prefix' => 'requisitions'], function () {
     Route::get('/edit/{id}', [RequisitionController::class, 'edit']);
     Route::post('/update/{id}', [RequisitionController::class, 'update']);
     Route::delete('/delete/{id}', [RequisitionController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'applications'], function () {
+    Route::get('/', [ApplyForLeaveController::class, 'index']);
+    Route::post('/add', [ApplyForLeaveController::class, 'create']);
+    Route::get('/edit/{id}', [ApplyForLeaveController::class, 'edit']);
+    Route::post('/update/{id}', [ApplyForLeaveController::class, 'update']);
+    Route::delete('/delete/{id}', [ApplyForLeaveController::class, 'delete']);
+
+    Route::get('/leaveTypes', [ApplyForLeaveController::class, 'leaveTypes']);
+
 });

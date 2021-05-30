@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Employee;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -112,5 +113,10 @@ class EmployeeController extends Controller
         $employee->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function getTypes()
+    {
+        return DB::table('employee_types')->get();
     }
 }
