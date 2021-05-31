@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountSubTypeController;
 use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\ApplyForLeaveController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\InventoryController;
@@ -31,6 +32,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('user', function (Request $request) {
     return $request->user();
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);
 });
 
 Route::group(['prefix' => 'projectOffers'], function () {
