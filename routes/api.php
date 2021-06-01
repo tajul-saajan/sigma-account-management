@@ -3,7 +3,7 @@
 use App\Http\Controllers\AccountSubTypeController;
 use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\ApplyForLeaveController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\InventoryController;
@@ -39,11 +39,11 @@ Route::group([
     'prefix' => 'auth'
 
 ], function ($router) {
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::post('/refresh', [AuthController::class, 'refresh']);
-    Route::get('/user-profile', [AuthController::class, 'userProfile']);
+    Route::post('/login', [UserController::class, 'login'])->name('login');
+    Route::post('/register', [UserController::class, 'register']);
+    Route::post('/logout', [UserController::class, 'logout']);
+    Route::post('/refresh', [UserController::class, 'refresh']);
+    Route::get('/user-profile', [UserController::class, 'userProfile']);
 });
 
 Route::group(['prefix' => 'projectOffers'], function () {

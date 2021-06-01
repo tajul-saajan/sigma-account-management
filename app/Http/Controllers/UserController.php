@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 
-class AuthController extends Controller
+class UserController extends Controller
 {
     /**
      * Create a new AuthController instance.
@@ -51,6 +51,7 @@ class AuthController extends Controller
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|confirmed|min:6',
+            'roles' => 'required'
         ]);
 
         if($validator->fails()){
@@ -61,6 +62,8 @@ class AuthController extends Controller
                     $validator->validated(),
                     ['password' => bcrypt($request->password)]
                 ));
+
+        $user->assignRole($request->input('roles'));
 
         return response()->json([
             'message' => 'User successfully registered',
