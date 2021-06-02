@@ -20,6 +20,14 @@
 <body>
 <div id="app">
 </div>
+<script>
+  @auth
+    window.Permissions = {!! json_encode(auth()->user()->allPermissions, true) !!};
+  @else
+    window.Permissions = [];
+  @endauth
+</script>
+
 <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
 </body>
 </html>

@@ -21,7 +21,8 @@
             <div class="text-sm lg:flex-grow" v-if="isLoggedIn">
 
                 <router-link
-                    class="block mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" to="/">
+                    class="block mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                    to="/" v-if="hasPermission('purchase-offer-list')">
                     Project Offers
                 </router-link>
 
@@ -33,11 +34,11 @@
                             class="fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default"></button>
                     <div v-if="isOpenAccount" class="absolute mt-2 py-2 w-40 bg-gray-200 rounded-lg shadow-xl">
                         <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
-                                     :to="{name:'allAccountTypes'}">
+                                     :to="{name:'allAccountTypes'}" v-if="hasPermission('account-type-list')">
                             Account Types
                         </router-link>
                         <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
-                                     :to="{name: 'allAccountSubTypes'}">
+                                     :to="{name: 'allAccountSubTypes'}" v-if="hasPermission('account-subtype-list')">
                             Account SubTypes
                         </router-link>
                     </div>
@@ -51,23 +52,23 @@
                             class="fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default"></button>
                     <div v-if="isOpenProject" class="absolute mt-2 py-2 w-40 bg-gray-200 rounded-lg shadow-xl">
                         <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
-                                     :to="{name:'allProjects'}">
+                                     :to="{name:'allProjects'}" v-if="hasPermission('project-list')">
                             Projects
                         </router-link>
                         <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
-                                     :to="{name: 'allSubProjects'}">
+                                     :to="{name: 'allSubProjects'}" v-if="hasPermission('sub-project-list')">
                             SubProjects
                         </router-link>
                     </div>
                 </div>
 
                 <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
-                             :to="{name: 'allCharts'}">
+                             :to="{name: 'allCharts'}" v-if="hasPermission('coa-list')">
                     COAs
                 </router-link>
 
                 <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
-                             :to="{name: 'allJournals'}">
+                             :to="{name: 'allJournals'}" v-if="hasPermission('journal-list')">
                     Journals
                 </router-link>
 
@@ -79,43 +80,43 @@
                             class="fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default"></button>
                     <div v-if="isOpenInventory" class="absolute mt-2 py-2 w-40 bg-gray-200 rounded-lg shadow-xl">
                         <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
-                                     :to="{name:'allInventories'}">
+                                     :to="{name:'allInventories'}" v-if="hasPermission('inventory-list')">
                             Inventories
                         </router-link>
                         <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
-                                     :to="{name: 'allInventoryItems'}">
+                                     :to="{name: 'allInventoryItems'}" v-if="hasPermission('inventory-item-list')">
                             Inventory Items
                         </router-link>
                     </div>
                 </div>
 
                 <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
-                             :to="{name: 'allItems'}">
+                             :to="{name: 'allItems'}" v-if="hasPermission('item-list')">
                     Items
                 </router-link>
 
                 <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
-                             :to="{name: 'allTransactions'}">
+                             :to="{name: 'allTransactions'}"  v-if="hasPermission('transaction-list')">
                     Transactions
                 </router-link>
 
                 <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
-                             :to="{name: 'allRequisitions'}">
+                             :to="{name: 'allRequisitions'}" v-if="hasPermission('requisition-list')">
                     Requisitions
                 </router-link>
 
                 <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
-                             :to="{name: 'allEmployees'}">
+                             :to="{name: 'allEmployees'}" v-if="hasPermission('employee-list')">
                     Employees
                 </router-link>
 
                 <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
-                             :to="{name: 'allApplications'}">
+                             :to="{name: 'allApplications'}" v-if="hasPermission('leave-list')">
                     Apply Leave
                 </router-link>
 
                 <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
-                             :to="{name: 'allRoles'}">
+                             :to="{name: 'allRoles'}" v-if="hasPermission('role-list')">
                     Roles
                 </router-link>
 
@@ -180,6 +181,10 @@ export default {
                     this.$router.push('/login')
                     location.reload()
                 })
+        },
+        hasPermission(permissionName){
+            let permissions = JSON.parse(localStorage.getItem('permissions'));
+            return permissions.includes(permissionName)
         }
     },
     computed: {
@@ -190,7 +195,7 @@ export default {
             let user = JSON.parse(this.$store.getters.user);
             console.log(user)
             return user?user.name: "";
-        }
+        },
     }
 }
 </script>

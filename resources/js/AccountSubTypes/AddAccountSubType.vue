@@ -55,7 +55,11 @@ export default {
     created() {
         //get account types
         this.axios
-            .get(process.env.MIX_PUBLISH_APP_URL+"accountTypes")
+            .get(process.env.MIX_PUBLISH_APP_URL+"accountTypes",{
+                 headers: {
+                    'Authorization': localStorage.getItem('token')
+                }
+            })
             .then((response) => {
                 return response.data;
             })

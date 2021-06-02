@@ -15,10 +15,10 @@ export default new Vuex.Store({
 
     mutations: {
         setUserData(state, responseData) {
-            localStorage.setItem('user', responseData.user)
+            localStorage.setItem('user', JSON.stringify(responseData.user))
             localStorage.setItem('permissions', responseData.permissions)
-            axios.defaults.headers.common.Authorization = `Bearer ${responseData.access_token}`
             localStorage.setItem('token', `Bearer ${responseData.access_token}`)
+            axios.defaults.headers.common['Authorization'] = `Bearer ${responseData.access_token}`
             console.log(state.user,state.permissions)
 
         },

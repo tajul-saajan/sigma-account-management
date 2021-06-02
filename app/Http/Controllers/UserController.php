@@ -116,7 +116,7 @@ class UserController extends Controller
             'token_type' => 'bearer',
             'expires_in' => 6000000,
             'user' => $user,
-            'permissions' => $this->permissions($user->id),
+            'permissions' =>json_encode($this->permissions($user->id)),
         ]);
     }
 
