@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Storage;
 
 class ProjectOfferController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:purchase-offer-list|purchase-offer-create|purchase-offer-edit|purchase-offer-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:purchase-offer-create', ['only' => ['create','store']]);
+         $this->middleware('permission:purchase-offer-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:purchase-offer-delete', ['only' => ['delete']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *

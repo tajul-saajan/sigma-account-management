@@ -7,6 +7,15 @@ use App\Models\Requisition;
 
 class RequisitionController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:requisition-list|requisition-create|requisition-edit|requisition-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:requisition-create', ['only' => ['create','store']]);
+         $this->middleware('permission:requisition-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:requisition-delete', ['only' => ['delete']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

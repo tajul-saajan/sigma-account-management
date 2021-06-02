@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class ApplyForLeaveController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:leave-list|leave-create|leave-edit|leave-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:leave-create', ['only' => ['create','store']]);
+         $this->middleware('permission:leave-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:leave-delete', ['only' => ['delete']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

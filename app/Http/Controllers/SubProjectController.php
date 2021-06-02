@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class SubProjectController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:sub-project-list|sub-project-create|sub-project-edit|sub-project-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:sub-project-create', ['only' => ['create','store']]);
+         $this->middleware('permission:sub-project-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:sub-project-delete', ['only' => ['delete']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

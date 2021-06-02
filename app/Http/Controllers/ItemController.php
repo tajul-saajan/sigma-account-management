@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:item-list|item-create|item-edit|item-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:item-create', ['only' => ['create','store']]);
+         $this->middleware('permission:item-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:item-delete', ['only' => ['delete']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

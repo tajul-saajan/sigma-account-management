@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class ChartOfAccountController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:coa-list|coa-create|coa-edit|coa-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:coa-create', ['only' => ['create','store']]);
+         $this->middleware('permission:coa-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:coa-delete', ['only' => ['delete']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *

@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class JournalController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:journal-list|journal-create|journal-edit|journal-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:journal-create', ['only' => ['create','store']]);
+         $this->middleware('permission:journal-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:journal-delete', ['only' => ['delete']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
