@@ -46,6 +46,11 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    public function getAttributeRole()
+    {
+        return $this->roles()->pluck("name");
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();

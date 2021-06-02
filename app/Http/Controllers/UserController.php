@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -109,11 +110,21 @@ class UserController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     protected function createNewToken($token){
+        $user =  auth()->user();
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => 6000000,
-            'user' => auth()->user()
+            'user' => $user,
+            'permissions' => $this->permissions(),
         ]);
+    }
+
+    protected function permissions(){
+        $user =  auth()->user();
+        $roleId = $user->roles->first()->id;
+        $permissions = Role::find($roleId)->permissions->pluck('name');
+
+        return ($permissions);
     }
 }

@@ -34,13 +34,14 @@ Route::middleware('auth:api')->get('user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/login', [UserController::class, 'login'])->name('login');
+Route::post('/register', [UserController::class, 'register']);
+
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 
 ], function ($router) {
-    Route::post('/login', [UserController::class, 'login'])->name('login');
-    Route::post('/register', [UserController::class, 'register']);
     Route::post('/logout', [UserController::class, 'logout']);
     Route::post('/refresh', [UserController::class, 'refresh']);
     Route::get('/user-profile', [UserController::class, 'userProfile']);

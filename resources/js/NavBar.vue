@@ -18,10 +18,10 @@
             </button>
         </div>
         <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-            <div class="text-sm lg:flex-grow">
+            <div class="text-sm lg:flex-grow" v-if="isLoggedIn">
 
                 <router-link
-                     class="block mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" to="/">
+                    class="block mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" to="/">
                     Project Offers
                 </router-link>
 
@@ -29,12 +29,15 @@
                     <button @click="isOpenAccount = !isOpenAccount" class="relative z-10 block overflow-hidden">
                         Account
                     </button>
-                    <button v-if="isOpenAccount" @click="isOpenAccount = false" tabindex="-1" class="fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default"></button>
+                    <button v-if="isOpenAccount" @click="isOpenAccount = false" tabindex="-1"
+                            class="fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default"></button>
                     <div v-if="isOpenAccount" class="absolute mt-2 py-2 w-40 bg-gray-200 rounded-lg shadow-xl">
-                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white" :to="{name:'allAccountTypes'}">
+                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
+                                     :to="{name:'allAccountTypes'}">
                             Account Types
                         </router-link>
-                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white" :to="{name: 'allAccountSubTypes'}">
+                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
+                                     :to="{name: 'allAccountSubTypes'}">
                             Account SubTypes
                         </router-link>
                     </div>
@@ -44,22 +47,27 @@
                     <button @click="isOpenProject = !isOpenProject" class="relative z-10 block overflow-hidden">
                         Project
                     </button>
-                    <button v-if="isOpenProject" @click="isOpenProject = false" tabindex="-1" class="fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default"></button>
+                    <button v-if="isOpenProject" @click="isOpenProject = false" tabindex="-1"
+                            class="fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default"></button>
                     <div v-if="isOpenProject" class="absolute mt-2 py-2 w-40 bg-gray-200 rounded-lg shadow-xl">
-                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white" :to="{name:'allProjects'}">
+                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
+                                     :to="{name:'allProjects'}">
                             Projects
                         </router-link>
-                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white" :to="{name: 'allSubProjects'}">
+                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
+                                     :to="{name: 'allSubProjects'}">
                             SubProjects
                         </router-link>
                     </div>
                 </div>
 
-                <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allCharts'}">
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                             :to="{name: 'allCharts'}">
                     COAs
                 </router-link>
 
-                <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allJournals'}">
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                             :to="{name: 'allJournals'}">
                     Journals
                 </router-link>
 
@@ -67,73 +75,114 @@
                     <button @click="isOpenInventory = !isOpenInventory" class="relative z-10 block overflow-hidden">
                         Inventory
                     </button>
-                    <button v-if="isOpenInventory" @click="isOpenInventory = false" tabindex="-1" class="fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default"></button>
+                    <button v-if="isOpenInventory" @click="isOpenInventory = false" tabindex="-1"
+                            class="fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default"></button>
                     <div v-if="isOpenInventory" class="absolute mt-2 py-2 w-40 bg-gray-200 rounded-lg shadow-xl">
-                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white" :to="{name:'allInventories'}">
+                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
+                                     :to="{name:'allInventories'}">
                             Inventories
                         </router-link>
-                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white" :to="{name: 'allInventoryItems'}">
+                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
+                                     :to="{name: 'allInventoryItems'}">
                             Inventory Items
                         </router-link>
                     </div>
                 </div>
 
-                <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allItems'}">
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                             :to="{name: 'allItems'}">
                     Items
                 </router-link>
 
-                <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allTransactions'}">
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                             :to="{name: 'allTransactions'}">
                     Transactions
                 </router-link>
 
-                <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allRequisitions'}">
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                             :to="{name: 'allRequisitions'}">
                     Requisitions
                 </router-link>
 
-                <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allEmployees'}">
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                             :to="{name: 'allEmployees'}">
                     Employees
                 </router-link>
 
-                <router-link  class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4" :to="{name: 'allApplications'}">
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                             :to="{name: 'allApplications'}">
                     Apply Leave
                 </router-link>
 
             </div>
+
             <div>
-                <a href="#"
-                   class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
-                    TBA</a>
+                <router-link v-if="!isLoggedIn"
+                             class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+                             :to="{name: 'login'}">
+                    Log In
+                </router-link>
+
+                <div v-else>
+                    <p
+                        class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+                        >
+                        {{getUser.name}}
+                    </p>
+                    <button
+                        class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+                        @click="logout">
+                        Log Out
+                    </button>
+                </div>
             </div>
+
         </div>
     </nav>
 </template>
 
 <script>
+
+
 export default {
     name: "NavBar",
     data() {
         return {
-            isOpenAccount:false,
-            isOpenProject:false,
-            isOpenInventory:false,
+            isOpenAccount: false,
+            isOpenProject: false,
+            isOpenInventory: false,
         }
     },
-	created(){
-		const handleEscape = (e) => {
-			if(e.key === 'Esc' || e.key === 'Escape'){
-				this.isOpen = false
+    created() {
+        const handleEscape = (e) => {
+            if (e.key === 'Esc' || e.key === 'Escape') {
+                this.isOpen = false
                 console.log('Click')
-			}
-		}
+            }
+        }
 
-		document.addEventListener('keydown', handleEscape)
+        document.addEventListener('keydown', handleEscape)
 
-		this.$once('keydown', ()=>{
-			document.removeEventListener('keydown', handleEscape)
-		})
-	},
+        this.$once('keydown', () => {
+            document.removeEventListener('keydown', handleEscape)
+        })
+    },
     methods: {
-
+        logout: function () {
+            this.$store.dispatch('logout')
+                .then(() => {
+                    this.$router.push('/login')
+                    location.reload()
+                })
+        }
+    },
+    computed: {
+        isLoggedIn: function () {
+            return this.$store.getters.isLogged
+        },
+        getUser(){
+            return  this.$store.getters.user;
+        }
     }
 }
 </script>

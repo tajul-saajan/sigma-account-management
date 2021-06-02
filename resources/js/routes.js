@@ -42,8 +42,16 @@ import EditEmployee from "./Employees/EditEmployee";
 import AllApplications from "./Applications/AllApplications";
 import AddApplication from "./Applications/AddApplication";
 import EditApplication from "./Applications/EditApplication";
+import LogIn from "./LogIn";
+
 
 export const routes = [
+    {
+        name: 'login',
+        path: '/login',
+        component: LogIn
+    },
+
     // Projectoffers
     {
         name: 'home',
@@ -76,7 +84,10 @@ export const routes = [
     {
         name: 'allAccountTypes',
         path: '/allAccountTypes',
-        component: AllAccountTypes
+        component: AllAccountTypes,
+        meta:{
+            requiresAuth:true
+        }
     },
 
     {
