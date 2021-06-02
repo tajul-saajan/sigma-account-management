@@ -35,7 +35,7 @@ class RoleController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function create()
+    public function permissions()
     {
         $permission = Permission::get();
         return response()->json($permission);
@@ -93,7 +93,7 @@ class RoleController extends Controller
             ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
             ->all();
 
-        return response()->json($role, $permission, $rolePermissions);
+        return response()->json([$role, $permission, [$rolePermissions]]);
     }
 
     /**
@@ -127,7 +127,7 @@ class RoleController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function destroy($id)
+    public function delete($id)
     {
         DB::table("roles")->where('id',$id)->delete();
         return response()->json('Role deleted successfully');

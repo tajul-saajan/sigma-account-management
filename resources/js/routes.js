@@ -43,6 +43,9 @@ import AllApplications from "./Applications/AllApplications";
 import AddApplication from "./Applications/AddApplication";
 import EditApplication from "./Applications/EditApplication";
 import LogIn from "./LogIn";
+import AllRoles from "./Roles/AllRoles";
+import AddRole from "./Roles/AddRole";
+import EditRole from "./Roles/EditRole";
 
 
 export const routes = [
@@ -302,6 +305,23 @@ export const routes = [
         name: 'editApplication',
         path: '/editApplication',
         component: EditApplication
+    },
+
+    //Roles
+    {
+        name: 'allRoles',
+        path: '/allRoles',
+        component: AllRoles
+    },
+    {
+        name: 'addRole',
+        path: '/addRole',
+        component: AddRole
+    },
+    {
+        name: 'editRole',
+        path: '/editRole',
+        component: EditRole
     },
 ];
 

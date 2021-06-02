@@ -15,19 +15,22 @@ export default new Vuex.Store({
 
     mutations: {
         setUserData(state, responseData) {
-            state.user = responseData.user
-            state.permissions = responseData.permissions
-            localStorage.setItem('user', JSON.stringify(responseData.user))
+            localStorage.setItem('user', responseData.user)
+            localStorage.setItem('permissions', responseData.permissions)
             axios.defaults.headers.common.Authorization = `Bearer ${responseData.access_token}`
+            localStorage.setItem('token', `Bearer ${responseData.access_token}`)
             console.log(state.user,state.permissions)
 
         },
 
         clearUserData(state) {
             localStorage.removeItem('user')
+            localStorage.removeItem('permissions')
+            localStorage.removeItem('token')
             axios.defaults.headers.common.Authorization = null
             this.state.user = null
             delete axios.defaults.headers.common.Authorization
+
             // location.reload()
         }
     },
@@ -48,6 +51,7 @@ export default new Vuex.Store({
 
     getters: {
         isLogged: (state) => localStorage.getItem('user') !== null,
-        user: (state) => localStorage.getItem('user')
+        user: (state) => localStorage.getItem('user'),
+        permissions : ()=> localStorage.getItem('permissions')
     }
 })
