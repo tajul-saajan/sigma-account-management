@@ -188,7 +188,8 @@ export default {
         },
         getUser(){
             let user = JSON.parse(this.$store.getters.user);
-            return user.name;
+            console.log(user)
+            return user?user.name: "";
         }
     }
 }

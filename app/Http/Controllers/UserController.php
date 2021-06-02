@@ -116,13 +116,12 @@ class UserController extends Controller
             'token_type' => 'bearer',
             'expires_in' => 6000000,
             'user' => $user,
-            'permissions' => $this->permissions(),
+            'permissions' => $this->permissions($user->id),
         ]);
     }
 
-    protected function permissions(){
-        $user =  auth()->user();
-        $roleId = $user->roles->first()->id;
+    protected function permissions($id){
+        $roleId = User::find($id)->roles->first()->id;
         $permissions = Role::find($roleId)->permissions->pluck('name');
 
         return ($permissions);
