@@ -8,13 +8,13 @@ use App\Models\Requisition;
 class RequisitionController extends Controller
 {
 
-    function __construct()
-    {
-         $this->middleware('permission:requisition-list|requisition-create|requisition-edit|requisition-delete', ['only' => ['index','show']]);
-         $this->middleware('permission:requisition-create', ['only' => ['create','store']]);
-         $this->middleware('permission:requisition-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:requisition-delete', ['only' => ['delete']]);
-    }
+//    function __construct()
+//    {
+//         $this->middleware('permission:requisition-list|requisition-create|requisition-edit|requisition-delete', ['only' => ['index','show']]);
+//         $this->middleware('permission:requisition-create', ['only' => ['create','store']]);
+//         $this->middleware('permission:requisition-edit', ['only' => ['edit','update']]);
+//         $this->middleware('permission:requisition-delete', ['only' => ['delete']]);
+//    }
 
     /**
      * Display a listing of the resource.
@@ -35,6 +35,10 @@ class RequisitionController extends Controller
     {
         $requisitionJson = $this->preProcessRequest($request);
         $requisition = new Requisition($requisitionJson);
+
+        $requisition[Requisition::FIELD_APPLIED_BY]= auth()->user()->name;
+        $requisition[Requisition::FIELD_APPLIED_AT]= date_create('now',timezone_open("Asia/Dhaka"));
+
         $requisition->save();
 
         return response()->json($requisition, 201);
@@ -89,7 +93,11 @@ class RequisitionController extends Controller
             unlink(storage_path('app/requisition_attachments/'.$requisition->attachment_path));
         }
         $requisitionJson = $this->preProcessRequest($request);
-        $requisition->update($requisitionJson);
+
+        $requisition[Requisition::FIELD_APPLIED_BY]= auth()->user()->name;
+        $requisition[Requisition::FIELD_APPLIED_AT]= date_create('now',timezone_open("Asia/Dhaka"));
+
+        $requisition->save($requisitionJson);
         return response()->json($requisition, 200);
     }
 

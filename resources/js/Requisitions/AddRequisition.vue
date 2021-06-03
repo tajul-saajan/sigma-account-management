@@ -63,7 +63,7 @@ export default {
     methods: {
         addRequisition(){
             const data = new FormData()
-            data.append('attachment', this.attachment)
+            if (this.attachment) data.append('attachment', this.attachment)
             const json = JSON.stringify(this.requisition)
             data.append('requisition',json)
 

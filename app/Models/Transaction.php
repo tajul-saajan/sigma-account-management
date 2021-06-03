@@ -29,6 +29,10 @@ class Transaction extends Model
     const FIELD_CHEQUE_IMAGE_PATH = "cheque_image_path";
     const FIELD_JOURNAL_ID = "journal_id";
 
+    const FIELD_INSERTED_BY = "inserted_by";
+    const FIELD_UPDATED_BY = "updated_by";
+    const FIELD_LAST_UPDATE_TIME = "last_update_time";
+
     protected $guarded = [
         'id', 'created_at', 'updated_at'
     ];

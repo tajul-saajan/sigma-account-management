@@ -9,7 +9,7 @@
 
                 <div class="mt-2">
                     <label>Type</label>
-                    <select type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <select type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" required
                            v-model="application.leave_type">
                         <option v-for="type in leaveTypes" :key="type.id" :value="type.name"> {{type.name}} </option>
                     </select>
@@ -17,25 +17,25 @@
 
                 <div class="mt-2">
                     <label>From</label>
-                    <input type="date" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <input type="date" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" required
                            v-model="application.from_date">
                 </div>
 
                 <div class="mt-2">
                     <label>To</label>
-                    <input type="date" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <input type="date" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" required
                            v-model="application.to_date">
                 </div>
 
                 <div class="mt-2">
                     <label>No of Days</label>
-                    <input type="number" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <input type="number" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" required
                            v-model.number="application.no_of_days">
                 </div>
 
                 <div class="mt-2">
                     <label>Delegation of Authority</label>
-                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                    <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" required
                            v-model.number="application.delegation_of_authority">
                         <option v-for="doa in employees" :key="doa.id"
                                 :value="doa.name"> {{ doa.name }} </option>

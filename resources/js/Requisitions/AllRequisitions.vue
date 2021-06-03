@@ -18,6 +18,8 @@
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Comment</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Reference</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Amount</th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Applied By</th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Applied At</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Endorsed</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Approved</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Action</th>
@@ -30,6 +32,8 @@
                     <td class="px-6 py-4 text-center">{{ requisition.comment }}</td>
                     <td class="px-6 py-4 text-center">{{ requisition.reference }}</td>
                     <td class="px-6 py-4 text-center">{{ requisition.amount }}</td>
+                    <td class="px-6 py-4 text-center">{{ requisition.applied_by }}</td>
+                    <td class="px-6 py-4 text-center">{{ requisition.applied_at }}</td>
                     <td class="px-6 py-4 text-center">{{ requisition.endorsed }}</td>
                     <td class="px-6 py-4 text-center">{{ requisition.approved }}</td>
                     <td class="px-6 py-4 text-center flex justify-between">

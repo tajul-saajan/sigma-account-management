@@ -14,6 +14,7 @@ class CreateRequisitionsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('requisitions');
         Schema::create('requisitions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
@@ -27,6 +28,8 @@ class CreateRequisitionsTable extends Migration
             $table->text(Requisition::FIELD_ENDORSED_BY)->nullable();
             $table->string(Requisition::FIELD_APPROVED)->default("Pending");
             $table->text(Requisition::FIELD_APPROVED_BY)->nullable();
+            $table->text(Requisition::FIELD_APPLIED_BY)->nullable();
+            $table->text(Requisition::FIELD_APPLIED_AT)->nullable();
         });
     }
 

@@ -28,6 +28,8 @@ class CreateApplyForLeavesTable extends Migration
             $table->text(ApplyForLeave::FIELD_ENDORSED_BY)->nullable();
             $table->string(ApplyForLeave::FIELD_APPROVED)->default("Pending");
             $table->text(ApplyForLeave::FIELD_APPROVED_BY)->nullable();
+            $table->text(ApplyForLeave::FIELD_APPLIED_BY)->nullable();
+            $table->text(ApplyForLeave::FIELD_APPLIED_AT)->nullable();
         });
     }
 

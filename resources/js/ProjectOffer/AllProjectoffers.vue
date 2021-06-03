@@ -113,6 +113,11 @@
                         Amount+VAT
                     </v-th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">AIT</th>
+
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Inserted By</th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Updated by</th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Last Update Time</th>
+
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Actions</th>
                 </tr>
                 </thead>
@@ -127,6 +132,9 @@
                     <td class="px-6 py-4 text-center">{{ projectOffer.po }}</td>
                     <td class="px-6 py-4 text-center">{{ projectOffer.po_amount_with_vat }}</td>
                     <td class="px-6 py-4 text-center">{{ projectOffer.ait }}</td>
+                    <td class="px-6 py-4 text-center">{{ projectOffer.inserted_by }}</td>
+                    <td class="px-6 py-4 text-center">{{ projectOffer.last_updated_by }}</td>
+                    <td class="px-6 py-4 text-center">{{ projectOffer.last_update_time }}</td>
                     <td class="px-6 py-4 text-center flex justify-between">
                         <div class="flex " role="group">
                             <router-link :to="{name: 'edit', params: { id: projectOffer.id }}"
@@ -197,8 +205,8 @@ export default {
             this.axios
                 .delete(`http://po-management.test/api/projectOffers/delete/${id}`)
                 .then(response => {
-                    let i = this.projectOffers.data.map(item => item.id).indexOf(id); // find index of your object
-                    this.projectOffers.data.splice(i, 1)
+                    let i = this.projectOffers.map(item => item.id).indexOf(id); // find index of your object
+                    this.projectOffers.splice(i, 1)
                 });
         },
         showProjectOffer() {

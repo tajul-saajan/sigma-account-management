@@ -34,7 +34,12 @@ class ApplyForLeaveController extends Controller
      */
     public function create(Request $request)
     {
-        $application = ApplyForLeave::create($request->all());
+        $application = ApplyForLeave::make($request->all());
+
+        $application->applied_by = auth()->user()->name;
+        $application->applied_at = date_create('now',timezone_open("Asia/Dhaka"));
+
+        $application->save();
 
         return response()->json($application, 201);
     }
@@ -74,7 +79,11 @@ class ApplyForLeaveController extends Controller
     public function update(Request $request, $id)
     {
         $application = ApplyForLeave::find($id);
-        $application->update($request->all());
+
+        $application->applied_by = auth()->user()->name;
+        $application->applied_at = date_create('now',timezone_open("Asia/Dhaka"));
+
+        $application->save($request->all());
         return response()->json($application, 200);
     }
 

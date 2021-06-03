@@ -19,6 +19,8 @@ class ApplyForLeave extends Model
     CONST FIELD_ENDORSED_BY = "endorsed_by";
     CONST FIELD_APPROVED = "approved";
     CONST FIELD_APPROVED_BY = "approved_by";
+    CONST FIELD_APPLIED_BY = "applied_by";
+    CONST FIELD_APPLIED_AT = "applied_at";
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 }

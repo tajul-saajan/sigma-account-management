@@ -36,6 +36,10 @@ class CreateTransactionsTable extends Migration
             $table->text(Transaction::FIELD_BANK_NAME)->nullable();
             $table->text(Transaction::FIELD_CHEQUE_IMAGE_PATH)->nullable();
 
+            $table->text(Transaction::FIELD_INSERTED_BY)->nullable();
+            $table->text(Transaction::FIELD_UPDATED_BY)->nullable();
+            $table->text(Transaction::FIELD_LAST_UPDATE_TIME)->nullable();
+
             $table->unsignedBigInteger(Transaction::FIELD_JOURNAL_ID)->nullable();
         });
     }

@@ -26,7 +26,7 @@ class ProjectOfferController extends Controller
      */
     public function index()
     {
-        $projectOffers = ProjectOffer::all();
+        $projectOffers = ProjectOffer::latest()->get();
         return response()->json($projectOffers->toArray());
     }
 
@@ -43,6 +43,9 @@ class ProjectOfferController extends Controller
             ProjectOffer:: FIELD_OFFER_DATE=> $request->input(ProjectOffer::FIELD_OFFER_DATE),
             ProjectOffer:: FIELD_PO_STATUS=> $request->input(ProjectOffer::FIELD_PO_STATUS),
             ProjectOffer::FIELD_SUBMIT_TYPE => $request->input(ProjectOffer::FIELD_SUBMIT_TYPE),
+
+            ProjectOffer::FIELD_INSERTED_BY => auth()->user()->name,
+            ProjectOffer::FIELD_LAST_UPDATE_TIME => date_create('now',timezone_open("Asia/Dhaka"))
         ]);
 
         $projectOffer->save();
@@ -66,7 +69,11 @@ class ProjectOfferController extends Controller
 
 
         $projectOffer = ProjectOffer::find($id);
-        $projectOffer->update($request->all());
+
+        $projectOffer->last_updated_by = auth()->user()->name;
+        $projectOffer->last_update_time = date_create('now',timezone_open("Asia/Dhaka"));
+
+        $projectOffer->save($request->all());
         return response()->json('The Project Offer successfully updated');
     }
 

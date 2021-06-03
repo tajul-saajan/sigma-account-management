@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Journal;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class JournalController extends Controller
@@ -34,6 +35,10 @@ class JournalController extends Controller
     public function create(Request $request)
     {
         $journal = Journal::make($request->all());
+
+        $journal->inserted_by = auth()->user()->name;
+        $journal->last_update_time = date_create();
+
         $statusCode = $this->updateChartOfAccount($journal);
         if ($statusCode===201) {
             $journal->save();
@@ -60,10 +65,12 @@ class JournalController extends Controller
         $debitSign = null;
         $creditSign = null;
 
+        dump($debitType,$creditType);
+
         if ($debitType === 'Expense' || $debitType === 'Asset') $debitSign = '+';
         else $debitSign = '-';
 
-        if ($creditType === 'Equity' || $creditType === 'Liablity' || $creditType === 'Revenue') $creditSign = '+';
+        if ($creditType === 'Equity' || $creditType === 'Liability' || $creditType === 'Revenue') $creditSign = '+';
         else $creditSign = '-';
 
         if ($debitSign === $creditSign) return 405;
@@ -116,7 +123,11 @@ class JournalController extends Controller
     public function update(Request $request, $id)
     {
         $journal = Journal::find($id);
-        $journal->update($request->all());
+
+        $journal->updated_by = auth()->user()->name;
+        $journal[Journal::FIELD_LAST_UPDATE_TIME] = date_create('now',timezone_open("Asia/Dhaka"));
+
+        $journal->save($request->all());
         $this->updateChartOfAccount($journal);
         return response()->json($journal, 200);
     }

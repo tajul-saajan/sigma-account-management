@@ -25,6 +25,8 @@
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Endorsed By</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Approved</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Approved By</th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Applied By</th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Applied At</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Actions</th>
                 </tr>
                 </thead>
@@ -40,6 +42,8 @@
                     <td class="px-6 py-4 text-center">{{ application.endorsed_by }}</td>
                     <td class="px-6 py-4 text-center">{{ application.approved }}</td>
                     <td class="px-6 py-4 text-center">{{ application.approved_by }}</td>
+                    <td class="px-6 py-4 text-center">{{ application.applied_by }}</td>
+                    <td class="px-6 py-4 text-center">{{ application.applied_at }}</td>
                     <td class="px-6 py-4 text-center flex justify-between">
                         <div class="flex " role="group">
                             <router-link :to="{name: 'editApplication', params: { id: application.id }}"
