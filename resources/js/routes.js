@@ -46,6 +46,9 @@ import LogIn from "./LogIn";
 import AllRoles from "./Roles/AllRoles";
 import AddRole from "./Roles/AddRole";
 import EditRole from "./Roles/EditRole";
+import AllUsers from "./Users/AllUsers";
+import AddUser from "./Users/AddUser";
+import EditUser from "./Users/EditUser";
 
 
 export const routes = [
@@ -322,6 +325,23 @@ export const routes = [
         name: 'editRole',
         path: '/editRole',
         component: EditRole
+    },
+
+    //Users
+    {
+        name: 'allUsers',
+        path: '/allUsers',
+        component: AllUsers
+    },
+    {
+        name: 'addUser',
+        path: '/addUser',
+        component: AddUser
+    },
+    {
+        name: 'editUser',
+        path: '/editUser',
+        component: EditUser
     },
 ];
 

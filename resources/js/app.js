@@ -21,19 +21,6 @@ const router = new VueRouter({
     routes: routes
 });
 
-const token = localStorage.getItem('token')
-if (token) {
-    axios.defaults.headers.common.Authorization = token
-}
-
-
-const app = new Vue({
-    el: '#app',
-    router: router,
-    store:store,
-    render: h => h(App),
-});
-
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
@@ -63,3 +50,18 @@ router.beforeEach((to, from, next) => {
         next()
     }
 })
+
+
+const token = localStorage.getItem('token')
+if (token) {
+    axios.defaults.headers.common.Authorization = token
+}
+
+
+const app = new Vue({
+    el: '#app',
+    router: router,
+    store:store,
+    render: h => h(App),
+});
+

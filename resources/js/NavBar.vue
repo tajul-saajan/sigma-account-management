@@ -120,6 +120,11 @@
                     Roles
                 </router-link>
 
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                             :to="{name: 'allUsers'}" v-if="hasPermission('role-list')">
+                    Users
+                </router-link>
+
 
             </div>
 
