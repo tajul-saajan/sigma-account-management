@@ -49,6 +49,7 @@ import EditRole from "./Roles/EditRole";
 import AllUsers from "./Users/AllUsers";
 import AddUser from "./Users/AddUser";
 import EditUser from "./Users/EditUser";
+import Tabs from "./Tabs";
 
 
 export const routes = [
@@ -342,6 +343,12 @@ export const routes = [
         name: 'editUser',
         path: '/editUser',
         component: EditUser
+    },
+    //profile
+    {
+        name: 'profile',
+        path: '/profile',
+        component: Tabs
     },
 ];
 

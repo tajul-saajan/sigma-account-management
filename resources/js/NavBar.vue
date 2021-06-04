@@ -21,106 +21,69 @@
             <div class="text-sm lg:flex-grow" v-if="isLoggedIn">
 
                 <router-link
-                    class="block mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                    class="block mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
                     to="/" v-if="hasPermission('purchase-offer-list')">
                     Project Offers
                 </router-link>
 
-                <div class="relative mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
-                    <button @click="isOpenAccount = !isOpenAccount" class="relative z-10 block overflow-hidden">
-                        Account
-                    </button>
-                    <button v-if="isOpenAccount" @click="isOpenAccount = false" tabindex="-1"
-                            class="fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default"></button>
-                    <div v-if="isOpenAccount" class="absolute mt-2 py-2 w-40 bg-gray-200 rounded-lg shadow-xl">
-                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
-                                     :to="{name:'allAccountTypes'}" v-if="hasPermission('account-type-list')">
-                            Account Types
-                        </router-link>
-                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
-                                     :to="{name: 'allAccountSubTypes'}" v-if="hasPermission('account-subtype-list')">
-                            Account SubTypes
-                        </router-link>
-                    </div>
-                </div>
+                <drop-down :links="accountLinks" v-if="hasPermission('account-type-list')"
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
+                    Accounts
+                </drop-down>
 
-                <div class="relative mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
-                    <button @click="isOpenProject = !isOpenProject" class="relative z-10 block overflow-hidden">
-                        Project
-                    </button>
-                    <button v-if="isOpenProject" @click="isOpenProject = false" tabindex="-1"
-                            class="fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default"></button>
-                    <div v-if="isOpenProject" class="absolute mt-2 py-2 w-40 bg-gray-200 rounded-lg shadow-xl">
-                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
-                                     :to="{name:'allProjects'}" v-if="hasPermission('project-list')">
-                            Projects
-                        </router-link>
-                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
-                                     :to="{name: 'allSubProjects'}" v-if="hasPermission('sub-project-list')">
-                            SubProjects
-                        </router-link>
-                    </div>
-                </div>
+                <drop-down :links="projectLinks" v-if="hasPermission('project-list')"
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
+                    Projects
+                </drop-down>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+
+
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
                              :to="{name: 'allCharts'}" v-if="hasPermission('coa-list')">
                     COAs
                 </router-link>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
                              :to="{name: 'allJournals'}" v-if="hasPermission('journal-list')">
                     Journals
                 </router-link>
 
-                <div class="relative mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
-                    <button @click="isOpenInventory = !isOpenInventory" class="relative z-10 block overflow-hidden">
-                        Inventory
-                    </button>
-                    <button v-if="isOpenInventory" @click="isOpenInventory = false" tabindex="-1"
-                            class="fixed inset-0 h-full w-full bg-gray-50 opacity-25 cursor-default"></button>
-                    <div v-if="isOpenInventory" class="absolute mt-2 py-2 w-40 bg-gray-200 rounded-lg shadow-xl">
-                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
-                                     :to="{name:'allInventories'}" v-if="hasPermission('inventory-list')">
-                            Inventories
-                        </router-link>
-                        <router-link class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-500 hover:text-white"
-                                     :to="{name: 'allInventoryItems'}" v-if="hasPermission('inventory-item-list')">
-                            Inventory Items
-                        </router-link>
-                    </div>
-                </div>
+                <drop-down :links="inventoryLinks"  v-if="hasPermission('inventory-list')"
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
+                    Inventory
+                </drop-down>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
                              :to="{name: 'allItems'}" v-if="hasPermission('item-list')">
                     Items
                 </router-link>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
-                             :to="{name: 'allTransactions'}"  v-if="hasPermission('transaction-list')">
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                             :to="{name: 'allTransactions'}" v-if="hasPermission('transaction-list')">
                     Transactions
                 </router-link>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
                              :to="{name: 'allRequisitions'}" v-if="hasPermission('requisition-list')">
                     Requisitions
                 </router-link>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
                              :to="{name: 'allEmployees'}" v-if="hasPermission('employee-list')">
                     Employees
                 </router-link>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
                              :to="{name: 'allApplications'}" v-if="hasPermission('leave-list')">
                     Apply Leave
                 </router-link>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
                              :to="{name: 'allRoles'}" v-if="hasPermission('role-list')">
                     Roles
                 </router-link>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4"
+                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
                              :to="{name: 'allUsers'}" v-if="hasPermission('role-list')">
                     Users
                 </router-link>
@@ -136,13 +99,15 @@
                 </router-link>
 
                 <div v-else>
-                    <p
-                        class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
-                        >
-                        {{getUser}}
-                    </p>
+                    <router-link :to="{'name': 'profile'}"
+                        class="inline-block text-sm px-4 py-2 leading-none border rounded text-white
+                        border-white hover:border-transparent hover:text-teal-500 hover:bg-gray-500 mt-4 lg:mt-0"
+                    >
+                        {{ getUser }}
+                    </router-link>
                     <button
-                        class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+                        class="inline-block text-sm px-4 py-2 leading-none border rounded text-white
+                        border-white hover:border-transparent hover:text-teal-500 hover:bg-gray-500 mt-4 lg:mt-0"
                         @click="logout">
                         Log Out
                     </button>
@@ -155,14 +120,49 @@
 
 <script>
 
+import Dropdown from './DropDown'
 
 export default {
     name: "NavBar",
+    components: {
+        'drop-down': Dropdown
+    },
     data() {
         return {
             isOpenAccount: false,
             isOpenProject: false,
             isOpenInventory: false,
+            accountLinks: [
+                {
+                    'name': 'allAccountTypes',
+                    'text': 'Account Type'
+                },
+                {
+                    'name': 'allAccountSubTypes',
+                    'text': 'Account Sub Type'
+                }
+            ],
+            projectLinks: [
+                {
+                    'name': 'allProjects',
+                    'text': 'Projects'
+                },
+                {
+                    'name': 'allSubProjects',
+                    'text': 'Sub Projects'
+                }
+            ],
+            inventoryLinks: [
+                {
+                    'name': 'allInventories',
+                    'text': 'Inventories'
+                },
+                {
+                    'name': 'allInventoryItems',
+                    'text': 'Inventory Items'
+                }
+            ],
+
         }
     },
     created() {
@@ -187,7 +187,7 @@ export default {
                     location.reload()
                 })
         },
-        hasPermission(permissionName){
+        hasPermission(permissionName) {
             let permissions = JSON.parse(localStorage.getItem('permissions'));
             return permissions.includes(permissionName)
         }
@@ -196,10 +196,10 @@ export default {
         isLoggedIn: function () {
             return this.$store.getters.isLogged
         },
-        getUser(){
+        getUser() {
             let user = JSON.parse(this.$store.getters.user);
             console.log(user)
-            return user?user.name: "";
+            return user ? user.name : "";
         },
     }
 }
