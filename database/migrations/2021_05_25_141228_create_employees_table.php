@@ -18,6 +18,7 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->text(Employee::FIELD_USER_ID);
             $table->text(Employee::FIELD_NAME)->nullable();
             $table->text(Employee::FIELD_DESIGNATION)->nullable();
             $table->text(Employee::FIELD_DEPARTMENT)->nullable();

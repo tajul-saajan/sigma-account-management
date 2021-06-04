@@ -23,6 +23,9 @@
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Amount</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Cheque No</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Bank</th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Inserted By</th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Updated By</th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Last Update Time</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Action</th>
                 </tr>
                 </thead>
@@ -39,6 +42,9 @@
                     <td class="px-6 py-4 text-center">{{ transaction.amount }}</td>
                     <td class="px-6 py-4 text-center">{{ transaction.cheque_no }}</td>
                     <td class="px-6 py-4 text-center">{{ transaction.bank_name }}</td>
+                    <td class="px-6 py-4 text-center">{{ transaction.inserted_by }}</td>
+                    <td class="px-6 py-4 text-center">{{ transaction.updated_by }}</td>
+                    <td class="px-6 py-4 text-center">{{ transaction.last_update_time }}</td>
                     <td class="px-6 py-4 text-center flex justify-between">
                         <div class="flex " role="group">
                             <router-link :to="{name: 'editTransaction', params: { id: transaction.id }}"

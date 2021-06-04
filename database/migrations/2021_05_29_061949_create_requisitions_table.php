@@ -18,6 +18,7 @@ class CreateRequisitionsTable extends Migration
         Schema::create('requisitions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->text(Requisition::FIELD_USER_ID);
             $table->text(Requisition::FIELD_REASON);
             $table->text(Requisition::FIELD_DESCRIPTION);
             $table->text(Requisition::FIELD_COMMENT)->nullable();

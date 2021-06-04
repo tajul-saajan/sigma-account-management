@@ -48,6 +48,7 @@ class TransactionController extends Controller
 
 
         $t = new Transaction($transaction);
+        $t[Transaction::FIELD_INSERTED_BY] = auth()->user()->name;
         $t->save();
         return response()->json($t, 201);
     }
@@ -86,7 +87,11 @@ class TransactionController extends Controller
     public function update(Request $request, $id)
     {
         $transaction = Transaction::find($id);
-        $transaction->update($request->all());
+
+        $transaction[Transaction::FIELD_UPDATED_BY] = auth()->user()->name;
+        $transaction[Transaction::FIELD_LAST_UPDATE_TIME] = date_create('now',timezone_open("Asia/Dhaka"));
+
+        $transaction->save($request->all());
         return response()->json($transaction, 200);
     }
 

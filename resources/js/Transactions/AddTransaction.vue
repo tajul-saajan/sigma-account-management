@@ -162,11 +162,6 @@ export default {
                 this.subProjects = response.data;
             });
 
-        //get sub projects
-        this.axios.get(process.env.MIX_PUBLISH_APP_URL + `subProjects/`)
-            .then((response) => {
-                this.subProjects = response.data;
-            });
     },
     methods: {
         setSubProjectName(id) {
