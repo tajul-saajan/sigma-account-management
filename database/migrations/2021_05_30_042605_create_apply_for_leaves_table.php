@@ -18,7 +18,7 @@ class CreateApplyForLeavesTable extends Migration
         Schema::create('apply_for_leaves', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->text(ApplyForLeave::FIELD_USER_ID);
+            $table->unsignedBigInteger(ApplyForLeave::FIELD_USER_ID);
             $table->text(ApplyForLeave::FIELD_LEAVE_TYPE)->nullable();
             $table->date(ApplyForLeave::FIELD_FROM_DATE);
             $table->date(ApplyForLeave::FIELD_TO_DATE);

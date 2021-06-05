@@ -23,6 +23,7 @@
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Endorsed</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Approved</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Action</th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Approve / Reject</th>
                 </tr>
                 </thead>
                 <tbody slot="body" slot-scope="{displayData}" class="divide-y divide-gray-200 align-middle">
@@ -44,6 +45,19 @@
                             <span
                                 class="m-2 p-2 rounded-md fas fa-trash-restore text-red-500 hover:bg-red-600 hover:text-white"
                                 @click="deleteRequisition(requisition.id)">
+                            </span>
+
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-center justify-between">
+                        <div class="flex " role="group">
+                            <span
+                                class="text-green-600 rounded-md  m-2 p-2 fas fa-check hover:bg-blue-600 hover:text-white"
+                                @click="approveRequisition(requisition.id)">
+                            </span>
+                            <span
+                                class="m-2 p-2 rounded-md fas fa-times text-red-500 hover:bg-red-600 hover:text-white"
+                                @click="rejectRequisition(requisition.id)">
                             </span>
 
                         </div>
@@ -95,6 +109,22 @@ export default {
                 }).then(data => {
                 this.requisitions = data;
             });
+        },
+        approveRequisition(id) {
+            this.axios.post(process.env.MIX_PUBLISH_APP_URL + 'requisitions/approve/' + id)
+                .then(response => {
+                    alert(response.data)
+                    location.reload()
+                }).catch(error=>{
+                    console.log(error)
+            })
+        },
+        rejectRequisition(id) {
+            this.axios.post(process.env.MIX_PUBLISH_APP_URL + 'requisitions/reject/' + id)
+                .then(response => {
+                    alert(response.data)
+                    location.reload()
+                })
         }
     }
 }

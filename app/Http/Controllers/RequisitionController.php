@@ -37,6 +37,7 @@ class RequisitionController extends Controller
         $requisition = new Requisition($requisitionJson);
 
         $requisition[Requisition::FIELD_APPLIED_BY]= auth()->user()->name;
+        $requisition[Requisition::FIELD_USER_ID]= auth()->user()->id;;
         $requisition[Requisition::FIELD_APPLIED_AT]= date_create('now',timezone_open("Asia/Dhaka"));
 
         $requisition->save();
@@ -116,5 +117,23 @@ class RequisitionController extends Controller
         $requisition->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function approve($id)
+    {
+        $requisition = Requisition::find($id);
+        $requisition[Requisition::FIELD_APPROVED] = "Approved";
+        $requisition[Requisition::FIELD_APPROVED_BY] = auth()->user()->name;
+        $requisition->save();
+        return response()->json("Requisition Approved!");
+    }
+
+    public function reject($id)
+    {
+        $requisition = Requisition::find($id);
+        $requisition[Requisition::FIELD_APPROVED] = "Rejected";
+        $requisition[Requisition::FIELD_APPROVED_BY] = auth()->user()->name;
+        $requisition->save();
+        return response()->json("Requisition Rejected!");
     }
 }

@@ -102,7 +102,6 @@ class Transaction extends Model
                 $destination->update();
 
                 $transaction->journal_id = $journal->id;
-                dd($journal->id);
             }
             $transaction->journal_id = $journal->id;
 

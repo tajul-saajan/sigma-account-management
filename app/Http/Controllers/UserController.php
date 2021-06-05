@@ -137,6 +137,17 @@ class UserController extends Controller
      */
     public function userProfile()
     {
-        return response()->json(auth()->user());
+        return response()->json(auth()->user()->employee);
     }
+
+    public function userLeaveApplications()
+    {
+        return response()->json(auth()->user()->applyForLeaves);
+    }
+
+    public function userRequisitions()
+    {
+        return response()->json(auth()->user()->requisitions);
+    }
+
 }

@@ -9,6 +9,7 @@ class Requisition extends Model
 {
     use HasFactory;
 
+    CONST FIELD_USER_ID = "user_id";
     CONST FIELD_DESCRIPTION = "description";
     CONST FIELD_REASON = "reason";
     CONST FIELD_COMMENT = "comment";
@@ -24,4 +25,9 @@ class Requisition extends Model
     CONST FIELD_APPLIED_AT = "applied_at";
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
