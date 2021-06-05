@@ -47,6 +47,8 @@ Route::group([
     Route::post('/logout', [UserController::class, 'logout']);
     Route::post('/refresh', [UserController::class, 'refresh']);
     Route::get('/user-profile', [UserController::class, 'userProfile']);
+    Route::get('/leaves', [UserController::class, 'userLeaveApplications']);
+    Route::get('/requisitions', [UserController::class, 'userRequisitions']);
 });
 
 Route::middleware('api')->group(function () {
@@ -183,6 +185,9 @@ Route::middleware('api')->group(function () {
         Route::get('/edit/{id}', [RequisitionController::class, 'edit']);
         Route::post('/update/{id}', [RequisitionController::class, 'update']);
         Route::delete('/delete/{id}', [RequisitionController::class, 'delete']);
+
+        Route::post('/approve/{id}', [RequisitionController::class, 'approve']);
+        Route::post('/reject/{id}', [RequisitionController::class, 'reject']);
     });
 
     Route::group(['prefix' => 'applications'], function () {
@@ -191,6 +196,8 @@ Route::middleware('api')->group(function () {
         Route::get('/edit/{id}', [ApplyForLeaveController::class, 'edit']);
         Route::post('/update/{id}', [ApplyForLeaveController::class, 'update']);
         Route::delete('/delete/{id}', [ApplyForLeaveController::class, 'delete']);
+        Route::post('/approve/{id}', [ApplyForLeaveController::class, 'approve']);
+        Route::post('/reject/{id}', [ApplyForLeaveController::class, 'reject']);
 
         Route::get('/leaveTypes', [ApplyForLeaveController::class, 'leaveTypes']);
 

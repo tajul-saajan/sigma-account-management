@@ -23,7 +23,7 @@ class ApplyForLeaveController extends Controller
      */
     public function index()
     {
-        $applications = ApplyForLeave::all();
+        $applications = ApplyForLeave::latest()->get();
         return  response()->json($applications->toArray());
     }
 
@@ -36,8 +36,9 @@ class ApplyForLeaveController extends Controller
     {
         $application = ApplyForLeave::make($request->all());
 
-        $application->applied_by = auth()->user()->name;
-        $application->applied_at = date_create('now',timezone_open("Asia/Dhaka"));
+        $application[ApplyForLeave::FIELD_APPLIED_BY] = auth()->user()->name;
+        $application[ApplyForLeave::FIELD_USER_ID] = auth()->user()->id;
+        $application[ApplyForLeave::FIELD_APPLIED_AT] = date_create('now',timezone_open("Asia/Dhaka"));
 
         $application->save();
 
@@ -99,6 +100,22 @@ class ApplyForLeaveController extends Controller
         $application->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function approve($id)
+    {
+        $application = ApplyForLeave::find($id);
+        $application[ApplyForLeave::FIELD_APPROVED] = "Approved";
+        $application[ApplyForLeave::FIELD_APPROVED_BY] = auth()->user()->name;
+        $application->save();
+    }
+
+    public function reject($id)
+    {
+        $application = ApplyForLeave::find($id);
+        $application[ApplyForLeave::FIELD_APPROVED] = "Rejected";
+        $application[ApplyForLeave::FIELD_APPROVED_BY] = auth()->user()->name;
+        $application->save();
     }
 
     public function leaveTypes()

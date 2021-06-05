@@ -49,7 +49,7 @@ import EditRole from "./Roles/EditRole";
 import AllUsers from "./Users/AllUsers";
 import AddUser from "./Users/AddUser";
 import EditUser from "./Users/EditUser";
-import Tabs from "./Tabs";
+import Tabs from "./ProfilePage/Tabs";
 
 
 export const routes = [

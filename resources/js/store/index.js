@@ -10,7 +10,7 @@ export default new Vuex.Store({
     state: {
         user: null,
         token: localStorage.getItem('token') || '',
-        permissions : null
+        permissions: null
     },
 
     mutations: {
@@ -19,7 +19,7 @@ export default new Vuex.Store({
             localStorage.setItem('permissions', responseData.permissions)
             localStorage.setItem('token', `Bearer ${responseData.access_token}`)
             axios.defaults.headers.common['Authorization'] = `Bearer ${responseData.access_token}`
-            console.log(state.user,state.permissions)
+            console.log(state.user, state.permissions)
 
         },
 
@@ -52,6 +52,6 @@ export default new Vuex.Store({
     getters: {
         isLogged: (state) => localStorage.getItem('user') !== null,
         user: (state) => localStorage.getItem('user'),
-        permissions : ()=> localStorage.getItem('permissions')
+        permissions: () => localStorage.getItem('permissions'),
     }
 })

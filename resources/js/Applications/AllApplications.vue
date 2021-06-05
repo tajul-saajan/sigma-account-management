@@ -28,6 +28,7 @@
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Applied By</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Applied At</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Actions</th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Approve/Reject</th>
                 </tr>
                 </thead>
                 <tbody slot="body" slot-scope="{displayData}" class="divide-y divide-gray-200 align-middle">
@@ -52,6 +53,19 @@
                             <span
                                 class="m-2 p-2 rounded-md fas fa-trash-restore text-red-500 hover:bg-red-600 hover:text-white"
                                 @click="deleteApplication(application.id)">
+                            </span>
+
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-center justify-between">
+                        <div class="flex " role="group">
+                            <span
+                                class="text-green-600 rounded-md  m-2 p-2 fas fa-check hover:bg-blue-600 hover:text-white"
+                                @click="approveApplication(application.id)">
+                            </span>
+                            <span
+                                class="m-2 p-2 rounded-md fas fa-times text-red-500 hover:bg-red-600 hover:text-white"
+                                @click="rejectApplication(application.id)">
                             </span>
 
                         </div>
@@ -102,6 +116,26 @@ export default {
                 this.applications = data;
             });
         },
+        approveApplication(id){
+            this.axios.post(process.env.MIX_PUBLISH_APP_URL+'applications/approve/'+id)
+                .then(response=>{
+                    alert("Application Approved")
+                    location.reload()
+                })
+                .catch(error=>{
+                    console.log(error)
+                })
+        },
+        rejectApplication(id){
+            this.axios.post(process.env.MIX_PUBLISH_APP_URL+'applications/reject/'+id)
+                .then(response=>{
+                    alert("Application Rejected")
+                    location.reload()
+                })
+                .catch(error=>{
+                    console.log(error)
+                })
+        }
     },
     computed: {
 

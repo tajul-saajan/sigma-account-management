@@ -21,6 +21,15 @@ const router = new VueRouter({
     routes: routes
 });
 
+Vue.mixin({
+    methods: {
+        hasPermission(permissionName) {
+            let permissions = JSON.parse(localStorage.getItem('permissions'));
+            return permissions.includes(permissionName)
+        }
+    }
+})
+
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {

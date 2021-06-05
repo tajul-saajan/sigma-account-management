@@ -9,6 +9,7 @@ class ApplyForLeave extends Model
 {
     use HasFactory;
 
+    CONST FIELD_USER_ID = "user_id";
     CONST FIELD_LEAVE_TYPE = "leave_type";
     CONST FIELD_FROM_DATE = "from_date";
     CONST FIELD_TO_DATE = "to_date";
@@ -23,4 +24,9 @@ class ApplyForLeave extends Model
     CONST FIELD_APPLIED_AT = "applied_at";
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
