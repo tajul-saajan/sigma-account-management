@@ -35,7 +35,9 @@ class EmployeeController extends Controller
     public function create(Request $request)
     {
         $employeeJson = $this->preProcessRequest($request);
-        $employee = Employee::create($employeeJson);
+        $employee = Employee::make($employeeJson);
+        $employee[Employee::FIELD_USER_ID] = auth()->user()->id;
+        $employee->save();
 
         return response()->json($employee, 201);
     }

@@ -10,6 +10,7 @@ class Employee extends Model
     use HasFactory;
 
     CONST FIELD_NAME = "name";
+    CONST FIELD_USER_ID = "user_id";
     CONST FIELD_DESIGNATION = "designation";
     CONST FIELD_DEPARTMENT = "department";
     CONST FIELD_UNIT = "unit";
@@ -29,5 +30,10 @@ class Employee extends Model
     protected $guarded = [
         'id', 'created_at', 'updated_at'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
 }
