@@ -27,64 +27,72 @@
                 </router-link>
 
                 <drop-down :links="accountLinks" v-if="hasPermission('account-type-list')"
-                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
+                           class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
                     Accounts
                 </drop-down>
 
                 <drop-down :links="projectLinks" v-if="hasPermission('project-list')"
-                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
+                           class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
                     Projects
                 </drop-down>
 
 
-
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                             :to="{name: 'allCharts'}" v-if="hasPermission('coa-list')">
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allCharts'}" v-if="hasPermission('coa-list')">
                     COAs
                 </router-link>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                             :to="{name: 'allJournals'}" v-if="hasPermission('journal-list')">
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allJournals'}" v-if="hasPermission('journal-list')">
                     Journals
                 </router-link>
 
-                <drop-down :links="inventoryLinks"  v-if="hasPermission('inventory-list')"
-                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
+                <drop-down :links="inventoryLinks" v-if="hasPermission('inventory-list')"
+                           class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
                     Inventory
                 </drop-down>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                             :to="{name: 'allItems'}" v-if="hasPermission('item-list')">
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allItems'}" v-if="hasPermission('item-list')">
                     Items
                 </router-link>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                             :to="{name: 'allTransactions'}" v-if="hasPermission('transaction-list')">
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allTransactions'}" v-if="hasPermission('transaction-list')">
                     Transactions
                 </router-link>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                             :to="{name: 'allRequisitions'}" v-if="hasPermission('requisition-list')">
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allRequisitions'}" v-if="hasPermission('requisition-list')">
                     Requisitions
                 </router-link>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                             :to="{name: 'allEmployees'}" v-if="hasPermission('employee-list')">
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allEmployees'}" v-if="hasPermission('employee-list')">
                     Employees
                 </router-link>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                             :to="{name: 'allApplications'}" v-if="hasPermission('leave-list')">
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allApplications'}" v-if="hasPermission('leave-list')">
                     Apply Leave
                 </router-link>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                             :to="{name: 'allRoles'}" v-if="hasPermission('role-list')">
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allRoles'}" v-if="hasPermission('role-list')">
                     Roles
                 </router-link>
 
-                <router-link class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                             :to="{name: 'allUsers'}" v-if="hasPermission('role-list')">
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allUsers'}" v-if="hasPermission('role-list')">
                     Users
                 </router-link>
 
@@ -100,7 +108,7 @@
 
                 <div v-else>
                     <router-link :to="{'name': 'profile'}"
-                        class="inline-block text-sm px-4 py-2 leading-none border rounded text-white
+                                 class="inline-block text-sm px-4 py-2 leading-none border rounded text-white
                         border-white hover:border-transparent hover:text-teal-500 hover:bg-gray-500 mt-4 lg:mt-0"
                     >
                         {{ getUser }}
@@ -119,6 +127,8 @@
 </template>
 
 <script>
+
+
 
 import Dropdown from './DropDown'
 
