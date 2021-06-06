@@ -176,18 +176,7 @@ export default {
         }
     },
     created() {
-        const handleEscape = (e) => {
-            if (e.key === 'Esc' || e.key === 'Escape') {
-                this.isOpen = false
-                console.log('Click')
-            }
-        }
-
-        document.addEventListener('keydown', handleEscape)
-
-        this.$once('keydown', () => {
-            document.removeEventListener('keydown', handleEscape)
-        })
+        console.log(localStorage.getItem('token'))
     },
     methods: {
         logout: function () {

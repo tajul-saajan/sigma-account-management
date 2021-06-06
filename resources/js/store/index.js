@@ -43,6 +43,13 @@ export default new Vuex.Store({
                     commit('setUserData', data)
                 })
         },
+        refresh({commit}) {
+            return axios
+                .post('/auth/refresh')
+                .then(({data}) => {
+                    commit('setUserData', data)
+                })
+        },
 
         logout({commit}) {
             commit('clearUserData')

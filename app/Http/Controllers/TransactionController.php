@@ -90,8 +90,9 @@ class TransactionController extends Controller
 
         $transaction[Transaction::FIELD_UPDATED_BY] = auth()->user()->name;
         $transaction[Transaction::FIELD_LAST_UPDATE_TIME] = date_create('now',timezone_open("Asia/Dhaka"));
+        $transaction->save();
 
-        $transaction->save($request->all());
+        $transaction->update($request->all());
         return response()->json($transaction, 200);
     }
 

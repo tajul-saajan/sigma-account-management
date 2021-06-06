@@ -97,8 +97,9 @@ class RequisitionController extends Controller
 
         $requisition[Requisition::FIELD_APPLIED_BY]= auth()->user()->name;
         $requisition[Requisition::FIELD_APPLIED_AT]= date_create('now',timezone_open("Asia/Dhaka"));
+        $requisition->save();
 
-        $requisition->save($requisitionJson);
+        $requisition->update($requisitionJson);
         return response()->json($requisition, 200);
     }
 

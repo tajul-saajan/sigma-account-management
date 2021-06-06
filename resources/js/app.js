@@ -31,40 +31,58 @@ Vue.mixin({
 })
 
 
-router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (store.getters.isLogged===false) {
-            next({
-                path: '/login',
-                params: {nextUrl: to.fullPath}
-            })
-        } else {
-            let user = JSON.parse(localStorage.getItem('user'))
-            if (to.matched.some(record => record.meta.is_admin)) {
-                if (user.is_admin === 1) {
-                    next()
-                } else {
-                    next({name: 'admin-dashboard'})
-                }
-            } else if (to.matched.some(record => record.meta.is_user)) {
-                if (user.is_admin === 0) {
-                    next()
-                } else {
-                    next({name: 'admin'})
-                }
-            }
-            next()
-        }
-    } else {
-        next()
-    }
-})
+// router.beforeEach((to, from, next) => {
+//     if (to.matched.some(record => record.meta.requiresAuth)) {
+//         if (store.getters.isLogged===false) {
+//             next({
+//                 path: '/login',
+//                 params: {nextUrl: to.fullPath}
+//             })
+//         } else {
+//             let user = JSON.parse(localStorage.getItem('user'))
+//             if (to.matched.some(record => record.meta.is_admin)) {
+//                 if (user.is_admin === 1) {
+//                     next()
+//                 } else {
+//                     next({name: 'admin-dashboard'})
+//                 }
+//             } else if (to.matched.some(record => record.meta.is_user)) {
+//                 if (user.is_admin === 0) {
+//                     next()
+//                 } else {
+//                     next({name: 'admin'})
+//                 }
+//             }
+//             next()
+//         }
+//     } else {
+//         next()
+//     }
+// })
 
 
 const token = localStorage.getItem('token')
 if (token) {
     axios.defaults.headers.common.Authorization = token
 }
+
+axios.interceptors.response.use(response=>{
+    return response
+}, error => {
+    if (error.response.status === 403) {
+        router.push({name: 'login'})
+    }
+    else if (error.response.status === 401){
+        store.dispatch('refresh')
+            .then(()=>{
+                alert("token refreshed")
+                router.push({name: 'home'})
+            })
+            .catch(error=>{
+                console.log(error)
+            })
+    }
+})
 
 
 const app = new Vue({

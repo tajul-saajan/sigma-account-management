@@ -62,7 +62,7 @@ class UserController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => 6000000,
+            'expires_in' => 30,
             'user' => $user,
             'permissions' => json_encode($this->permissions($user->id)),
         ]);

@@ -126,8 +126,9 @@ class JournalController extends Controller
 
         $journal->updated_by = auth()->user()->name;
         $journal[Journal::FIELD_LAST_UPDATE_TIME] = date_create('now',timezone_open("Asia/Dhaka"));
+        $journal->save();
 
-        $journal->save($request->all());
+        $journal->update($request->all());
         $this->updateChartOfAccount($journal);
         return response()->json($journal, 200);
     }
