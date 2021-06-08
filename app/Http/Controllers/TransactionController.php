@@ -88,11 +88,12 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::find($id);
 
-        $transaction[Transaction::FIELD_UPDATED_BY] = auth()->user()->name;
-        $transaction[Transaction::FIELD_LAST_UPDATE_TIME] = date_create('now',timezone_open("Asia/Dhaka"));
-        $transaction->save();
+        $data = $request->all();
 
-        $transaction->update($request->all());
+        $data[Transaction::FIELD_UPDATED_BY] = auth()->user()->name;
+        $data[Transaction::FIELD_LAST_UPDATE_TIME] = date_create('now',timezone_open("Asia/Dhaka"));
+
+        $transaction->update($data);
         return response()->json($transaction, 200);
     }
 

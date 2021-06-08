@@ -93,7 +93,11 @@ class RoleController extends Controller
             ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
             ->all();
 
-        return response()->json([$role, $permission, [$rolePermissions]]);
+        $permissionVal = array_values($rolePermissions);
+
+//        dd($permissionVal);
+
+        return response()->json([$role, $permission, [$rolePermissions],$permissionVal]);
     }
 
     /**
@@ -113,7 +117,7 @@ class RoleController extends Controller
 
         $role = Role::find($id);
         $role->name = $request->input('name');
-        $role->save();
+        $role->update();
 
         $role->syncPermissions($request->input('permission'));
 

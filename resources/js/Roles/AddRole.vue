@@ -14,12 +14,19 @@
                 </div>
 
                 <div class="mt-2">
+                    <label>Selected</label>
+                    <ul class="grid grid-cols-2 px-5 py-1 text-gray-700 bg-gray-200 border-black rounded">
+                        <li v-for="item in selected" :key="item.id"
+                            class="px-1 m-1 bg-green-100 flex justify-between content-center text-green-800">
+                            {{item.name}}  <span class="fas fa-times text-red-400 p-1 ml-2 flex  items-center" @click="removeItem(item)"></span> </li>
+                    </ul>
+                </div>
+
+                <div class="mt-2">
                     <label>Permissions</label>
-
                         <select  class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded h-screen" v-model="permission" multiple>
-                            <option v-for="p in permissions" :key="p.id" :value="p.id">{{p.name}}</option>
+                            <option @click="addToSelected(p)" v-for="p in permissions" :key="p.id" :value="p.id">{{p.name}}</option>
                         </select>
-
                 </div>
 
 
@@ -38,6 +45,7 @@ export default {
         return {
             role: null,
             permission: [],
+            selected: [],
             permissions: null,
         }
     },
@@ -66,6 +74,17 @@ export default {
                 }).catch(err=>{
                     console.log(err)
             });
+        },
+        addToSelected(p){
+            if (!this.selected.includes(p))this.selected.push(p);
+            // if (!this.permission.includes(p))this.permission.push(p.id);
+        },
+        removeItem(item){
+            let  el = this.selected.indexOf(item);
+            this.selected.splice(el,1);
+
+            let  index = this.permissions.indexOf(item.id);
+            this.permissions.splice(index,1);
         }
     }
 }

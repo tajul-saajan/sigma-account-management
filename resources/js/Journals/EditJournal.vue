@@ -109,14 +109,14 @@ export default {
         //get chart of accounts
         this.axios.get(process.env.MIX_PUBLISH_APP_URL+`coas/`)
             .then((response)=>{
-                this.chartOfAccounts = response.data.data;
+                this.chartOfAccounts = response.data;
                 // console.log(this.chartOfAccounts)
             });
 
         //get sub projects
         this.axios.get(process.env.MIX_PUBLISH_APP_URL+`subProjects/`)
             .then((response)=>{
-                this.subProjects = response.data.data;
+                this.subProjects = response.data;
                 // console.log(this.chartOfAccounts)
             });
     },

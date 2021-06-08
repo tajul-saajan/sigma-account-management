@@ -95,11 +95,11 @@ class RequisitionController extends Controller
         }
         $requisitionJson = $this->preProcessRequest($request);
 
-        $requisition[Requisition::FIELD_APPLIED_BY]= auth()->user()->name;
-        $requisition[Requisition::FIELD_APPLIED_AT]= date_create('now',timezone_open("Asia/Dhaka"));
-        $requisition->save();
+        $data = $request->all();
+        $data[Requisition::FIELD_APPLIED_BY]= auth()->user()->name;
+        $data[Requisition::FIELD_APPLIED_AT]= date_create('now',timezone_open("Asia/Dhaka"));
 
-        $requisition->update($requisitionJson);
+        $requisition->update($data);
         return response()->json($requisition, 200);
     }
 

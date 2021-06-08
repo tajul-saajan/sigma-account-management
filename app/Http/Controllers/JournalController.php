@@ -123,12 +123,11 @@ class JournalController extends Controller
     public function update(Request $request, $id)
     {
         $journal = Journal::find($id);
+        $data = $request->all();
+        $data[Journal::FIELD_UPDATED_BY] = auth()->user()->name;
+        $data[Journal::FIELD_LAST_UPDATE_TIME] = date_create('now',timezone_open("Asia/Dhaka"));
 
-        $journal->updated_by = auth()->user()->name;
-        $journal[Journal::FIELD_LAST_UPDATE_TIME] = date_create('now',timezone_open("Asia/Dhaka"));
-        $journal->save();
-
-        $journal->update($request->all());
+        $journal->update($data);
         $this->updateChartOfAccount($journal);
         return response()->json($journal, 200);
     }

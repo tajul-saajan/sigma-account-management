@@ -34,7 +34,7 @@ class CreateEmployeesTable extends Migration
             $table->text(Employee::FIELD_ACCOUNT_NO)->nullable();
             $table->text(Employee::FIELD_BANK)->nullable();
             $table->text(Employee::FIELD_ADDRESS)->nullable();
-            $table->text(Employee::FIELD_LEAVE_BALANCE)->nullable();
+            $table->integer(Employee::FIELD_LEAVE_BALANCE)->default(30);
         });
     }
 

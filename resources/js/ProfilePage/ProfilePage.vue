@@ -1,12 +1,20 @@
 <template>
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-        <div class="px-4 py-5 sm:px-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">
-                User Information
-            </h3>
-            <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                Personal details
-            </p>
+        <div class="px-4 py-5 sm:px-6 flex">
+            <div>
+                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                    User Information
+                </h3>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                    Personal details
+                </p>
+            </div>
+            <div class="ml-2">
+                <router-link class="fas fa-user-edit"
+                             :to="{name:'editEmployee',params:{id:profileInfo.id}}">
+
+                </router-link>
+            </div>
         </div>
         <div class="border-t border-gray-200">
             <dl>
@@ -23,7 +31,7 @@
                         Designation
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                       {{ profileInfo.designation }}
+                        {{ profileInfo.designation }}
                     </dd>
                 </div>
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -115,31 +123,35 @@
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         <ul class="border border-gray-200 rounded-md divide-y divide-gray-200">
-                            <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                            <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
+                                v-if="profileInfo.nid_path">
                                 <div class="w-0 flex-1 flex items-center">
                                     <!-- Heroicon name: solid/paper-clip -->
                                     <span class="flex-shrink-0 h-5 w-5 text-gray-400 fas fa-paperclip">
 
                                     </span>
-                                    <span class="ml-2 flex-1 w-0 truncate">resume_back_end_developer.pdf</span>
+                                    <span class="ml-2 flex-1 w-0 truncate">NID.jpg</span>
                                 </div>
                                 <div class="ml-4 flex-shrink-0">
-                                    <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                    <button @click="downloadNid(profileInfo.id)"
+                                            class="font-medium text-indigo-600 hover:text-indigo-500">
                                         Download
-                                    </a>
+                                    </button>
                                 </div>
                             </li>
-                            <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                            <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
+                                v-if="profileInfo.image_path">
                                 <div class="w-0 flex-1 flex items-center">
                                     <!-- Heroicon name: solid/paper-clip -->
                                     <span class="flex-shrink-0 h-5 w-5 text-gray-400 fas fa-paperclip">
                                     </span>
-                                    <span class="ml-2 flex-1 w-0 truncate">coverletter_back_end_developer.pdf</span>
+                                    <span class="ml-2 flex-1 w-0 truncate">Image.jpg</span>
                                 </div>
                                 <div class="ml-4 flex-shrink-0">
-                                    <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                    <button @click="downloadImage(profileInfo.id)"
+                                            class="font-medium text-indigo-600 hover:text-indigo-500">
                                         Download
-                                    </a>
+                                    </button>
                                 </div>
                             </li>
                         </ul>
@@ -153,19 +165,43 @@
 <script>
 export default {
     name: "ProfilePage",
-    data(){
+    data() {
         return {
-            profileInfo : {},
+            profileInfo: {},
         }
     },
     created() {
-        this.axios.get(process.env.MIX_PUBLISH_APP_URL+'auth/user-profile')
-            .then(response=>{
+        this.axios.get(process.env.MIX_PUBLISH_APP_URL + 'auth/user-profile')
+            .then(response => {
                 this.profileInfo = response.data
                 console.log(this.hasPermission('role-delete'))
-            }).catch(error=>{
-                console.log(error)
+            }).catch(error => {
+            console.log(error)
         })
+    },
+    methods: {
+        downloadNid(id) {
+            this.axios.get(process.env.MIX_PUBLISH_APP_URL + 'employees/downloadNid/' + id, {responseType: 'blob'})
+                .then(response => {
+                    var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                    var fileLink = document.createElement('a');
+                    fileLink.href = fileURL;
+                    fileLink.setAttribute('download', 'file.png');
+                    document.body.appendChild(fileLink);
+                    fileLink.click();
+                });
+        },
+        downloadImage(id) {
+            this.axios.get(process.env.MIX_PUBLISH_APP_URL + 'employees/downloadImage/' + id, {responseType: 'blob'})
+                .then(response => {
+                    var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                    var fileLink = document.createElement('a');
+                    fileLink.href = fileURL;
+                    fileLink.setAttribute('download', 'image.png');
+                    document.body.appendChild(fileLink);
+                    fileLink.click();
+                });
+        }
     }
 }
 </script>

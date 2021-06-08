@@ -50,6 +50,7 @@ import AllUsers from "./Users/AllUsers";
 import AddUser from "./Users/AddUser";
 import EditUser from "./Users/EditUser";
 import Tabs from "./ProfilePage/Tabs";
+import dummy from "./Roles/dummy";
 
 
 export const routes = [
@@ -350,5 +351,11 @@ export const routes = [
         path: '/profile',
         component: Tabs
     },
+
+    {
+        name:'dummy',
+        path:'/dummy',
+        component: dummy
+    }
 ];
 

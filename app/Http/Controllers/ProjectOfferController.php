@@ -67,14 +67,13 @@ class ProjectOfferController extends Controller
     public function update(Request $request, $id )
     {
 
-
         $projectOffer = ProjectOffer::find($id);
 
-        $projectOffer->last_updated_by = auth()->user()->name;
-        $projectOffer->save();
-        $projectOffer->last_update_time = date_create('now',timezone_open("Asia/Dhaka"));
+        $data = $request->all();
+        $data[ProjectOffer::FIELD_LAST_UPDATED_BY] = auth()->user()->name;
+        $data[ProjectOffer::FIELD_LAST_UPDATE_TIME]= date_create('now',timezone_open("Asia/Dhaka"));
 
-        $projectOffer->update($request->all());
+        $projectOffer->update($data);
         return response()->json('The Project Offer successfully updated');
     }
 

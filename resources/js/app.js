@@ -75,8 +75,9 @@ axios.interceptors.response.use(response=>{
     else if (error.response.status === 401){
         store.dispatch('refresh')
             .then(()=>{
-                alert("token refreshed")
-                router.push({name: 'home'})
+                router.push({name: 'login'})
+                // alert("token refreshed")
+                // router.push({name: 'home'})
             })
             .catch(error=>{
                 console.log(error)

@@ -7,6 +7,14 @@
                 <p class="text-gray-800 font-bold text-center">Edit Employee</p>
 
                 <div class="mt-2">
+                    <label>User</label>
+                    <select type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+                           v-model="employee.user_id">
+                        <option v-for="user in users" :key="user.id" :value="user.id"> {{ user.name }} </option>
+                    </select>
+                </div>
+
+                <div class="mt-2">
                     <label>Name</label>
                     <input type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                            v-model="employee.name">
@@ -114,6 +122,7 @@ export default {
     data(){
         return{
             employee:{},
+            users : undefined,
             employee_types: null,
             nid_file:null,
             image_file:null,
@@ -129,6 +138,14 @@ export default {
         this.axios.get(process.env.MIX_PUBLISH_APP_URL+'employees/types')
             .then((response)=>{
                 this.employee_types = response.data
+            })
+
+        this.axios.get(process.env.MIX_PUBLISH_APP_URL+'users')
+            .then(response=>{
+                this.users = response.data
+            })
+            .catch(error=>{
+                console.log(error)
             })
     },
     methods:{

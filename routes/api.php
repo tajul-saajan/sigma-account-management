@@ -60,6 +60,7 @@ Route::middleware('api')->group(function () {
         Route::delete('delete/{id}', [ProjectOfferController::class, 'delete']);
 
         Route::post('handleFiles/{id}', [ProjectOfferController::class, 'handleFiles']);
+        Route::get('downloadFile/{id}', [ProjectOfferController::class, 'downloadFile']);
 
         Route::get('projectStatus', [ProjectOfferController::class, 'getProjectStatus']);
         Route::post('projectStatus/{status}', [ProjectOfferController::class, 'setProjectStatus']);
@@ -169,6 +170,8 @@ Route::middleware('api')->group(function () {
         Route::delete('/delete/{id}', [EmployeeController::class, 'delete']);
 
         Route::get('/types', [EmployeeController::class, 'getTypes']);
+        Route::get('/downloadNid/{id}', [EmployeeController::class, 'downloadNid']);
+        Route::get('/downloadImage/{id}', [EmployeeController::class, 'downloadImage']);
     });
 
     Route::group(['prefix' => 'transactions'], function () {
