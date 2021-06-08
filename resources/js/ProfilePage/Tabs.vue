@@ -63,7 +63,7 @@ export default {
     },
     data() {
         return {
-            openTab: 1
+            openTab: 1,
         }
     },
     methods: {

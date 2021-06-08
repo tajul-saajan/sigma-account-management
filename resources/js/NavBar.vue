@@ -81,7 +81,13 @@
                 <router-link
                     class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
                     :to="{name: 'allApplications'}" v-if="hasPermission('leave-list')">
-                    Apply Leave
+                    Leaves
+                </router-link>
+
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allHolidays'}" >
+                    Holidays
                 </router-link>
 
                 <router-link

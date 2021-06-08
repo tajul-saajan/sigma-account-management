@@ -10,7 +10,8 @@ export default new Vuex.Store({
     state: {
         user: null,
         token: localStorage.getItem('token') || '',
-        permissions: null
+        permissions: null,
+        profileOpenTab:1,
     },
 
     mutations: {
@@ -32,6 +33,9 @@ export default new Vuex.Store({
             delete axios.defaults.headers.common.Authorization
 
             // location.reload()
+        },
+        changeTab(state,tabNo){
+            this.state.profileOpenTab = tabNo
         }
     },
 
@@ -53,6 +57,9 @@ export default new Vuex.Store({
 
         logout({commit}) {
             commit('clearUserData')
+        },
+        changeTab({commit},tabNo){
+            commit('changeTab',tabNo)
         }
     },
 
@@ -60,5 +67,6 @@ export default new Vuex.Store({
         isLogged: (state) => localStorage.getItem('user') !== null,
         user: (state) => localStorage.getItem('user'),
         permissions: () => localStorage.getItem('permissions'),
+        openTab : ()=> this.state.profileOpenTab
     }
 })

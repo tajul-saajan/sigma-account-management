@@ -11,6 +11,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectOfferController;
+use App\Http\Controllers\PublicHolidayController;
 use App\Http\Controllers\RequisitionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SubProjectController;
@@ -215,4 +216,15 @@ Route::middleware('api')->group(function () {
         Route::get('/permissions', [RoleController::class, 'permissions']);
     });
 
+    Route::group(['prefix' => 'holidays'], function () {
+        Route::get('/', [PublicHolidayController::class, 'index']);
+        Route::post('/add', [PublicHolidayController::class, 'store']);
+        Route::get('/edit/{id}', [PublicHolidayController::class, 'edit']);
+        Route::post('/update/{id}', [PublicHolidayController::class, 'update']);
+        Route::delete('/delete/{id}', [PublicHolidayController::class, 'delete']);
+        Route::post('/nextHolidays', [PublicHolidayController::class, 'getNextHolidays']);
+
+    });
+
 });
+

@@ -60,6 +60,9 @@ export default {
             attachment: null
         }
     },
+    created() {
+
+    },
     methods: {
         addRequisition(){
             const data = new FormData()
@@ -67,10 +70,14 @@ export default {
             const json = JSON.stringify(this.requisition)
             data.append('requisition',json)
 
+            console.log(this.fromPage)
+
             this.axios
                 .post(process.env.MIX_PUBLISH_APP_URL+`requisitions/add`, data)
                 .then((response) => {
-                    this.$router.push({name: 'allRequisitions'});
+                    let next;
+                    next = (this.$route.params.from === 'Profile')?'profile': 'allRequisitions'
+                    this.$router.push({name: next});
                 });
         },
         setAttachment(event){

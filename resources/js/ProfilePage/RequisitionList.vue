@@ -1,4 +1,10 @@
 <template>
+    <div>
+    <div class="flex justify-center mt-4">
+        <router-link class="text-center text-white bg-gray-600  py-2 px-6"
+            :to="{name:'addRequisition', params: {from: 'Profile'}}"
+        >Add</router-link>
+    </div>
     <div class="flex justify-center mt-4">
         <v-table class="border-2 rounded-lg bg-white flex-col items-center justify-center"
                  :data="requisitions"
@@ -56,6 +62,7 @@
                           :totalPages="totalPages"
         />
     </div>
+        </div>
 </template>
 
 <script>

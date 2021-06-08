@@ -24,9 +24,9 @@
                     <td class="px-6 py-4 text-center">{{ role.name }}</td>
                     <td class="px-6 py-4 text-center flex justify-between">
                         <div class="flex " role="group">
-                            <router-link :to="{name: 'editRole', params: { id: role.id }}"
-                                         class="text-blue-600 rounded-md  m-2 p-2 fas fa-pen hover:bg-blue-600 hover:text-white">
-                            </router-link>
+<!--                            <router-link :to="{name: 'editRole', params: { id: role.id }}"-->
+<!--                                         class="text-blue-600 rounded-md  m-2 p-2 fas fa-pen hover:bg-blue-600 hover:text-white">-->
+<!--                            </router-link>-->
                             <span
                                 class="m-2 p-2 rounded-md fas fa-trash-restore text-red-500 hover:bg-red-600 hover:text-white"
                                 @click="deleteRole(role.id)">

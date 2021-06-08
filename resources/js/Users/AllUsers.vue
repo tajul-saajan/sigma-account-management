@@ -26,9 +26,9 @@
                     <td class="px-6 py-4 text-center">{{ user.email }}</td>
                     <td class="px-6 py-4 text-center flex justify-between">
                         <div class="flex " role="group">
-                            <router-link :to="{name: 'editUser', params: { id: user.id }}"
-                                         class="text-blue-600 rounded-md  m-2 p-2 fas fa-pen hover:bg-blue-600 hover:text-white">
-                            </router-link>
+<!--                            <router-link :to="{name: 'editUser', params: { id: user.id }}"-->
+<!--                                         class="text-blue-600 rounded-md  m-2 p-2 fas fa-pen hover:bg-blue-600 hover:text-white">-->
+<!--                            </router-link>-->
                             <span
                                 class="m-2 p-2 rounded-md fas fa-trash-restore text-red-500 hover:bg-red-600 hover:text-white"
                                 @click="deleteUser(user.id)">

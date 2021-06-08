@@ -51,6 +51,10 @@ import AddUser from "./Users/AddUser";
 import EditUser from "./Users/EditUser";
 import Tabs from "./ProfilePage/Tabs";
 import dummy from "./Roles/dummy";
+import AllHolidays from "./PublicHolidays/AllHolidays";
+import AddHoilday from "./PublicHolidays/AddHoliday";
+import EditHoliday from "./PublicHolidays/EditHoliday";
+import AddHoliday from "./PublicHolidays/AddHoliday";
 
 
 export const routes = [
@@ -352,10 +356,22 @@ export const routes = [
         component: Tabs
     },
 
+    //Holiday
     {
-        name:'dummy',
-        path:'/dummy',
-        component: dummy
-    }
+        name: 'allHolidays',
+        path: '/allHolidays',
+        component: AllHolidays
+    },
+    {
+        name: 'addHoliday',
+        path: '/addHoliday',
+        component: AddHoliday
+    },
+    {
+        name: 'editHoliday',
+        path: '/editHoliday',
+        component: EditHoliday
+    },
+
 ];
 
