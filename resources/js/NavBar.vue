@@ -1,5 +1,5 @@
 <template>
-    <nav class="flex items-center justify-between flex-wrap bg-gray-400 p-6">
+    <nav class="flex items-center justify-between flex-wrap bg-gray-600 p-6">
         <div class="flex items-center flex-shrink-0 text-white mr-6">
             <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54"
                  xmlns="http://www.w3.org/2000/svg">
@@ -10,7 +10,7 @@
         </div>
         <div class="block lg:hidden">
             <button
-                class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+                class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 text-white hover:border-white">
                 <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>
                     Menu</title>
                     <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
@@ -18,34 +18,200 @@
             </button>
         </div>
         <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-            <div class="text-sm lg:flex-grow">
+            <div class="text-sm lg:flex-grow" v-if="isLoggedIn">
+
                 <router-link
-                    class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" to="/">
+                    class="block mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    to="/" v-if="hasRole(['Admin'])">
                     Project Offers
                 </router-link>
+
+                <drop-down :links="accountLinks" v-if="hasRole('Accounts')"
+                           class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
+                    Accounts
+                </drop-down>
+
+                <drop-down :links="projectLinks" v-if="hasRole('Accounts')"
+                           class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
+                    Projects
+                </drop-down>
+
+
                 <router-link
-                   class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" :to="{name:'allAccountTypes'}">
-                    Account Types
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allCharts'}" v-if="hasRole('Accounts')">
+                    COAs
                 </router-link>
-                <a href="#" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
-                    TBA
-                </a>
+
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allJournals'}" v-if="hasRole('Accounts')">
+                    Journals
+                </router-link>
+
+                <drop-down :links="inventoryLinks" v-if="hasRole()"
+                           class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
+                    Inventory
+                </drop-down>
+
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allItems'}" v-if="hasRole()">
+                    Items
+                </router-link>
+
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allTransactions'}" v-if="hasRole('Accounts')">
+                    Transactions
+                </router-link>
+
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allRequisitions'}" v-if="hasRole('Accounts', 'Software Engineer')">
+                    Requisitions
+                </router-link>
+
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allEmployees'}" v-if="hasRole()">
+                    Employees
+                </router-link>
+
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allApplications'}" v-if="hasRole()">
+                    Leaves
+                </router-link>
+
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allHolidays'}" v-if="hasRole()" >
+                    Holidays
+                </router-link>
+
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allRoles'}" v-if="hasRole()">
+                    Roles
+                </router-link>
+
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allUsers'}" v-if="hasRole()">
+                    Users
+                </router-link>
+
+
             </div>
+
             <div>
-                <a href="#"
-                   class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
-                    TBA</a>
+                <router-link v-if="!isLoggedIn"
+                             class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+                             :to="{name: 'login'}">
+                    Log In
+                </router-link>
+
+                <div v-else>
+                    <router-link :to="{'name': 'profile'}"
+                                 class="inline-block text-sm px-4 py-2 leading-none border rounded text-white
+                        border-white hover:border-transparent hover:text-teal-500 hover:bg-gray-500 mt-4 lg:mt-0"
+                    >
+                        {{ getUser }}
+                    </router-link>
+                    <button
+                        class="inline-block text-sm px-4 py-2 leading-none border rounded text-white
+                        border-white hover:border-transparent hover:text-teal-500 hover:bg-gray-500 mt-4 lg:mt-0"
+                        @click="logout">
+                        Log Out
+                    </button>
+                </div>
             </div>
+
         </div>
     </nav>
 </template>
 
 <script>
+
+
+
+import Dropdown from './DropDown'
+
 export default {
-    name: "NavBar"
+    name: "NavBar",
+    components: {
+        'drop-down': Dropdown
+    },
+    data() {
+        return {
+            isOpenAccount: false,
+            isOpenProject: false,
+            isOpenInventory: false,
+            accountLinks: [
+                {
+                    'name': 'allAccountTypes',
+                    'text': 'Account Type'
+                },
+                {
+                    'name': 'allAccountSubTypes',
+                    'text': 'Account Sub Type'
+                }
+            ],
+            projectLinks: [
+                {
+                    'name': 'allProjects',
+                    'text': 'Projects'
+                },
+                {
+                    'name': 'allSubProjects',
+                    'text': 'Sub Projects'
+                }
+            ],
+            inventoryLinks: [
+                {
+                    'name': 'allInventories',
+                    'text': 'Inventories'
+                },
+                {
+                    'name': 'allInventoryItems',
+                    'text': 'Inventory Items'
+                }
+            ],
+
+        }
+    },
+    created() {
+        console.log(localStorage.getItem('token'))
+    },
+    methods: {
+        logout: function () {
+            this.$store.dispatch('logout')
+                .then(() => {
+                    this.$router.push('/login')
+                    location.reload()
+                })
+        },
+    },
+    computed: {
+        isLoggedIn: function () {
+            return this.$store.getters.isLogged
+        },
+        getUser() {
+            let user = JSON.parse(this.$store.getters.user);
+            console.log(user)
+            return user ? user.name : "";
+        },
+    }
 }
 </script>
 
 <style scoped>
+
+.active {
+    background: #7f9da1;
+    color: black;
+    font-weight: bold;
+}
 
 </style>

@@ -1,12 +1,18 @@
 <template>
     <div class="flex-col  justify-center items-center">
 
-        <top-bar></top-bar>
+        <top-bar home='allAccountTypes' add='addAccountTypes' ></top-bar>
 
         <div class="flex justify-center mt-4">
-            <table class="border-2 rounded-lg bg-white flex-col items-center justify-center">
-                <caption class="text-white text-2xl bg-gray-600 p-4 font-bold text-center">All Account Types</caption>
-                <thead class="bg-gray-200">
+            <v-table class="border-2 rounded-lg bg-white flex-col items-center justify-center"
+                     :data="accountTypes"
+                     :currentPage.sync="currentPage"
+                     :pageSize="5"
+                     @totalPagesChanged="totalPages = $event"
+
+            >
+                <caption slot="head" class="text-white text-2xl bg-gray-600 p-4 font-bold text-center">All Account Types</caption>
+                <thead slot="head" class="bg-gray-200">
                 <tr class="text-gray-600 text-left">
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Type</th>
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Description</th>
@@ -14,8 +20,8 @@
                     <th class="font-semibold text-sm uppercase px-6 py-4 text-center">Action</th>
                 </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200 align-middle">
-                <tr v-for="(accountType,id) in accountTypes.data" :key="id">
+                <tbody slot="body" slot-scope="{displayData}" class="divide-y divide-gray-200 align-middle">
+                <tr v-for="(accountType) in displayData" :key="accountType.id">
                     <td class="px-6 py-4 text-center">{{ accountType.type }}</td>
                     <td class="px-6 py-4 text-center">{{ accountType.description }}</td>
                     <td class="px-6 py-4 text-center">{{ accountType.classification }}</td>
@@ -33,35 +39,24 @@
                     </td>
                 </tr>
                 </tbody>
-            </table>
+            </v-table>
         </div>
-
-        <pagination class="flex justify-evenly text-2xl m-2 p-4 bg-gray-200 rounded-lg"
-                    :data="accountTypes" @pagination-change-page="getResults">
-            <span slot="prev-nav">
-                <span class="fas fa-arrow-circle-left"></span>
-                <span>Previous</span>
-            </span>
-            <span slot="next-nav">
-                <span>Next</span>
-                <span class="fas fa-arrow-circle-right"></span>
-            </span>
-
-        </pagination>
+        <smart-pagination class="flex justify-center  items-center text-2xl m-2 p-4 bg-gray-200 rounded-lg"
+                          :currentPage.sync="currentPage"
+                          :totalPages="totalPages"
+        />
     </div>
 </template>
 
 <script>
-import TopBar from "./partials/TopBar";
 
 export default {
     name: "AllAccountTypes",
-    components: {
-      'top-bar' : TopBar
-    },
     data() {
         return {
-            accountTypes: {}
+            accountTypes: [],
+            currentPage: 1,
+            totalPages: 0,
         }
     },
     created() {
@@ -70,7 +65,7 @@ export default {
     methods: {
         deleteBook(id) {
             this.axios
-                .delete(`http://po-management.test/api/accountTypes/delete/${id}`)
+                .delete(process.env.MIX_PUBLISH_APP_URL + `accountTypes/delete/${id}`)
                 .then(response => {
                     let i = this.accountTypes.map(item => item.id).indexOf(id); // find index of your object
                     this.accountTypes.splice(i, 1)
@@ -84,7 +79,7 @@ export default {
                 page = 1;
             }
 
-            this.axios.get('http://po-management.test/api/accountTypes?page=' + page)
+            this.axios.get(process.env.MIX_PUBLISH_APP_URL + 'accountTypes?page=' + page)
                 .then(response => {
                     return response.data;
                 }).then(data => {

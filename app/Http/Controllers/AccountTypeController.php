@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class AccountTypeController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:account-type-list|account-type-create|account-type-edit|account-type-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:account-type-create', ['only' => ['create','store']]);
+         $this->middleware('permission:account-type-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:account-type-delete', ['only' => ['delete']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +22,8 @@ class AccountTypeController extends Controller
      */
     public function index()
     {
-        $accounts = AccountType::paginate(10);
-        return response()->json($accounts);
+        $accounts = AccountType::all();
+        return response()->json($accounts->toArray());
     }
 
     /**

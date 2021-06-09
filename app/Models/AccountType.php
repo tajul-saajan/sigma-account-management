@@ -20,4 +20,16 @@ class AccountType extends Model
     {
         return $this->hasMany(AccountSubType::class);
     }
+
+    //model events
+    protected static function booted()
+    {
+        static::updating(function ($accountType) {
+            $subTypes = $accountType->accountSubTypes;
+            foreach ($subTypes as $subType){
+                $subType->account_type_name = $accountType->type;
+                $subType->update();
+            }
+        });
+    }
 }

@@ -1,7 +1,7 @@
 <template>
     <div class="flex-col  justify-center items-center">
 
-        <top-bar></top-bar>
+        <top-bar home='allAccountTypes' add='addAccountTypes' ></top-bar>
         <div class="flex justify-center mt-4">
 
             <form @submit.prevent="addAccountType" class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import TopBar from "./partials/TopBar";
+import TopBar from "../TopBar";
 
 export default {
     name: "AddAccountType",
@@ -50,7 +50,7 @@ export default {
     methods: {
         addAccountType() {
             this.axios
-                .post(`http://po-management.test/api/accountTypes/add`, this.accountType)
+                .post(process.env.MIX_PUBLISH_APP_URL+`accountTypes/add`, this.accountType)
                 .then((response) => {
                     this.$router.push({name: 'allAccountTypes'});
                 });

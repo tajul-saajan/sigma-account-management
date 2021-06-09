@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Storage;
 
 class ProjectOfferController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:purchase-offer-list|purchase-offer-create|purchase-offer-edit|purchase-offer-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:purchase-offer-create', ['only' => ['create','store']]);
+         $this->middleware('permission:purchase-offer-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:purchase-offer-delete', ['only' => ['delete']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +26,8 @@ class ProjectOfferController extends Controller
      */
     public function index()
     {
-        $projectOffers = ProjectOffer::paginate(10);
-        return response()->json($projectOffers);
+        $projectOffers = ProjectOffer::latest()->get();
+        return response()->json($projectOffers->toArray());
     }
 
 
@@ -33,6 +43,9 @@ class ProjectOfferController extends Controller
             ProjectOffer:: FIELD_OFFER_DATE=> $request->input(ProjectOffer::FIELD_OFFER_DATE),
             ProjectOffer:: FIELD_PO_STATUS=> $request->input(ProjectOffer::FIELD_PO_STATUS),
             ProjectOffer::FIELD_SUBMIT_TYPE => $request->input(ProjectOffer::FIELD_SUBMIT_TYPE),
+
+            ProjectOffer::FIELD_INSERTED_BY => auth()->user()->name,
+            ProjectOffer::FIELD_LAST_UPDATE_TIME => date_create('now',timezone_open("Asia/Dhaka"))
         ]);
 
         $projectOffer->save();
@@ -54,9 +67,13 @@ class ProjectOfferController extends Controller
     public function update(Request $request, $id )
     {
 
-
         $projectOffer = ProjectOffer::find($id);
-        $projectOffer->update($request->all());
+
+        $data = $request->all();
+        $data[ProjectOffer::FIELD_LAST_UPDATED_BY] = auth()->user()->name;
+        $data[ProjectOffer::FIELD_LAST_UPDATE_TIME]= date_create('now',timezone_open("Asia/Dhaka"));
+
+        $projectOffer->update($data);
         return response()->json('The Project Offer successfully updated');
     }
 

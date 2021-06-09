@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class AccountSubTypeController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:account-subtype-list|account-subtype-create|account-subtype-edit|account-subtype-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:account-subtype-create', ['only' => ['create','store']]);
+         $this->middleware('permission:account-subtype-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:account-subtype-delete', ['only' => ['delete']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +22,17 @@ class AccountSubTypeController extends Controller
      */
     public function index()
     {
-        $accountSubTypes = AccountSubType::paginate(10);
-        return response()->json($accountSubTypes);
+        $accountSubTypes = AccountSubType::all();
+        return response()->json($accountSubTypes->toArray());
+    }
+
+    public function getAll() {
+        return AccountSubType::all();
+    }
+
+    public function getAccountType($id){
+        $accountSubType = AccountSubType::find($id);
+        return $accountSubType?$accountSubType->accountType:response()->json(null,404);
     }
 
     /**

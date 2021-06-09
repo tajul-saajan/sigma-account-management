@@ -1,7 +1,7 @@
 <template>
     <div class="flex-col  justify-center items-center">
 
-        <top-bar></top-bar>
+        <top-bar home='allAccountTypes' add='addAccountTypes' ></top-bar>
 
         <div class="flex justify-center mt-4">
 
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import TopBar from "./partials/TopBar";
+import TopBar from "../TopBar";
 
 export default {
     name: "EditAccountType",
@@ -49,7 +49,7 @@ export default {
     },
     created() {
         this.axios
-            .get(`http://po-management.test/api/accountTypes/edit/${this.$route.params.id}`)
+            .get(process.env.MIX_PUBLISH_APP_URL+`accountTypes/edit/${this.$route.params.id}`)
             .then((response) => {
                 this.accountType = response.data;
                 // console.log(response.data);
@@ -58,7 +58,7 @@ export default {
     methods: {
         updateAccountType() {
             this.axios
-                .post(`http://po-management.test/api/accountTypes/update/${this.$route.params.id}`, this.accountType)
+                .post(process.env.MIX_PUBLISH_APP_URL+`accountTypes/update/${this.$route.params.id}`, this.accountType)
                 .then((response) => {
                     this.$router.push({name: 'allAccountTypes'});
                 });

@@ -1,10 +1,8 @@
 <template>
     <div class="flex-col  justify-center items-center">
 
-        <div class="flex justify-around mt-4">
-            <router-link to="/" class="p-2 bg-gray-700 text-white rounded-md">Home</router-link>
-            <router-link to="/add" class="p-2 bg-gray-700 text-white rounded-md">Add Project Offer</router-link>
-        </div>
+        <top-bar home='home' add='add' ></top-bar>
+
         <div class="flex justify-center mt-4">
 
             <form @submit.prevent="updateProjectOffer" class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
@@ -211,7 +209,12 @@
     </div>
 </template>
 <script>
+import TopBar from "../TopBar";
+
 export default {
+    components : {
+        'top-bar' : TopBar
+    },
     data() {
         return {
             projectOffer: {},
