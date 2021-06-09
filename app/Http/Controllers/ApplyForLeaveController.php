@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ApplyForLeave;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -106,6 +107,8 @@ class ApplyForLeaveController extends Controller
     {
         $application = ApplyForLeave::find($id);
         $application[ApplyForLeave::FIELD_APPROVED] = "Approved";
+        $application[ApplyForLeave::FIELD_ENDORSED] = "Approved";
+        $application[ApplyForLeave::FIELD_ENDORSED_BY] = auth()->user()->name;
         $application[ApplyForLeave::FIELD_APPROVED_BY] = auth()->user()->name;
         $application->save();
     }
@@ -121,5 +124,22 @@ class ApplyForLeaveController extends Controller
     public function leaveTypes()
     {
         return DB::table('leave_types')->get();
+    }
+
+    public function getNextLeaves(Request $request)
+    {
+        $from = $request->from;
+        $to = $request->to;
+
+        if (!$from) $from = Carbon::now('GMT+6');
+        if (!$from && !$to) $to = (Carbon::now('GMT+6')->addDays(7));
+
+        if (gettype($from) == 'string') $from = Carbon::createFromFormat('Y-m-d', $from);
+        if (gettype($to) == 'string') $to = Carbon::createFromFormat('Y-m-d', $to);
+
+
+        $data = ApplyForLeave::whereBetween(ApplyForLeave::FIELD_FROM_DATE, [$from->format('Y-m-d') . " 00:00:00",
+            $to->format('Y-m-d') . " 23:59:59"])->where(ApplyForLeave::FIELD_APPROVED,'Approved')->get();
+        return response()->json($data);
     }
 }

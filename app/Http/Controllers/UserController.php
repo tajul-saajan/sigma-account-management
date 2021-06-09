@@ -64,7 +64,7 @@ class UserController extends Controller
             'token_type' => 'bearer',
             'expires_in' => 300000,
             'user' => $user,
-            'permissions' => json_encode($this->permissions($user->id)),
+            'role' => json_encode($user->getAttributeRole()),
         ]);
     }
 
@@ -106,6 +106,15 @@ class UserController extends Controller
             'message' => 'User successfully registered',
             'user' => $user
         ], 201);
+    }
+
+    public function update($id, $name,$email,$password)
+    {
+        $user = User::find($id);
+        $user->name = $name;
+        $user->email = $email;
+        $user->password = bcrypt($password);
+        $user->save();
     }
 
     /**
@@ -150,4 +159,11 @@ class UserController extends Controller
         return response()->json(auth()->user()->requisitions);
     }
 
+
+    public function delete($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return response()->json("user deleted");
+    }
 }

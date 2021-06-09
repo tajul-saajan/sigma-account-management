@@ -39,6 +39,7 @@ Route::middleware('auth:api')->get('user', function (Request $request) {
 Route::post('/login', [UserController::class, 'login'])->name('login');
 Route::post('/register', [UserController::class, 'register']);
 Route::get('/users', [UserController::class, 'index']);
+Route::delete('/users/delete/{id}', [UserController::class, 'delete']);
 
 Route::group([
     'middleware' => 'api',
@@ -203,6 +204,7 @@ Route::middleware('api')->group(function () {
         Route::post('/approve/{id}', [ApplyForLeaveController::class, 'approve']);
         Route::post('/reject/{id}', [ApplyForLeaveController::class, 'reject']);
 
+
         Route::get('/leaveTypes', [ApplyForLeaveController::class, 'leaveTypes']);
 
     });
@@ -222,9 +224,13 @@ Route::middleware('api')->group(function () {
         Route::get('/edit/{id}', [PublicHolidayController::class, 'edit']);
         Route::post('/update/{id}', [PublicHolidayController::class, 'update']);
         Route::delete('/delete/{id}', [PublicHolidayController::class, 'delete']);
-        Route::post('/nextHolidays', [PublicHolidayController::class, 'getNextHolidays']);
+
 
     });
 
 });
+
+Route::post('/nextLeaves',[ApplyForLeaveController::class,'getNextLeaves']);
+Route::post('/nextHolidays', [PublicHolidayController::class, 'getNextHolidays']);
+
 

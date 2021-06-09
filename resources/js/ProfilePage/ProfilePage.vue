@@ -12,7 +12,6 @@
             <div class="ml-2">
                 <router-link class="fas fa-user-edit"
                              :to="{name:'editEmployee',params:{id:profileInfo.id}}">
-
                 </router-link>
             </div>
         </div>

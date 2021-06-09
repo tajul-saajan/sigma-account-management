@@ -48,7 +48,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function getAttributeRole()
     {
-        return $this->roles()->pluck("name");
+        return $this->roles()->first()->name;
     }
 
     //has relations

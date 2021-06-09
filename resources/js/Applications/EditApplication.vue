@@ -93,7 +93,8 @@ export default {
             this.axios
                 .post(process.env.MIX_PUBLISH_APP_URL+`applications/update/`+this.$route.params.id, this.application)
                 .then((response) => {
-                    this.$router.push({name: 'allApplications'});
+                    let next = (this.$route.params.from==='Profile')?'profile':'allApplications'
+                    this.$router.push({name: next});
                 });
         },
     }

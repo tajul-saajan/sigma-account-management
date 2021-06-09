@@ -44,7 +44,7 @@
                 <td class="px-6 py-4 text-center">{{ requisition.approved_by }}</td>
                 <td class="px-6 py-4 text-center flex justify-between">
                     <div class="flex " role="group">
-                        <router-link :to="{name: 'editRequisition', params: { id: requisition.id }}"
+                        <router-link :to="{name: 'editRequisition', params: { id: requisition.id,from:'Profile'}}"
                                      class="text-blue-600 rounded-md  m-2 p-2 fas fa-pen hover:bg-blue-600 hover:text-white">
                         </router-link>
                         <span

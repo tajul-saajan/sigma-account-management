@@ -23,9 +23,10 @@ const router = new VueRouter({
 
 Vue.mixin({
     methods: {
-        hasPermission(permissionName) {
-            let permissions = JSON.parse(localStorage.getItem('permissions'));
-            return permissions.includes(permissionName)
+        hasRole(...roles) {
+            let roleName = JSON.parse(localStorage.getItem('role'));
+            if (roleName==='Admin') return true;
+            return roles.includes(roleName)
         }
     }
 })
