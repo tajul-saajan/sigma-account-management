@@ -69,6 +69,8 @@ class CreateAccountsUserSeeder extends Seeder
             'transaction-edit',
             'transaction-delete',
 
+            'employee-list'
+
         ];
 
         $permissions = Permission::whereIn('name', $permissionsNames)->get();

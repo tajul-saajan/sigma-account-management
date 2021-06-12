@@ -4,7 +4,7 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-axios.defaults.baseURL = 'http://po-management.test/api'
+axios.defaults.baseURL = process.env.MIX_PUBLISH_APP_URL
 
 export default new Vuex.Store({
     state: {
@@ -17,7 +17,7 @@ export default new Vuex.Store({
     mutations: {
         setUserData(state, responseData) {
             localStorage.setItem('user', JSON.stringify(responseData.user))
-            localStorage.setItem('role', responseData.role)
+            localStorage.setItem('permissions', JSON.stringify(responseData.permissions))
             localStorage.setItem('token', `Bearer ${responseData.access_token}`)
             axios.defaults.headers.common['Authorization'] = `Bearer ${responseData.access_token}`
             console.log(state.user, state.permissions)
@@ -42,14 +42,14 @@ export default new Vuex.Store({
     actions: {
         login({commit}, credentials) {
             return axios
-                .post('/login', credentials)
+                .post('login', credentials)
                 .then(({data}) => {
                     commit('setUserData', data)
                 })
         },
         refresh({commit}) {
             return axios
-                .post('/auth/refresh')
+                .post('auth/refresh')
                 .then(({data}) => {
                     commit('setUserData', data)
                 })
@@ -64,8 +64,8 @@ export default new Vuex.Store({
     },
 
     getters: {
-        isLogged: (state) => localStorage.getItem('user') !== null,
-        user: (state) => localStorage.getItem('user'),
+        isLogged: () => localStorage.getItem('user') !== null,
+        user: () => JSON.parse(localStorage.getItem('user')),
         permissions: () => localStorage.getItem('permissions'),
         openTab : ()=> this.state.profileOpenTab
     }

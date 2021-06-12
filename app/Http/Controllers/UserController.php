@@ -59,12 +59,13 @@ class UserController extends Controller
     protected function createNewToken($token)
     {
         $user = auth()->user();
+//        dd(json_encode($this->permissions($user->id)));
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => 300000,
+            'expires_in' => 30000000,
             'user' => $user,
-            'role' => json_encode($user->getAttributeRole()),
+            'permissions' => json_encode($this->permissions($user->id)),
         ]);
     }
 

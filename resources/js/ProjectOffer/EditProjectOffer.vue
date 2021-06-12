@@ -228,7 +228,7 @@ export default {
     },
     created() {
         this.axios
-            .get(`http://po-management.test/api/projectOffers/edit/${this.$route.params.id}`)
+            .get(process.env.MIX_PUBLISH_APP_URL+`projectOffers/edit/${this.$route.params.id}`)
             .then((response) => {
                 this.projectOffer = response.data;
                 this.poStatus = this.projectOffer.po_status;
@@ -240,7 +240,7 @@ export default {
     methods: {
         updateProjectOffer() {
             this.axios
-                .post(`http://po-management.test/api/projectOffers/update/${this.$route.params.id}`, this.projectOffer)
+                .post(process.env.MIX_PUBLISH_APP_URL+`projectOffers/update/${this.$route.params.id}`, this.projectOffer)
                 .then((response) => {
                     this.$router.push({name: 'home'});
                 });
@@ -253,7 +253,7 @@ export default {
         },
         loadStatuses() {
             this.axios
-                .get(`http://po-management.test/api/projectOffers/projectStatus`)
+                .get(process.env.MIX_PUBLISH_APP_URL+`projectOffers/projectStatus`)
                 .then((response) => {
                     this.statuses = response.data;
                     // console.log(response.data);
@@ -261,7 +261,7 @@ export default {
         },
         addNewStatus() {
             this.axios
-                .post(`http://po-management.test/api/projectOffers/projectStatus/${this.newStatus}`)
+                .post(process.env.MIX_PUBLISH_APP_URL+`projectOffers/projectStatus/${this.newStatus}`)
                 .then((response) => {
                     this.addStatusMode = false;
                     this.loadStatuses();

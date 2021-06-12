@@ -22,16 +22,16 @@
 
                 <router-link
                     class="block mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                    to="/" v-if="hasRole(['Admin'])">
+                    to="/" v-if="hasPermission('purchase-offer-access')">
                     Project Offers
                 </router-link>
 
-                <drop-down :links="accountLinks" v-if="hasRole('Accounts')"
+                <drop-down :links="accountLinks" v-if="hasPermission('account-type-access')"
                            class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
                     Accounts
                 </drop-down>
 
-                <drop-down :links="projectLinks" v-if="hasRole('Accounts')"
+                <drop-down :links="projectLinks" v-if="hasPermission('project-access')"
                            class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
                     Projects
                 </drop-down>
@@ -39,66 +39,66 @@
 
                 <router-link
                     class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                    :to="{name: 'allCharts'}" v-if="hasRole('Accounts')">
+                    :to="{name: 'allCharts'}" v-if="hasPermission('coa-access')">
                     COAs
                 </router-link>
 
                 <router-link
                     class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                    :to="{name: 'allJournals'}" v-if="hasRole('Accounts')">
+                    :to="{name: 'allJournals'}" v-if="hasPermission('journal-access')">
                     Journals
                 </router-link>
 
-                <drop-down :links="inventoryLinks" v-if="hasRole()"
+                <drop-down :links="inventoryLinks" v-if="hasPermission('inventory-access')"
                            class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
                     Inventory
                 </drop-down>
 
                 <router-link
                     class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                    :to="{name: 'allItems'}" v-if="hasRole()">
+                    :to="{name: 'allItems'}" v-if="hasPermission('item-access')">
                     Items
                 </router-link>
 
                 <router-link
                     class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                    :to="{name: 'allTransactions'}" v-if="hasRole('Accounts')">
+                    :to="{name: 'allTransactions'}" v-if="hasPermission('transaction-access')">
                     Transactions
                 </router-link>
 
                 <router-link
                     class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                    :to="{name: 'allRequisitions'}" v-if="hasRole('Accounts', 'Software Engineer')">
+                    :to="{name: 'allRequisitions'}" v-if="hasPermission('requisition-access')">
                     Requisitions
                 </router-link>
 
                 <router-link
                     class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                    :to="{name: 'allEmployees'}" v-if="hasRole()">
+                    :to="{name: 'allEmployees'}" v-if="hasPermission('employee-access')">
                     Employees
                 </router-link>
 
                 <router-link
                     class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                    :to="{name: 'allApplications'}" v-if="hasRole()">
+                    :to="{name: 'allApplications'}" v-if="hasPermission('application-access')">
                     Leaves
                 </router-link>
 
                 <router-link
                     class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                    :to="{name: 'allHolidays'}" v-if="hasRole()" >
+                    :to="{name: 'allHolidays'}" v-if="hasPermission('holiday-access')">
                     Holidays
                 </router-link>
 
                 <router-link
                     class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                    :to="{name: 'allRoles'}" v-if="hasRole()">
+                    :to="{name: 'allRoles'}" v-if="hasPermission('role-access')">
                     Roles
                 </router-link>
 
                 <router-link
                     class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                    :to="{name: 'allUsers'}" v-if="hasRole()">
+                    :to="{name: 'allUsers'}" v-if="hasPermission('user-access')">
                     Users
                 </router-link>
 
@@ -133,7 +133,6 @@
 </template>
 
 <script>
-
 
 
 import Dropdown from './DropDown'
@@ -198,7 +197,7 @@ export default {
             return this.$store.getters.isLogged
         },
         getUser() {
-            let user = JSON.parse(this.$store.getters.user);
+            let user = (this.$store.getters.user);
             console.log(user)
             return user ? user.name : "";
         },

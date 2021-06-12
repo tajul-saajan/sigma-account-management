@@ -170,10 +170,6 @@ export default {
     components: {
         'top-bar': TopBar,
     },
-    props:{
-        home:Object,
-        add: Object
-    },
     data() {
         return {
             projectOffers: [],
@@ -203,7 +199,7 @@ export default {
     methods: {
         deleteBook(id) {
             this.axios
-                .delete(`http://po-management.test/api/projectOffers/delete/${id}`)
+                .delete(process.env.MIX_PUBLISH_APP_URL+`projectOffers/delete/${id}`)
                 .then(response => {
                     let i = this.projectOffers.map(item => item.id).indexOf(id); // find index of your object
                     this.projectOffers.splice(i, 1)
@@ -217,14 +213,14 @@ export default {
                 page = 1;
             }
 
-            this.axios.get('http://po-management.test/api/projectOffers?page=' + page)
+            this.axios.get(process.env.MIX_PUBLISH_APP_URL+'projectOffers?page=' + page)
                 .then(response => {
                     return response.data;
                 }).then(data => {
                 this.projectOffers = data;
             });
 
-            this.axios.get('http://po-management.test/api/projectOffers/projectStatus')
+            this.axios.get(process.env.MIX_PUBLISH_APP_URL+'projectOffers/projectStatus')
                 .then(response => {
                     return response.data;
                 }).then(data => {

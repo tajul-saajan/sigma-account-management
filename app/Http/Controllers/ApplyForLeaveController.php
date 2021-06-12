@@ -111,6 +111,8 @@ class ApplyForLeaveController extends Controller
         $application[ApplyForLeave::FIELD_ENDORSED_BY] = auth()->user()->name;
         $application[ApplyForLeave::FIELD_APPROVED_BY] = auth()->user()->name;
         $application->save();
+
+
     }
 
     public function reject($id)

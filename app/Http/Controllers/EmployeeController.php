@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Employee;
 use Illuminate\Support\Facades\DB;
@@ -61,6 +62,12 @@ class EmployeeController extends Controller
             $image->storeAs(self::IMAGE_PATH,$filename);
             $employeeJson[Employee::FIELD_IMAGE_PATH] = $filename;
         }
+
+        $user = User::find($employeeJson[Employee::FIELD_USER_ID]);
+        $employeeJson[Employee::FIELD_NAME] = $user->name;
+        $employeeJson[Employee::FIELD_EMAIL] = $user->email;
+
+
         return $employeeJson;
     }
 

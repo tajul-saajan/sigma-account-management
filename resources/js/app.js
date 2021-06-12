@@ -23,43 +23,14 @@ const router = new VueRouter({
 
 Vue.mixin({
     methods: {
-        hasRole(...roles) {
-            let roleName = JSON.parse(localStorage.getItem('role'));
-            if (roleName==='Admin') return true;
-            return roles.includes(roleName)
-        }
+        hasPermission(permission) {
+            let permissions = JSON.parse(localStorage.getItem('permissions'));
+            return permissions.includes(permission)
+        },
+
     }
 })
 
-
-// router.beforeEach((to, from, next) => {
-//     if (to.matched.some(record => record.meta.requiresAuth)) {
-//         if (store.getters.isLogged===false) {
-//             next({
-//                 path: '/login',
-//                 params: {nextUrl: to.fullPath}
-//             })
-//         } else {
-//             let user = JSON.parse(localStorage.getItem('user'))
-//             if (to.matched.some(record => record.meta.is_admin)) {
-//                 if (user.is_admin === 1) {
-//                     next()
-//                 } else {
-//                     next({name: 'admin-dashboard'})
-//                 }
-//             } else if (to.matched.some(record => record.meta.is_user)) {
-//                 if (user.is_admin === 0) {
-//                     next()
-//                 } else {
-//                     next({name: 'admin'})
-//                 }
-//             }
-//             next()
-//         }
-//     } else {
-//         next()
-//     }
-// })
 
 
 const token = localStorage.getItem('token')
@@ -71,14 +42,22 @@ axios.interceptors.response.use(response=>{
     return response
 }, error => {
     if (error.response.status === 403) {
-        router.push({name: 'login'})
-    }
-    else if (error.response.status === 401){
-        store.dispatch('refresh')
+        alert("You are not authorized to this action!\n Please Log In!")
+        store.dispatch('logout')
             .then(()=>{
                 router.push({name: 'login'})
-                // alert("token refreshed")
-                // router.push({name: 'home'})
+                // location.reload()
+            })
+            .catch(error=>{
+                console.log(error)
+            })
+    }
+    else if (error.response.status === 401){
+        alert("Session expired!\nPlease Log In again!")
+        store.dispatch('logout')
+            .then(()=>{
+                router.push({name: 'login'})
+                // location.reload()
             })
             .catch(error=>{
                 console.log(error)

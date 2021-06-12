@@ -16,12 +16,6 @@
 
 
                 <div class="mt-2">
-                    <label>Name</label>
-                    <input type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-                           v-model="employee.name">
-                </div>
-
-                <div class="mt-2">
                     <label>Designation</label>
                     <input type="text" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
                            v-model="employee.designation">
@@ -74,12 +68,6 @@
                     <label>Image</label>
                     <input type="file" class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded"
                             @change="setImage">
-                </div>
-
-                <div class="mt-2">
-                    <label>email</label>
-                    <input type="email" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-                           v-model="employee.email">
                 </div>
 
                 <div class="mt-2">
