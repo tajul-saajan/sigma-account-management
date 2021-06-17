@@ -3,9 +3,9 @@
         <div class="w-full sm:w-6/12 md:w-4/12">
             <div class="relative inline-flex align-middle w-full">
                 <div class="flex">
-                    <button class="flex text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg
+                    <button class="flex text-white uppercase text-sm px-2 py-3 rounded shadow hover:shadow-lg
                     outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 ease-linear transition-all
-                    duration-150 font-normal px-6 py-2 rounded outline-none focus:outline-none mr-1 mb-1
+                    duration-150 font-normal px-2 py-2 rounded outline-none focus:outline-none mr-1 mb-1
                     capitalize w-full" type="button">
                         <slot></slot>
                     <span class="ml-3 fas fa-caret-down"></span>

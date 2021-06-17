@@ -37,18 +37,6 @@
                 </drop-down>
 
 
-                <router-link
-                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                    :to="{name: 'allCharts'}" v-if="hasPermission('coa-access')">
-                    COAs
-                </router-link>
-
-                <router-link
-                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                    :to="{name: 'allJournals'}" v-if="hasPermission('journal-access')">
-                    Journals
-                </router-link>
-
                 <drop-down :links="inventoryLinks" v-if="hasPermission('inventory-access')"
                            class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">
                     Inventory
@@ -98,8 +86,14 @@
 
                 <router-link
                     class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
-                    :to="{name: 'allUsers'}" v-if="hasPermission('user-access')">
+                    :to="{name: 'allUsers'}" v-if="hasPermission('role-access')">
                     Users
+                </router-link>
+
+                <router-link
+                    class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
+                    :to="{name: 'allMeetings'}" >
+                    Meetings
                 </router-link>
 
 
@@ -155,7 +149,16 @@ export default {
                 {
                     'name': 'allAccountSubTypes',
                     'text': 'Account Sub Type'
-                }
+                },
+                {
+                    'name':'allCharts',
+                    'text':'COAs'
+                },
+                {
+                    'name':'allJournals',
+                    'text':'Journals'
+                },
+
             ],
             projectLinks: [
                 {

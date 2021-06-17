@@ -9,6 +9,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\InventoryItemsController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\JournalController;
+use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectOfferController;
 use App\Http\Controllers\PublicHolidayController;
@@ -224,8 +225,14 @@ Route::middleware('api')->group(function () {
         Route::get('/edit/{id}', [PublicHolidayController::class, 'edit']);
         Route::post('/update/{id}', [PublicHolidayController::class, 'update']);
         Route::delete('/delete/{id}', [PublicHolidayController::class, 'delete']);
+    });
 
-
+    Route::group(['prefix' => 'meetings'], function () {
+        Route::get('/', [MeetingController::class, 'index']);
+        Route::post('/add', [MeetingController::class, 'store']);
+        Route::get('/edit/{id}', [MeetingController::class, 'edit']);
+        Route::post('/update/{id}', [MeetingController::class, 'update']);
+        Route::delete('/delete/{id}', [MeetingController::class, 'delete']);
     });
 
 });

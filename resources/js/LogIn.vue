@@ -37,7 +37,7 @@ export default {
                 })
                 .then(() => {
                     this.$router.push({name: 'profile'})
-                    // location.reload()
+                    location.reload()
                 })
                 .catch(err => {
                     console.log(err)

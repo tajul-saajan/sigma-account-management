@@ -55,6 +55,9 @@ import AllHolidays from "./PublicHolidays/AllHolidays";
 import AddHoilday from "./PublicHolidays/AddHoliday";
 import EditHoliday from "./PublicHolidays/EditHoliday";
 import AddHoliday from "./PublicHolidays/AddHoliday";
+import AllMeetings from "./Meetings/AllMeetings";
+import EditMeeting from "./Meetings/EditMeeting";
+import AddMeeting from "./Meetings/AddMeeting";
 
 
 export const routes = [
@@ -371,6 +374,23 @@ export const routes = [
         name: 'editHoliday',
         path: '/editHoliday',
         component: EditHoliday
+    },
+
+    //Meetings
+    {
+        name: 'allMeetings',
+        path: '/allMeetings',
+        component: AllMeetings
+    },
+    {
+        name: 'addMeeting',
+        path: '/addMeeting',
+        component:AddMeeting
+    },
+    {
+        name: 'editMeeting',
+        path: '/editMeeting',
+        component: EditMeeting
     },
 
 ];

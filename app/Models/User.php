@@ -66,6 +66,11 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(ApplyForLeave::class);
     }
+
+    public function meetings()
+    {
+        return $this->belongsToMany(Meeting::class,'meeting_user');
+    }
     //
 
 
