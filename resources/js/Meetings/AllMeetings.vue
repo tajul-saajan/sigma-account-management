@@ -34,6 +34,9 @@
                                 class="m-2 p-2 rounded-md fas fa-trash-restore text-red-500 hover:bg-red-600 hover:text-white"
                                 @click="deleteMeeting(meeting.id)">
                             </span>
+                            <router-link :to="{name: 'showMeeting', params: { id: meeting.id }}"
+                                         class="text-blue-600 rounded-md  m-2 p-2 fas fa-eye hover:bg-blue-600 hover:text-white">
+                            </router-link>
 
                         </div>
                     </td>
@@ -70,9 +73,6 @@ export default {
                     this.meetings.splice(i, 1)
                 });
         },
-        showProjectOffer() {
-
-        },
         getResults(page) {
             if (typeof page === 'undefined') {
                 page = 1;
@@ -83,6 +83,7 @@ export default {
                     return response.data;
                 }).then(data => {
                 this.meetings = data;
+                console.log(data)
             });
         }
     }

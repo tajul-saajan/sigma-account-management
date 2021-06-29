@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meeting;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MeetingController extends Controller
 {
@@ -17,8 +19,9 @@ class MeetingController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(Request $request)
+    public function store(Request $request)
     {
+//        dd($request->meeting, $request->userIds);
         $meeting =  Meeting::create($request->meeting);
         $meeting->users()->sync($request->userIds);
 
@@ -47,7 +50,10 @@ class MeetingController extends Controller
     public function edit($id)
     {
         $meeting = Meeting::find($id);
-        return response()->json($meeting);
+        $userIds = DB::table('meeting_user')->where('meeting_id',$id)->pluck('user_id')->toArray();
+        $allUsers = User::all();
+        $meetingUsers = User::whereIn('id',$userIds)->get();
+        return response()->json([$meeting, $meetingUsers, $allUsers]);
     }
 
     /**
@@ -60,7 +66,7 @@ class MeetingController extends Controller
     public function update(Request $request, $id)
     {
         $meeting = Meeting::find($id);
-        $meeting->update($request->meeting());
+        $meeting->update($request->meeting);
         $meeting->users()->sync($request->userIds);
         return response()->json('The Meeting successfully updated');
     }

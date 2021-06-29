@@ -50,6 +50,7 @@ Route::group([
     Route::post('/logout', [UserController::class, 'logout']);
     Route::post('/refresh', [UserController::class, 'refresh']);
     Route::get('/user-profile', [UserController::class, 'userProfile']);
+    Route::get('/verify', [UserController::class, 'userProfile']);
     Route::get('/leaves', [UserController::class, 'userLeaveApplications']);
     Route::get('/requisitions', [UserController::class, 'userRequisitions']);
 });

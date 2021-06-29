@@ -58,6 +58,7 @@ import AddHoliday from "./PublicHolidays/AddHoliday";
 import AllMeetings from "./Meetings/AllMeetings";
 import EditMeeting from "./Meetings/EditMeeting";
 import AddMeeting from "./Meetings/AddMeeting";
+import ShowMeeting from "./Meetings/ShowMeeting";
 
 
 export const routes = [
@@ -391,6 +392,11 @@ export const routes = [
         name: 'editMeeting',
         path: '/editMeeting',
         component: EditMeeting
+    },
+    {
+        name: 'showMeeting',
+        path: '/showMeeting',
+        component: ShowMeeting
     },
 
 ];
