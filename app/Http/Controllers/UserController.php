@@ -140,6 +140,10 @@ class UserController extends Controller
         return $this->createNewToken(auth()->refresh());
     }
 
+    public function verify(){
+        return auth()->user()->getJWTIdentifier();
+    }
+
     /**
      * Get the authenticated User.
      *

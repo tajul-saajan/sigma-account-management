@@ -16,6 +16,7 @@
                 <div class="mt-2">
                     <label>Selected</label>
                     <ul class="grid grid-cols-2 px-5 py-1 text-gray-700 bg-gray-200 border-black rounded">
+                        <li v-if="selected.length ===0">None</li>
                         <li v-for="item in selected" :key="item.id"
                             class="px-1 m-1 bg-green-100 flex justify-between content-center text-green-800">
                             {{item.name}}  <span class="fas fa-times text-red-400 p-1 ml-2 flex  items-center" @click="removeItem(item)"></span> </li>
@@ -25,8 +26,8 @@
                 <div class="mt-2">
                     <label>Permissions</label>
 
-                        <select  class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded h-screen" v-model="permission" multiple>
-                            <option v-for="p in allPermissions" :key="p.id" :value="p.id"  @click="addToSelected(p)"
+                        <select  class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded h-screen" multiple>
+                            <option v-for="p in allPermissions" :key="p.id"   @click="addToSelected(p)"
                             >{{p.name}}</option>
                         </select>
 
@@ -48,7 +49,7 @@ export default {
         return {
             role: {},
             permission: [],
-            allPermissions: null,
+            allPermissions: [],
             permissions: null,
             selected:[],
             rolePermissions: null,
@@ -64,16 +65,18 @@ export default {
                 .then((response) => {
                     this.role = response.data[0];
                     this.allPermissions = response.data[1];
-                    this.rolePermissions = response.data[2];
-                    this.permissions = response.data[3];
-                    this.permission = response.data[3];
+                    this.rolePermissions = response.data[3];
 
-                    console.log(this.permissions)
 
-                    this.selected = this.allPermissions.filter((item)=>{
-                        return this.permissions.includes(item.id)
+
+                    this.selected = this.allPermissions.filter(item =>{
+                        return this.rolePermissions.includes(item.id)
                     })
-                    console.log(this.selected)
+
+
+                    this.allPermissions = this.allPermissions.filter(item =>{
+                        return !this.selected.includes(item)
+                    })
                 });
     },
 
@@ -99,13 +102,16 @@ export default {
 
         addToSelected(p){
             if (!this.selected.includes(p))this.selected.push(p);
+
+            let el =  this.allPermissions.indexOf(p);
+            this.allPermissions.splice(el,1);
+
         },
         removeItem(item){
             let  el = this.selected.indexOf(item);
             this.selected.splice(el,1);
 
-            let  index = this.permission.indexOf(item.id);
-            this.permission.splice(index,1);
+            this.allPermissions.push(item);
         }
     }
 }

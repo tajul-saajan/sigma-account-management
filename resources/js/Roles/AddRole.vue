@@ -13,7 +13,7 @@
                            v-model="role">
                 </div>
 
-                <div class="mt-2">
+                <div class="mt-2" v-if="selected.length >0">
                     <label>Selected</label>
                     <ul class="grid grid-cols-2 px-5 py-1 text-gray-700 bg-gray-200 border-black rounded">
                         <li v-for="item in selected" :key="item.id"
@@ -63,6 +63,8 @@ export default {
 
     methods: {
         addRole() {
+            this.permission = this.selected.map(item => item.id);
+            console.log(this.permission)
             this.axios
                 .post(process.env.MIX_PUBLISH_APP_URL+`roles/add`, {'name':this.role, 'permission':this.permission},{
                     headers:{
@@ -76,15 +78,16 @@ export default {
             });
         },
         addToSelected(p){
-            if (!this.selected.includes(p))this.selected.push(p);
+             this.selected.push(p);
+             let element = this.permissions.indexOf(p);
+             this.permissions.splice(element,1);
             // if (!this.permission.includes(p))this.permission.push(p.id);
         },
         removeItem(item){
             let  el = this.selected.indexOf(item);
             this.selected.splice(el,1);
 
-            let  index = this.permissions.indexOf(item.id);
-            this.permissions.splice(index,1);
+            this.permissions.push(item)
         }
     }
 }
