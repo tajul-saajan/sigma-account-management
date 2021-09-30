@@ -64,16 +64,33 @@
                 </div>
             </div>
         </div>
+        <task-element :tasks="tasks"></task-element>
     </div>
 </template>
 
 <script>
+import Tasks from "./partials/Tasks";
 export default {
     name: "ShowMeeting",
+    components: {
+        'task-element':Tasks
+    },
     data() {
         return{
             meeting: {},
             meetingUsers: [],
+            tasks:[
+                {
+                    name: 'new task',
+                    description : 'new description',
+                    challenges : 'new challenges',
+                    dependency: 'new dependency',
+                    accountable: 'new accountable',
+                    responsible: 'new responsible',
+                    target_date: 'new target_date',
+                    status: 'new status',
+                }
+            ],
         }
     },
     created() {
