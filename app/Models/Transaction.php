@@ -82,7 +82,8 @@ class Transaction extends Model
                 $destination = ChartOfAccount::find($transaction->destination_id);
 
                 if ($transaction->cash_or_check === 'cash') {
-                    $cash = ChartOfAccount::where(ChartOfAccount::FIELD_GL_NAME, 'Cash')->get();
+                    $cash = ChartOfAccount::where(ChartOfAccount::FIELD_GL_NAME, 'Cash')->first();
+//                    dd($cash->toArray());
                     $journal->credit_account_id = $cash->id;
                     $journal->credit_account_name = $cash->gl_name;
                     $cash->balance -= $transaction->amount;

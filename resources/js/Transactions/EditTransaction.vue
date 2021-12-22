@@ -49,7 +49,7 @@
                 <div class="mt-2">
                     <label>Source</label>
                     <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
-                            :disabled="transaction.transaction_type!=='cash in'"
+                            :disabled="(transaction.transaction_type!=='cash in')"
 
                             @change="setSourceName(transaction.source_id)"
                             v-model="transaction.source_id">

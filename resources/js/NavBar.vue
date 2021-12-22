@@ -22,7 +22,7 @@
                 <router-link
  class="block mt-4 p-2 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4 hover:bg-gray-500"
   to="/" v-if="hasPermission('purchase-offer-access')">
-                    Project Offers
+                    Project Status
   </router-link>
                 <drop-down :links="accountLinks" v-if="hasPermission('account-type-access')"
   class="block p-2 mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white mr-4">

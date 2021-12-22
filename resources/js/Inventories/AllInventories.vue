@@ -78,12 +78,12 @@ export default {
     },
     created() {
         this.getResults();
-        console.log(process.env.MIX_APP_API_URL)
+        console.log(process.env.MIX_PUBLISH_APP_URL)
     },
     methods: {
         deleteInventory(id) {
             this.axios
-                .delete(`http://po-management.test/api/inventories/delete/${id}`)
+                .delete(`${process.env.MIX_PUBLISH_APP_URL}inventories/delete/${id}`)
                 .then((response) => {
                     let i = this.inventories.map((item) => item.id).indexOf(id); // find index of your object
                     this.inventories.splice(i, 1);
@@ -95,7 +95,7 @@ export default {
             }
 
             this.axios
-                .get("http://po-management.test/api/inventories?page=" + page)
+                .get(`${process.env.MIX_PUBLISH_APP_URL}api/inventories?page=` + page)
                 .then((response) => {
                     return response.data;
                 })

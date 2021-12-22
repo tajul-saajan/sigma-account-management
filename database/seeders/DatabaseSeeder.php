@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use GuzzleHttp\Promise\Create;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            PermissionTableSeeder::class,
+            RoleSeeder::class,
+            CreateAdminUserSeeder::class,
+            CreateAccountsUserSeeder::class,
+            UserSeeder::class,
+            AccountTypeSeeder::class,
+            EmployeeTypeSeeder::class,
+            HolidaySeeder::class,
+            LeaveTypeSeeder::class,
+            ProjectStatusSeeder::class,
+        ]);
     }
 }
